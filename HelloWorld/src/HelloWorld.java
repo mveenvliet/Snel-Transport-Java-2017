@@ -1,15 +1,20 @@
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class HelloWorld {
-	public static void main(String args[]) throws IOException, InterruptedException {
+	public static void main(String args[]) throws IOException{
 		char ch;
 
+		ResponseRoel test = new ResponseRoel();
+		test.answer();
+		
+		EverythingIsAwsome legoSong = new EverythingIsAwsome();
+		legoSong.awsome();
+		
 		System.out.println("Hello world!");
 		while (true) {
 
 			ch = (char) System.in.read();
-			// TimeUnit.SECONDS.sleep(1);
+			
 			if (ch > 'A' && ch < 'z')
 				System.out.println("You pressed: " + ch);
 			else if (ch == '\n')
