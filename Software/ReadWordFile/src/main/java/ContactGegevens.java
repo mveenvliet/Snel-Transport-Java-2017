@@ -78,12 +78,15 @@ public class ContactGegevens {
 		return postcode;
 	}
 	public void setPostcode(String postcodeIn) {
-		this.postcode = "error";
+		if (postcodeIn.contains("ERROR:")){
+			this.postcode = postcodeIn;
+			return;
+		}
 		postcodeIn = postcodeIn.replace(" ","");
 		if 	((postcodeIn.length() !=6) || 
-			(!isNumeric(postcodeIn.substring(0, 3))) ||
+			(!isNumeric(postcodeIn.substring(0,3))) ||
 			(!isLetter(postcodeIn.substring(4,5)))){
-			errorHappend = true;	
+			this.postcode = "";		
 		} else {
 			this.postcode = postcodeIn;
 		}
