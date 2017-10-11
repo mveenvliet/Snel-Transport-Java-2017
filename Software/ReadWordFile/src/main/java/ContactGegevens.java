@@ -72,7 +72,7 @@ public class ContactGegevens {
 		return huisnummer;
 	}
 	public void setHuisnummer(String huisnummer) {
-		this.huisnummer = huisnummer;
+		this.huisnummer = huisnummer.toUpperCase();
 	}
 	public String getPostcode() {
 		return postcode;
@@ -112,7 +112,16 @@ public class ContactGegevens {
 	}
 	
 	
-	
+	public void resetAll() {
+		this.klantnummer = 0;
+		this.naamBedrijf = "";
+		this.straat = "";
+		this.huisnummer = "";
+		this.postcode = "";
+		this.stad = "";
+		this.telefoonnummer = "";
+		this.errorHappend = false;
+	}
 	
 	ContactGegevens(){}
 	
