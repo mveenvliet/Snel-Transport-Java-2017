@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class TestNonExistingPostcode {
@@ -14,12 +12,11 @@ public class TestNonExistingPostcode {
 		test.setStraat("Oosterpark");
 		test.setHuisnummer("13");
 		test.setTelefoonnummer("0000000000");
+
+		CheckAddressSingle AddressdftKey = new CheckAddressSingle(); 
+		AddressdftKey.checkAddress(test); 		
 		
-		CheckAddress AddressdftKey = new CheckAddress(); 
-		AddressdftKey.checkAddressComponents(test); 		
-		
-		assertTrue(AddressdftKey.getProgress());
+		assert(test.getPostcode().contains("ERROR: "));
 		
 	}
-
 }

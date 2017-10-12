@@ -31,7 +31,7 @@ public class CheckAddressSingle {
 	private void setGoogleValues(ContactGegevens address) {
 
 		String urlString = baseUrl + "address=" 
-				+ address.getStraat().replaceAll(" ", "%20") + "+"
+				+ address.getStraat().replaceAll(" ", "%20").replace("wg", "weg") + "+"
 				+ address.getHuisnummer().replaceAll(" ", "%20") + "+" 
 				+ address.getStad().replaceAll(" ", "%20") + "+"
 				+ address.getPostcode()
@@ -95,7 +95,7 @@ public class CheckAddressSingle {
 		setGoogleValues(address);
 		
 		if (!this.stad.equals(address.getStad())){
-			address.setStad("ERROR "  + this.stad);
+			address.setStad("ERROR: "  + this.stad);
 		}
 		if (!this.straat.equals(address.getStraat())){
 			if (this.straat.equals(address.getStraat().replaceAll("str","straat"))) {
@@ -103,14 +103,14 @@ public class CheckAddressSingle {
 			} else if (this.straat.equals(address.getStraat().replaceAll("wg","weg"))){
 				address.setStraat(this.straat);
 			} else {
-				address.setStraat("ERROR " + this.straat);
+				address.setStraat("ERROR: " + this.straat);
 			}
 		}
 		if (!this.postcode.replaceAll("\\D+", "").equals(address.getPostcode().replaceAll("\\D+", ""))){
-			address.setPostcode("ERROR " + this.postcode);
+			address.setPostcode("ERROR: " + this.postcode);
 		}
 		if (!this.huisnummer.replaceAll("\\W", "").equals(address.getHuisnummer().replaceAll("\\W", ""))){
-			address.setHuisnummer("ERROR " + this.huisnummer);
+			address.setHuisnummer("ERROR: " + this.huisnummer);
 		}
 		
 

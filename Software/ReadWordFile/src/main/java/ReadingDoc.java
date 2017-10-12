@@ -30,7 +30,6 @@ public class ReadingDoc {
 					
 					// TO DO:
 					// check if number is unique
-					// skip first sentence
 					if (counter > 1) {
 						System.out.println("----> naam bedrijf  : " + newContact.getNaamBedrijf());
 						System.out.println("----> postcode      : " + newContact.getPostcode());
@@ -48,7 +47,6 @@ public class ReadingDoc {
 						
 						
 						newContact.resetAll();
-						System.out.println("Start new contact");
 					}
 					counter = 1;
 				} else {

@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 
 import org.junit.Test;
@@ -21,11 +19,10 @@ public class TestURL {
 		test.setHuisnummer("13");
 		test.setTelefoonnummer("0000000000");
 		
-		
-		CheckAddress AddressdftKey = new CheckAddress(); 
-		AddressdftKey.checkAddressComponents(test); 		
-		
-		assertTrue(AddressdftKey.getProgress());
+		CheckAddressSingle AddressdftKey = new CheckAddressSingle(); 
+		AddressdftKey.checkAddress(test); 		
+
+		assert(!test.getPostcode().contains("ERROR: "));
 	}
 
 }
