@@ -5,8 +5,8 @@
     <meta charset="utf-8"></meta>
     <meta name="viewport" content="width=device-width"></meta>
     <meta name="placeOrder" content="Order placement"></meta>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-	<script src="../static/js/placeOrder.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
     <title>Bestelling Plaatsen</title>
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"></link>
 </head>
@@ -37,35 +37,35 @@
     </header>
 
     <section id="searchCustomer">
-        <div class="container">
+        <div class="container" data-ng-app="placeOrder" data-ng-controller="postCustomerController">
             <div class="customerFormItem">
                 <label for="customerId">Klantnummer:</label>
                 <div>
-                    <input name="customerId" id="customerId" type="number"></input>
+                    <input name="customerId" id="customerId" type="number" data-ng-model="customerNumber"></input>
                 </div>
             </div>
             <div class="customerFormItem">
                 <label for="companyName">Bedrijfsnaam:</label>
                 <div>
-                    <input name="companyName" id="companyName" type="text"></input>
+                    <input name="companyName" id="companyName" type="text" data-ng-model="companyName"></input>
                 </div>
             </div>
             <div class="customerFormItem">
                 <label for="firstname">Voornaam:</label>
                 <div>
-                    <input name="firstname" id="firstname" type="text"></input>
+                    <input name="firstname" id="firstname" type="text" data-ng-model="firstname"></input>
                 </div>
             </div>
             <div class="customerFormItem">
                 <label for="lastname">Achternaam:</label>
                 <div>
-                    <input name="lastname" id="lastname" type="text"></input>
+                    <input name="lastname" id="lastname" type="text" data-ng-model="lastname"></input>
                 </div>
             </div>
             <div class="customerFormItem">
                 <br></br>
                 <div>
-                    <button name="btnSearchCustomer" type="submit" class="button_1">Klant zoeken</button>
+                    <button name="btnSearchCustomer" type="submit" class="button_1" data-ng-click="submitCustomer()">Klant zoeken</button>
                 </div>
             </div>
         </div>
