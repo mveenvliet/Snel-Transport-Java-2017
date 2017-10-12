@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="placeOrder" content="Order placement">
+    <meta name="author" content="Brad Traversy">
+    <title>Bestelling Plaatsen</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="brandingHead">
+            <h1 id="pageHead">Bestelling plaatsen</h1>
+            <nav>
+                <ul>
+                    <li class="dropdown"><a href="#" class="dropdownBtn">Bestellingen</a>
+                        <div class="dropdownMenu">
+                            <a href="#">Bestelling plaatsen</a>
+                            <a href="#">Bestellingéen weergeven</a>
+                        </div>
+                    </li>
+                    <li class="dropdown"><a href="#" class="dropdownBtn">Management</a>
+                        <div class="dropdownMenu">
+                            <a href="#">KlantManagement</a>
+                            <a href="#">ProductManagement</a>
+                            <a href="#">Vrachtwagenmanagement</a>
+                        </div>
+                    </li>
+                    <li><a href="#">Route Bepaling</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="searchCustomer">
+        <div class="container">
+            <div class="customerFormItem">
+                <label for=customerId>Klantnummer:</label>
+                <div>
+                    <input name="customerId" id="customerId" type="number">
+                </div>
+            </div>
+            <div class="customerFormItem">
+                <label for=companyName>Bedrijfsnaam:</label>
+                <div>
+                    <input name="companyName" id="companyName" type="text">
+                </div>
+            </div>
+            <div class="customerFormItem">
+                <label for=firstname>Voornaam:</label>
+                <div>
+                    <input name="firstname" id="firstname" type="text">
+                </div>
+            </div>
+            <div class="customerFormItem">
+                <label for=lastname>Achternaam:</label>
+                <div>
+                    <input name="lastname" id="lastname" type="text">
+                </div>
+            </div>
+            <div class="customerFormItem">
+                <br>
+                <div>
+                    <button name="btnSearchCustomer" type="submit" class="button_1">Klant zoeken</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="customerSelection">
+        <div class="container">
+            <select name="customerList" id="customerList">
+                <option value="Customer 1">Customer 1</option>
+                <option value="Customer 2">Customer 2</option>
+                <option value="Customer 3">Customer 3</option>
+                <option value="Customer 4">Customer 4</option>
+            </select>
+        </div>
+    </section>
+
+    <section id="searchProduct">
+        <div class="container">
+            <div class="productFormItem">
+                <label for=customerId>Productnummer:</label>
+                <div>
+                    <input name="productId" id="productId" type="text">
+                </div>
+            </div>
+            <div class="productFormItem">
+                <label for=productName>Product naam:</label>
+                <div>
+                    <input name="productName" id="productName" type="text">
+                </div>
+            </div>
+            <div class="productFormItem">
+                <label for=catagory>Soort:</label>
+                <div>
+                    <select name="catagoryList" id="catagoryList">
+                        <option value="Catagory 1">Catagory 1</option>
+                        <option value="Catagory 2">Catagory 2</option>
+                        <option value="Catagory 3">Catagory 3</option>
+                </select>
+                </div>
+            </div>
+            <div class="productFormItem">
+                <br>
+                <div>
+                    <button name="btnSearchProduct" type="submit" class="button_1">Product zoeken</button>
+                </div>
+            </div>
+            <div class="productFormItem">
+                <label for=lbAmount>Aantal:</label>
+                <div>
+                    <input name="sbAmount" id="sbAmount" type="number" value="1">
+                </div>
+            </div>
+            <div class="productFormItem">
+                <br>
+                <div>
+                    <button name="btnAddToBasket" type="submit" class="button_1">Bestel item</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section id="headSection">
+        <h1>Inventaris</h1>
+    </section>
+    <section id="inventaris">
+        <div class="container">
+            <div id="containerInventaris">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Productnummer</th>
+                            <th>Naam</th>
+                            <th>Soort</th>
+                            <th>Prijs</th>
+                            <th>Aantal inventaris</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>iphone7</td>
+                            <td>mobiel</td>
+                            <td>669</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>100</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="headSection">
+        <h1>Winkelwagen</h1>
+    </section>
+    <section id="shoppingBasket">
+        <div class="container">
+            <div class="basketContainer" id="basketContainerItem1">
+                <table name="basket" cellpadding="1">
+                    <thead>
+                        <tr>
+                            <th>Productnummer</th>
+                            <th>Naam</th>
+                            <th>Soort</th>
+                            <th>Aantal</th>
+                            <th>Prijs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>iphone7</td>
+                            <td>mobiel</td>
+                            <td>669</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>iphone8</td>
+                            <td>mobiel</td>
+                            <td>899</td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="basketContainer" id="basketContainerItem2">
+                <form name="baketBtnForm" id="baketBtnForm">
+                    <button name="btnSearchProduct" type="submit" class="button_1">Verwijder item</button>
+                    <button name="btnSearchProduct" type="submit" class="button_1">Bestelling plaatsen</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
