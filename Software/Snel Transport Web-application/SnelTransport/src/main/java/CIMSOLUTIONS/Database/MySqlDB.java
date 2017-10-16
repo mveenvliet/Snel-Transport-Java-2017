@@ -9,8 +9,15 @@ abstract public class MySqlDB {
 	private String password;
 	protected Connection MyCon;
 
-	protected MySqlDB() {
-		connectToDatabase("jdbc:mysql://localhost/databasesneltransport", "Java2017", "Java2017");
+	protected MySqlDB()  {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			//connectToDatabase("jdbc:mysql://172.16.1.186:3306/?user=R.Christoffers","Snel", "Transport");
+			connectToDatabase("jdbc:mysql://172.16.1.186:3306","Snel", "Transport");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		 
 	}
 	
 	void connectToDatabase(String connectionString, String user, String password) {
