@@ -32,7 +32,7 @@ public class searchCustomerService extends MySqlDB {
 			}
 			sqlQuerry += "customerNumber = " + c.getCustomerNumber();
 		}
-		if (c.getCompanyName() != null) {
+		if (c.getCompanyName() != null || c.getCompanyName() == "") {
 			if (!isFirst) {
 				isFirst = true;
 			} else {
@@ -40,7 +40,7 @@ public class searchCustomerService extends MySqlDB {
 			}
 			sqlQuerry += prefix + "nameCompany LIKE '%" + c.getCompanyName() + "%' ";
 		}
-		if (c.getFirstname() != null) {
+		if (c.getFirstname() != null || c.getFirstname() == "") {
 			if (!isFirst) {
 				isFirst = true;
 			} else {
@@ -48,7 +48,7 @@ public class searchCustomerService extends MySqlDB {
 			}
 			sqlQuerry += prefix + "firstName LIKE '%" + c.getFirstname() + "%' ";
 		}
-		if (c.getLastname() != null) {
+		if (c.getLastname() != null || c.getLastname() == "") {
 			if (!isFirst) {
 				isFirst = true;
 			} else {

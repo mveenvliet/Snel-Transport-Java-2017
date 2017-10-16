@@ -122,8 +122,8 @@ header h1 {
     color: white;
     font-weight: bold;
     padding-left: 10px;
-    margin-left: 20px;
-    margin-right: 20%;
+    margin-left: 5px;
+    margin-right: 7%;
 }
 
 header a {
@@ -377,7 +377,7 @@ ul#services li {
 
 /* Media Queries */
 
-@media(max-width: 768px) {
+@media(max-width: 920px) {
     header #branding,
     header nav,
     header nav li,
