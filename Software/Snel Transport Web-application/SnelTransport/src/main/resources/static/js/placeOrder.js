@@ -23,7 +23,7 @@ pOrder.controller('postCustomerController', function($scope, $http, $location){
 			console.log(response);
 			
 			select.options.length = 0;
-			select.options[select.options.length] = new Option(response.data, 'Value1');
+			select.options[select.options.length] = new Option(response.data);
 			
 		}, function error(response) {
 			console.log(response);
