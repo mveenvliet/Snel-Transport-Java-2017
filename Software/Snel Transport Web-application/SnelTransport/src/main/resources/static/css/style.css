@@ -343,6 +343,32 @@ header a:hover {
     overflow: auto;
 }
 
+#containerOrderList{
+	width: 100%;
+    margin: auto;
+    height: 400px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+#containerOrderList th, tr,
+td{
+	width: 5%;
+}
+
+#containerCustomers{
+	width: 100%;
+    margin: auto;
+    height: 450px;
+    max-height: 450px;
+    overflow: auto;
+}
+
+#containerCustomers th, tr,
+td{
+	width: 15%;
+}
+
 /* Sidebar */
 
 aside#sidebar {

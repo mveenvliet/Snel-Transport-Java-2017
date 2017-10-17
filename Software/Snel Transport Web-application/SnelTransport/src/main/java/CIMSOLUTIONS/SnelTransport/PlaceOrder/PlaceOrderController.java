@@ -24,11 +24,11 @@ public class PlaceOrderController {
 		searchCustomerService searchCustomer = new searchCustomerService();
 //		List<Customer> retList= new ArrayList<Customer>();
 		searchCustomer.lookUpCustomer(customer);
-		System.out.println("say hello!");
 //		List<String> retList= new ArrayList<>();
 //		retList.add("test1");
 //		retList.add("test2");
 //		retList = searchCustomer.getResultSet();
+//		return retList;
 		return searchCustomer.getResultSet().get(0).getInfo();
 	}
 
