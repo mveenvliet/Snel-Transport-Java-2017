@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static java.util.Arrays.asList;
 
@@ -22,7 +18,7 @@ public class PlaceOrderController {
 	
 	@RequestMapping(value="/postCustomerController", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Customer> postCustomer(){
+	public List<Customer> getAllCustomers(){
 		
 //		searchCustomerService searchCustomer = new searchCustomerService();
 //		searchCustomer.lookUpCustomer(customer);
@@ -33,4 +29,10 @@ public class PlaceOrderController {
 		return asList(klant1, klant2);
 	}
 
+    @RequestMapping(value="/customer", method=RequestMethod.GET)
+    @ResponseBody
+    public Customer getOneCustomer(@RequestParam("id") int customerId) {
+        // Search Customer by id
+        return new Customer(3, "BedrijfC", "C", "Clementine");
+    }
 }
