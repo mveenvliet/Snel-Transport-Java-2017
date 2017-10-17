@@ -20,41 +20,20 @@ public class searchCustomerService extends MySqlDB {
 	}
 
 	public String createQuerry(Customer c) {
-		String sqlQuerry = "SELECT * FROM databasesneltransport.contact ";
-
-		String prefix = "WHERE ";
-		boolean isFirst = false;
+		String sqlQuerry = "SELECT * FROM databasesneltransport.contact, databasesneltransport.address WHERE contact.idContact = address.idContact ";
 
 		if (c.getCustomerNumber() != 0) {
-			if (!isFirst) {
-				sqlQuerry += prefix;
-				isFirst = true;
-			}
-			sqlQuerry += "customerNumber = " + c.getCustomerNumber();
+			sqlQuerry += "AND customerNumber = " + c.getCustomerNumber();
 		}
-		if (c.getCompanyName() != null || c.getCompanyName() == "") {
-			if (!isFirst) {
-				isFirst = true;
-			} else {
-				prefix = " AND ";
-			}
-			sqlQuerry += prefix + "nameCompany LIKE '%" + c.getCompanyName() + "%' ";
+		if (c.getCompanyName() != null && !c.getCompanyName().isEmpty()) {
+
+			sqlQuerry += "AND nameCompany LIKE '%" + c.getCompanyName() + "%' ";
 		}
-		if (c.getFirstname() != null || c.getFirstname() == "") {
-			if (!isFirst) {
-				isFirst = true;
-			} else {
-				prefix = " AND ";
-			}
-			sqlQuerry += prefix + "firstName LIKE '%" + c.getFirstname() + "%' ";
+		if (c.getFirstname() != null && !c.getFirstname().isEmpty()) {
+			sqlQuerry += "AND firstName LIKE '%" + c.getFirstname() + "%' ";
 		}
-		if (c.getLastname() != null || c.getLastname() == "") {
-			if (!isFirst) {
-				isFirst = true;
-			} else {
-				prefix = " AND ";
-			}
-			sqlQuerry += prefix + "lastName LIKE '%" + c.getLastname() + "%' ";
+		if (c.getLastname() != null && !c.getLastname().isEmpty()) {
+			sqlQuerry += "AND lastName LIKE '%" + c.getLastname() + "%' ";
 		}
 		
 		System.out.println(sqlQuerry);
@@ -77,8 +56,8 @@ public class searchCustomerService extends MySqlDB {
 				tempCustomer.setFirstname(myRs.getString("firstName"));
 				tempCustomer.setLastname(myRs.getString("lastName"));
 				tempCustomer.setCity(myRs.getString("city"));
-				tempCustomer.setStreet(myRs.getString("streat"));
-				tempCustomer.setHouseNumber(myRs.getString("homeNumber"));
+				tempCustomer.setStreet(myRs.getString("street"));
+				tempCustomer.setHouseNumber(myRs.getString("houseNumber"));
 				tempCustomer.setPostalCode(myRs.getString("postalCode"));
 				tempCustomer.setPhoneNumber(myRs.getString("phoneNumber"));
 				
