@@ -21,7 +21,9 @@ pOrder.controller('postCustomerController', function($scope, $http, $location){
 			
 			console.log(response.data);
 			console.log(response);
-			
+			for (i=0; i < data.length; i++){
+				console.log(data.companyName[i]);
+			}
 			select.options.length = 0;
 			select.options[select.options.length] = new Option(response.data);
 			
