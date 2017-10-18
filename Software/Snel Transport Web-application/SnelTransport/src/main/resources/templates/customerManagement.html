@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width"></meta>
+<meta name="placeOrder" content="Order placement"></meta>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
+<title>Klantmanagement</title>
+<link rel="stylesheet" href="../static/css/style.css"
+	th:href="@{/css/style.css}"></link>
+<link rel="routeBEpaling" href="/RouteBepaling.html"
+	th:href="@{/RouteBepaling.html}"></link>
+</head>
+
+<body>
+	<header>
+		<div>
+			<h1 id="pageHead">Klantmanagement</h1>
+			<nav>
+				<ul>
+					<li class="dropdown"><a href="/" class="dropdownBtn">Bestellingen</a>
+						<div class="dropdownMenu">
+							<a href="/">Bestelling plaatsen</a> <a href="showOrders">Bestellingen
+								weergeven</a>
+						</div></li>
+					<li class="dropdown"><a class="dropdownBtn">Management</a>
+						<div class="dropdownMenu">
+							<a href="customerManagement">KlantManagement</a> <a
+								href="productManagement">ProductManagement</a> <a
+								href="truckManagement">Vrachtwagenmanagement</a>
+						</div></li>
+					<li><a href="RouteBepaling">Route Bepaling</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<section id="headSection">
+		<h1>Klantenbestand</h1>
+	</section>
+	<section id="inventaris">
+		<div class="container">
+			<div id="containerCustomers">
+				<table>
+					<thead>
+						<tr>
+							<th>Klantnummer</th>
+							<th>bedrijf</th>
+							<th>voornaam</th>
+							<th>achternaam</th>
+							<th>email</th>
+							<th>Telefoonnummer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TestCompany</td>
+							<td>Test</td>
+							<td>Company</td>
+							<td>T.company@gmail.com</td>
+							<td>06-11111111</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<section id="alterCustomer">
+		<div class="container" data-ng-app="placeOrder"
+			data-ng-controller="postCustomerController">
+			<div class="customerFormItem">
+				<label for="customerId">Klantnummer:</label>
+				<div>
+					<input name="customerId" id="customerId" type="number"
+						data-ng-model="customerNumber"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="companyName">Bedrijfsnaam:</label>
+				<div>
+					<input name="companyName" id="companyName" type="text"
+						data-ng-model="companyName"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="firstname">Voornaam:</label>
+				<div>
+					<input name="firstname" id="firstname" type="text"
+						data-ng-model="firstname"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="lastname">Achternaam:</label>
+				<div>
+					<input name="lastname" id="lastname" type="text"
+						data-ng-model="lastname"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="emailAdres">Emailadres:</label>
+				<div>
+					<input name="emailAddress" id="emailAddress" type="text"
+						data-ng-model="emailAddress"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="telNumber">Telefoonnummer:</label>
+				<div>
+					<input name="telNumber" id="telNumber" type="text"
+						data-ng-model="telNumber"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="StatusCustomer">Status:</label>
+				<div>
+			<select name="StatusCustomer" id="StatusCustomer">
+				<option value="Normal">Normal</option>
+				<option value="Blacklisted">Blacklisted</option>
+			</select>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="alterCustomerButtons">
+		<div class="container" data-ng-app="placeOrder"
+			data-ng-controller="postCustomerController">
+			<div class="customerFormItem">
+				<div class="customerFormItem">
+					<div>
+						<button name="btnSearchCustomer" type="submit" class="button_1"
+							data-ng-click="submitCustomer()">Klant zoeken</button>
+					</div>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<div class="customerFormItem">
+					<div>
+						<button name="btnEditCustomer" type="submit" class="button_1"
+							data-ng-click="editCustomer()">Klant wijzigen</button>
+					</div>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<div class="customerFormItem">
+					<div>
+						<button name="btnRemoveCustomer" type="submit" class="button_1"
+							data-ng-click="removeCustomer()">Klant verwijderen</button>
+					</div>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<div>
+					<button name="btnAddCustomer" type="submit" class="button_1"
+						data-ng-click="AddCustomer()">Klant toevoegen</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="locationSelection">
+		<div class="container">
+			<select name="locationList" id="customerList">
+				<option value="Location 1">Location 1</option>
+				<option value="Location 2">Location 2</option>
+				<option value="Location 3">Location 3</option>
+				<option value="Location 4">Location 4</option>
+			</select>
+		</div>
+	</section>
+	
+		<section id="alterLocation">
+		<div class="container" data-ng-app="placeOrder"
+			data-ng-controller="postCustomerController">
+			<div class="customerFormItem">
+				<label for="cityName">Stad:</label>
+				<div>
+					<input name="cityName" id="cityName" type="text"
+						data-ng-model="cityName"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="streetName">Straat:</label>
+				<div>
+					<input name="streetName" id="streetName" type="text"
+						data-ng-model="streetName"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="houseNumber">Huisnummer:</label>
+				<div>
+					<input name="houseNumber" id="houseNumber" type="text"
+						data-ng-model="houseNumber"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="postalCode">Postcode:</label>
+				<div>
+					<input name="postalCode" id="postalCode" type="text"
+						data-ng-model="postalCode"></input>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<label for="LocationDiscription">Locatie beschijving:</label>
+				<div>
+					<input name="LocationDiscription" id="LocationDiscription" type="text"
+						data-ng-model="LocationDiscription"></input>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="alterLocationButtons">
+		<div class="container" data-ng-app="placeOrder"
+			data-ng-controller="postCustomerController">
+			<div class="customerFormItem">
+			</div>
+			<div class="customerFormItem">
+				<div class="customerFormItem">
+					<div>
+						<button name="btnEditLocatie" type="submit" class="button_1"
+							data-ng-click="editLocatie()">Locatie wijzigen</button>
+					</div>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<div class="customerFormItem">
+					<div>
+						<button name="btnRemoveLocation" type="submit" class="button_1"
+							data-ng-click="removeLocation()">Locatie verwijderen</button>
+					</div>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<div>
+					<button name="btnAddLocation" type="submit" class="button_1"
+						data-ng-click="AddLocation()">Locatie toevoegen</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>

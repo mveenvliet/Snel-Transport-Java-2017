@@ -6,7 +6,7 @@ pOrder.controller('postCustomerController', function($scope, $http, $location){
 		
 		var config = {
                 headers : {
-                    'Accept': 'text/plain'
+                    'Accept': 'application/json'
                 }
         }
 		var data = {
@@ -16,7 +16,7 @@ pOrder.controller('postCustomerController', function($scope, $http, $location){
 				lastname: $scope.lastname
 	        };
 		
-		$http.post(url, data, config).then(function (response) {
+		$http.get(url, data, config).then(function (response) {
 			var select = document.getElementById("customerList");
 			
 			console.log(response.data);
