@@ -2,366 +2,334 @@
 <html>
 
 <head>
-    <meta charset="utf-8"></meta>
-    <meta name="viewport" content="width=device-width"></meta>
-    <meta name="placeOrder" content="Order placement"></meta>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-	<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
-    <title>Productmanagement</title>
-    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"></link>
-    <link rel="routeBEpaling" href="/RouteBepaling.html" th:href="@{/RouteBepaling.html}"></link>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width"></meta>
+<meta name="placeOrder" content="Order placement"></meta>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
+<title>Productmanagement</title>
+<link rel="stylesheet" href="../static/css/style.css"
+	th:href="@{/css/style.css}"></link>
+<link rel="routeBEpaling" href="/RouteBepaling.html"
+	th:href="@{/RouteBepaling.html}"></link>
 </head>
 
 <body>
-    <header>
-        <div>
-            <h1 id="pageHead">Productmanagement</h1>
-            <nav>
-                <ul>
-                    <li class="dropdown"><a href="/" class="dropdownBtn">Bestellingen</a>
-                        <div class="dropdownMenu">
-                            <a href="/">Bestelling plaatsen</a>
-                            <a href="showOrders">Bestellingen weergeven</a>
-                        </div>
-                    </li>
-                    <li class="dropdown"><a class="dropdownBtn">Management</a>
-                        <div class="dropdownMenu">
-                            <a href="customerManagement">KlantManagement</a>
-                            <a href="productManagement">ProductManagement</a>
-                            <a href="truckManagement">Vrachtwagenmanagement</a>
-                        </div>
-                    </li>
-                    <li><a href="RouteBepaling">Route Bepaling</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+	<header>
+		<div>
+			<h1 id="pageHead">Productmanagement</h1>
+			<nav>
+				<ul>
+					<li class="dropdown"><a href="/" class="dropdownBtn">Bestellingen</a>
+						<div class="dropdownMenu">
+							<a href="/">Bestelling plaatsen</a> <a href="showOrders">Bestellingen
+								weergeven</a>
+						</div></li>
+					<li class="dropdown"><a class="dropdownBtn">Management</a>
+						<div class="dropdownMenu">
+							<a href="customerManagement">KlantManagement</a> <a
+								href="productManagement">ProductManagement</a> <a
+								href="truckManagement">Vrachtwagenmanagement</a>
+						</div></li>
+					<li><a href="RouteBepaling">Route Bepaling</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 
-    <section id="searchCustomer">
-        <div class="container" data-ng-app="placeOrder" data-ng-controller="postCustomerController">
-            <div class="customerFormItem">
-                <label for="customerId">Klantnummer:</label>
-                <div>
-                    <input name="customerId" id="customerId" type="number" data-ng-model="customerNumber"></input>
-                </div>
-            </div>
-            <div class="customerFormItem">
-                <label for="companyName">Bedrijfsnaam:</label>
-                <div>
-                    <input name="companyName" id="companyName" type="text" data-ng-model="companyName"></input>
-                </div>
-            </div>
-            <div class="customerFormItem">
-                <label for="firstname">Voornaam:</label>
-                <div>
-                    <input name="firstname" id="firstname" type="text" data-ng-model="firstname"></input>
-                </div>
-            </div>
-            <div class="customerFormItem">
-                <label for="lastname">Achternaam:</label>
-                <div>
-                    <input name="lastname" id="lastname" type="text" data-ng-model="lastname"></input>
-                </div>
-            </div>
-            <div class="customerFormItem">
-                <br></br>
-                <div>
-                    <button name="btnSearchCustomer" type="submit" class="button_1" data-ng-click="submitCustomer()">Klant zoeken</button>
-                </div>
-            </div>
-        </div>
-    </section>
+	<section id="headSection">
+		<h1>Inventaris</h1>
+	</section>
+	<section id="inventaris">
+		<div class="container">
+			<div id="containerProductManagement">
+				<table>
+					<thead>
+						<tr>
+							<th>Productnummer</th>
+							<th>Naam</th>
+							<th>Soort</th>
+							<th>Prijs</th>
+							<th>Aantal inventaris</th>
+							<th>Warenhuis</th>
+							<th>Compartement nummer</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>iphone7</td>
+							<td>mobiel</td>
+							<td>669</td>
+							<td>25</td>
+							<td>A</td>
+							<td>1</td>
+							<td>Op vaaraad</td>
+						</tr>
 
-    <section id="customerSelection">
-        <div class="container">
-            <select name="customerList" id="customerList">
-                <option value="Customer 1">Customer 1</option>
-                <option value="Customer 2">Customer 2</option>
-                <option value="Customer 3">Customer 3</option>
-                <option value="Customer 4">Customer 4</option>
-            </select>
-        </div>
-    </section>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 
-    <section id="searchProduct">
-        <div class="container">
-            <div class="productFormItem">
-                <label for="customerId">Productnummer:</label>
-                <div>
-                    <input name="productId" id="productId" type="text"></input>
-                </div>
-            </div>
-            <div class="productFormItem">
-                <label for="productName">Product naam:</label>
-                <div>
-                    <input name="productName" id="productName" type="text"></input>
-                </div>
-            </div>
-            <div class="productFormItem">
-                <label for="catagory">Soort:</label>
-                <div>
-                    <select name="catagoryList" id="catagoryList">
-                        <option value="Catagory 1">Catagory 1</option>
-                        <option value="Catagory 2">Catagory 2</option>
-                        <option value="Catagory 3">Catagory 3</option>
-                </select>
-                </div>
-            </div>
-            <div class="productFormItem">
-                <br></br>
-                <div>
-                    <button name="btnSearchProduct" type="submit" class="button_1">Product zoeken</button>
-                </div>
-            </div>
-            <div class="productFormItem">
-                <label for="lbAmount">Aantal:</label>
-                <div>
-                    <input name="sbAmount" id="sbAmount" type="number" value="1"></input>
-                </div>
-            </div>
-            <div class="productFormItem">
-                <br></br>
-                <div>
-                    <button name="btnAddToBasket" type="submit" class="button_1">Bestel item</button>
-                </div>
-            </div>
+	<section id="shoppingBasket">
+		<div class="container">
+			<div class="TrippelContainer" id="TrippelContainer1">
+				<p>
+					<label for="productNumber">Productnummer:</label> <input
+						name="productNumber" id="productNumber" type="text"
+						data-ng-model="productNumber"></input>
+				</p>
+				<p>
+					<label for="productName">Product naam:</label> <input
+						name="productName" id="productName" type="text"
+						data-ng-model="productName"></input>
+				</p>
+				<p>
+					<label for="productType">Type: </label> <select multiple="multiple"
+						id="productType">
+						<option value="Board">Board</option>
+						<option value="Computers">Computers</option>
+						<option value="Displays">Displays</option>
+						<option value="Keyboards">Keyboards</option>
+						<option value="Laptops">Laptops</option>
+						<option value="Mouse">Mouse</option>
+						<option value="Network">Network</option>
+						<option value="Storage">Storage</option>
+						<option value="Tablets">Tablets</option>
+					</select>
+				</p>
+				<p>
+					<label for="productStatus">Status:</label> <select
+						name="StatusList" id="StatusList">
+						<option value="Actief">Actief</option>
+						<option value="NietActief">Niet actief</option>
+						<option value="TijdelijkNietLeverbaar">Tijdelijk niet
+							leverbaar</option>
+						<option value="BinnenkortVerwacht">Binnenkort verwacht</option>
+						<option value="VerdwijntBinnenkort">Verdwijnt binnenkort</option>
+						<option value="Sale">Sale</option>
+					</select>
 
-        </div>
-    </section>
-    <section id="headSection">
-        <h1>Inventaris</h1>
-    </section>
-    <section id="inventaris">
-        <div class="container">
-            <div id="containerInventaris">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Productnummer</th>
-                            <th>Naam</th>
-                            <th>Soort</th>
-                            <th>Prijs</th>
-                            <th>Aantal inventaris</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>iphone7</td>
-                            <td>mobiel</td>
-                            <td>669</td>
-                            <td>25</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>100</td>
-                        </tr>
+				</p>
+			</div>
+			<div class="TrippelContainer" id="TrippelContainer2">
+				<p>
+					<label for="productPrijs">Prijs:</label> <input name="productPrijs"
+						id="productPrijs" type="number" step="0.01"
+						data-ng-model="productPrijs"></input>
+				</p>
+				<p>
+					<label for="productAmount">Product naam:</label> <input
+						name="productAmount" id="productAmount" type="number"
+						data-ng-model="productAmount"></input>
+				</p>
+				<p>
+					<label for="selectieWarenhuis">Warenhuis:</label> <select
+						name="selectieWarenhuis" id="selectieWarenhuis">
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="C">C</option>
+					</select>
+				</p>
+				<p>
+					<label for="compartmentNumber">Compartementnummer:</label> <input
+						name="compartmentNumber" id="compartmentNumber" type="number"
+						data-ng-model="productPrijs"></input>
+				</p>
+			</div>
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section id="headSection">
-        <h1>Winkelwagen</h1>
-    </section>
-    <section id="shoppingBasket">
-        <div class="container">
-            <div class="basketContainer" id="basketContainerItem1">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Productnummer</th>
-                            <th>Naam</th>
-                            <th>Soort</th>
-                            <th>Aantal</th>
-                            <th>Prijs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>iphone7</td>
-                            <td>mobiel</td>
-                            <td>669</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iphone8</td>
-                            <td>mobiel</td>
-                            <td>899</td>
-                            <td>1</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="basketContainer" id="basketContainerItem2">
-                <form name="baketBtnForm" id="baketBtnForm">
-                    <button name="btnSearchProduct" type="submit" class="button_1">Verwijder item</button>
-                    <button name="btnSearchProduct" type="submit" class="button_1">Bestelling plaatsen</button>
-                </form>
-            </div>
-        </div>
-    </section>
+			<div class="TrippelContainer" id="TrippelContainer3">
+				<button name="btnSearchProduct" type="submit" class="button_1">Product
+					zoeken</button>
+				<br />
+				<button name="btnSearchProduct" type="submit" class="button_1">Product
+					wijzigen</button>
+				<br />
+				<button name="btnSearchProduct" type="submit" class="button_1">Product
+					toevoegen</button>
+				<br />
+				<button name="btnSearchProduct" type="submit" class="button_1">Product
+					verwijderen</button>
+				<br /> <input name="showHistory" id="showHistory" type="checkbox"
+					data-ng-model="showHistory"></input> <label for="labelShowHistory">Laat
+					geschiedenis zien.</label>
+			</div>
+		</div>
+	</section>
 </body>
 
 </html>

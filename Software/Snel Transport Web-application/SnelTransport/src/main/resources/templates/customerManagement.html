@@ -230,10 +230,10 @@
 			<div class="customerFormItem">
 				<label for="StatusCustomer">Status:</label>
 				<div>
-			<select name="StatusCustomer" id="StatusCustomer">
-				<option value="Normal">Normal</option>
-				<option value="Blacklisted">Blacklisted</option>
-			</select>
+					<select name="StatusCustomer" id="StatusCustomer">
+						<option value="Normal">Normal</option>
+						<option value="Blacklisted">Blacklisted</option>
+					</select>
 				</div>
 			</div>
 		</div>
@@ -243,27 +243,21 @@
 		<div class="container" data-ng-app="placeOrder"
 			data-ng-controller="postCustomerController">
 			<div class="customerFormItem">
-				<div class="customerFormItem">
-					<div>
-						<button name="btnSearchCustomer" type="submit" class="button_1"
-							data-ng-click="submitCustomer()">Klant zoeken</button>
-					</div>
+				<div>
+					<button name="btnSearchCustomer" type="submit" class="button_1"
+						data-ng-click="submitCustomer()">Klant zoeken</button>
 				</div>
 			</div>
 			<div class="customerFormItem">
-				<div class="customerFormItem">
-					<div>
-						<button name="btnEditCustomer" type="submit" class="button_1"
-							data-ng-click="editCustomer()">Klant wijzigen</button>
-					</div>
+				<div>
+					<button name="btnEditCustomer" type="submit" class="button_1"
+						data-ng-click="editCustomer()">Klant wijzigen</button>
 				</div>
 			</div>
 			<div class="customerFormItem">
-				<div class="customerFormItem">
-					<div>
-						<button name="btnRemoveCustomer" type="submit" class="button_1"
-							data-ng-click="removeCustomer()">Klant verwijderen</button>
-					</div>
+				<div>
+					<button name="btnRemoveCustomer" type="submit" class="button_1"
+						data-ng-click="removeCustomer()">Klant verwijderen</button>
 				</div>
 			</div>
 			<div class="customerFormItem">
@@ -285,8 +279,8 @@
 			</select>
 		</div>
 	</section>
-	
-		<section id="alterLocation">
+
+	<section id="alterLocation">
 		<div class="container" data-ng-app="placeOrder"
 			data-ng-controller="postCustomerController">
 			<div class="customerFormItem">
@@ -320,8 +314,8 @@
 			<div class="customerFormItem">
 				<label for="LocationDiscription">Locatie beschijving:</label>
 				<div>
-					<input name="LocationDiscription" id="LocationDiscription" type="text"
-						data-ng-model="LocationDiscription"></input>
+					<input name="LocationDiscription" id="LocationDiscription"
+						type="text" data-ng-model="LocationDiscription"></input>
 				</div>
 			</div>
 		</div>
@@ -330,24 +324,18 @@
 	<section id="alterLocationButtons">
 		<div class="container" data-ng-app="placeOrder"
 			data-ng-controller="postCustomerController">
-			<div class="customerFormItem">
-			</div>
-			<div class="customerFormItem">
 				<div class="customerFormItem">
 					<div>
 						<button name="btnEditLocatie" type="submit" class="button_1"
 							data-ng-click="editLocatie()">Locatie wijzigen</button>
 					</div>
 				</div>
-			</div>
-			<div class="customerFormItem">
 				<div class="customerFormItem">
 					<div>
 						<button name="btnRemoveLocation" type="submit" class="button_1"
 							data-ng-click="removeLocation()">Locatie verwijderen</button>
 					</div>
 				</div>
-			</div>
 			<div class="customerFormItem">
 				<div>
 					<button name="btnAddLocation" type="submit" class="button_1"
