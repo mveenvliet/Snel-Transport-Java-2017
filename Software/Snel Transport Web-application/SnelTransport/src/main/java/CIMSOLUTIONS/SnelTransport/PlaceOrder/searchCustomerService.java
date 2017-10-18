@@ -11,7 +11,7 @@ public class searchCustomerService extends MySqlDB {
 
 	private ArrayList<Customer> resultSet = new ArrayList<>();
 
-	searchCustomerService() {
+	public searchCustomerService() {
 		super();
 	}
 

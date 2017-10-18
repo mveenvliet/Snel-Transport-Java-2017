@@ -6,24 +6,49 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import CIMSOLUTIONS.Database.*;
+import CIMSOLUTIONS.SnelTransport.PlaceOrder.Customer;
 
 public class searchRouteService extends MySqlDB {
 
 	// Search for the earlier computed route from the database
 	private ArrayList<String> locationList = new ArrayList<>();
+	private ArrayList<String> truckList = new ArrayList<>();
 	
 	searchRouteService() {
 		super();
 	}
 
-
+	public void getTrucksByDate(String Date) {
+		
+		
+		try {
+			Statement myStmt = MyCon.createStatement();
+			ResultSet myRsIdTrucks = myStmt.executeQuery(
+					"SELECT idTruck " +
+					"FROM databasesneltransport.routelist " +
+					"WHERE deliveryDate = '" + Date + "')");
+			
+			ResultSet myRSLicencePlateTrucks = myStmt.executeQuery(
+					"SELECT licencePlate " +
+					"FROM databasesneltransport.trucklist " +
+					"WHERE idTruck " +
+					"IN" + myRsIdTrucks.getString("idTruck") + "')");
+			while (myRSLicencePlateTrucks.next()) {
+				truckList.add(myRSLicencePlateTrucks.getString("licencePlate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public ArrayList<String> getLocationList() {
 		return locationList;
 	}
 	
 	private String lookUpRouteString(String truckName) {
 
-		String sqlQuerry = "SELECT * FROM databasesneltransport.Routes WHERE wagennaam = " + truckName;
+		String sqlQuerry = "SELECT route FROM databasesneltransport.routeList WHERE wagennaam = " + truckName;
 
 		try {
 			Statement myStmt = MyCon.createStatement();
@@ -35,6 +60,7 @@ public class searchRouteService extends MySqlDB {
 		}
 	}
 
+	
 		
 	public void lookUpRouteList(String truckName) {
 
