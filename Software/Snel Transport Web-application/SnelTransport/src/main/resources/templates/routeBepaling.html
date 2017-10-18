@@ -2,67 +2,22 @@
 <html>
 
 <head>
-<meta charset="utf-8"></meta>
-<meta name="viewport" content="width=device-width"></meta>
-<meta name="placeOrder" content="Order placement"></meta>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
-<title>Route bepaling</title>
-<link rel="stylesheet" href="../static/css/style.css"
-	th:href="@{/css/style.css}"></link>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width"></meta>
+	<meta name="placeOrder" content="Order placement"></meta>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
+	<title>Route bepaling</title>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"></link>
+	<link rel="stylesheet" href="../static/css/styleRouteBepalen.css" th:href="@{/css/styleRouteBepalen.css}"></link>
+	<!--  Files for datepicker -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="../static/js/datepicker.js" th:src="@{/js/datepicker.js}"></script> 	 
 </head>
-<!--[BEGIN Style which should be moved to the CSS file]========================================================================-->
-<style>
-#right-panel {
-	font-family: 'Roboto', 'sans-serif';
-	line-height: 40px;
-	padding-left: 10px;
-}
-
-#right-panel select, #right-panel input {
-	font-size: 15px;
-}
-
-#right-panel select {
-	width: 100%;
-}
-
-#right-panel i {
-	font-size: 12px;
-}
-
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-#map {
-	margin: 1%;
-	float: left;
-	width: 60%;
-	height: 80%;
-}
-
-#right-panel {
-	margin: 1%;
-	width: 35%;
-	float: right;
-	text-align: left;
-}
-
-#directions-panel {
-	overflow: scroll;
-	height: 100% vh;
-	width: 100% vh;
-}
-</style>
-<!--[END Style which should be moved to the CSS file]==========================================================================-->
-
 <body>
-	<!--[BODY STARTS]==========================================================================================================-->
-	<!--[HEADER STARTS]========================================================================================================-->
+	<!--[HEADER]===============================================================================================-->
 	<header>
 		<div>
 			<h1 id="pageHead">Bestellingen weergeven</h1>
@@ -75,8 +30,8 @@ html, body {
 						</div></li>
 					<li class="dropdown"><a class="dropdownBtn">Management</a>
 						<div class="dropdownMenu">
-							<a href="customerManagement">KlantManagement</a> <a
-								href="productManagement">ProductManagement</a> <a
+							<a href="customerManagement">Klantmanagement</a> <a
+								href="productManagement">Productmanagement</a> <a
 								href="truckManagement">Vrachtwagenmanagement</a>
 						</div></li>
 					<li><a href="routeBepaling">Route Bepaling</a></li>
@@ -84,10 +39,16 @@ html, body {
 			</nav>
 		</div>
 	</header>
-	<!-- [MAP]================================================================================================-->
+	<!-- [MAP]=================================================================================================-->
 	<div id="map"></div>
 	<!-- [RIGHT PANEL]=========================================================================================-->
 	<div id="right-panel">
+
+		
+		<div>
+			<b>Datum:</b>
+			<input type="text" class="datepicker"></input>
+		</div>
 		<div>
 			<b>Vrachtwagen:</b> <select id="Wagen">
 				<option value="00 STP 1">00STP1</option>
@@ -102,7 +63,7 @@ html, body {
 		</div>
 		<div id="directions-panel"></div>
 	</div>
-	<!-- [SCRIPT]=============================================================================================-->
+	<!-- [SCRIPT]==============================================================================================-->
 	<script th:inline="javascript">
     /*<![CDATA[*/
 		function initMap() {
@@ -157,6 +118,7 @@ html, body {
 	/*]]>*/
     </script>
 	<script async="async" defer="defer"
-		th:src="@{https://maps.googleapis.com/maps/api/js(key=AIzaSyDYNY1Z034B-c9YKWJ2RI4jbQzWtFMEHHg,callback=initMap)}"></script>
+		th:src="@{https://maps.googleapis.com/maps/api/js(key=AIzaSyDYNY1Z034B-c9YKWJ2RI4jbQzWtFMEHHg,callback=initMap)}">
+	</script>
 </body>
 </html>

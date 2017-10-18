@@ -2,15 +2,18 @@
 <html>
 
 <head>
-<meta charset="utf-8"></meta>
-<meta name="viewport" content="width=device-width"></meta>
-<meta name="placeOrder" content="Order placement"></meta>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
-<title>Vrachtwagenmanagement</title>
-<link rel="stylesheet" href="../static/css/style.css"
-	th:href="@{/css/style.css}"></link>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width"></meta>
+	<meta name="placeOrder" content="Order placement"></meta>
+	<script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
+	<title>Vrachtwagenmanagement</title>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"></link>
+	<!--  Files for datepicker -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="../static/js/datepicker.js" th:src="@{/js/datepicker.js}"></script> 
 </head>
 
 <body>
@@ -26,11 +29,11 @@
 						</div></li>
 					<li class="dropdown"><a class="dropdownBtn">Management</a>
 						<div class="dropdownMenu">
-							<a href="customerManagement">KlantManagement</a> <a
-								href="productManagement">ProductManagement</a> <a
+							<a href="customerManagement">Klantmanagement</a> <a
+								href="productManagement">Productmanagement</a> <a
 								href="truckManagement">Vrachtwagenmanagement</a>
 						</div></li>
-					<li><a href="RouteBepaling">Route Bepaling</a></li>
+					<li><a href="routeBepaling">Route Bepaling</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -252,14 +255,12 @@
 						type="text" data-ng-model="type"></input>
 				</p>
 				<p>
-					<label for="availebleFrom">Beschikbaar van:</label> <input
-						name="availebleFrom" id="availebleFrom" type="date"
-						data-ng-model="availebleFrom"></input>
+					<label for="availableFrom">Beschikbaar van:</label> 
+					<input type="text" id="availableFrom" class="datepicker"></input>
 				</p>
 				<p>
-					<label for="notAvailebleFrom">Niet beschikbaar van:</label> <input
-						name="notAvailebleFrom" id="pnotAvailebleFrom" type="date"
-						data-ng-model="notAvailebleFrom"></input>
+					<label for="notAvailableFrom">Beschikbaar van:</label> 
+					<input type="text" id="notAvailableFrom" class="datepicker"></input>
 				</p>
 				<p>
 					<label for="compartmentNumber">Compartementnummer:</label> <input

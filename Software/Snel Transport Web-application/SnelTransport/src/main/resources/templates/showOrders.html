@@ -2,15 +2,19 @@
 <html>
 
 <head>
-<meta charset="utf-8"></meta>
-<meta name="viewport" content="width=device-width"></meta>
-<meta name="placeOrder" content="Order placement"></meta>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
-<title>Bestelling Weergeven</title>
-<link rel="stylesheet" href="../static/css/style.css"
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width"></meta>
+	<meta name="placeOrder" content="Order placement"></meta>
+	<script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
+	<title>Bestelling Weergeven</title>
+	<link rel="stylesheet" href="../static/css/style.css"
 	th:href="@{/css/style.css}"></link>
+	<!--  Files for datepicker -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="../static/js/datepicker.js" th:src="@{/js/datepicker.js}"></script> 
 </head>
 
 <body>
@@ -26,8 +30,8 @@
 						</div></li>
 					<li class="dropdown"><a class="dropdownBtn">Management</a>
 						<div class="dropdownMenu">
-							<a href="customerManagement">KlantManagement</a> <a
-								href="productManagement">ProductManagement</a> <a
+							<a href="customerManagement">Klantmanagement</a> <a
+								href="productManagement">Productmanagement</a> <a
 								href="truckManagement">Vrachtwagenmanagement</a>
 						</div></li>
 					<li><a href="routeBepaling">Route Bepaling</a></li>
@@ -54,7 +58,7 @@
 				</div>
 			</div>
 			<div class="customerFormItem">
-				<label for="lastname">Bestel nummer:</label>
+				<label for="lastname">Bestelnummer:</label>
 				<div>
 					<input name="orderNumber" id="orderNumber" type="number"
 						data-ng-model="orderNumber"></input>
@@ -63,8 +67,7 @@
 			<div class="customerFormItem">
 				<label for="datum bestellingen">Bestellingen op datum:</label>
 				<div>
-					<input name="orderDate" id="orderDate" type="date"
-						data-ng-model="orderDate"></input>
+					<input type="text" id="datepicker"></input>
 				</div>
 			</div>
 			<div class="customerFormItem">
@@ -295,7 +298,7 @@
 			<div class="customerFormItem">
 				<label for="datum bestellingen">Bestellingen op datum:</label>
 				<div>
-					<input name="orderDate" id="orderDate" type="date"
+					<input name="orderDate" class="orderDate" type="date"
 						data-ng-model="orderDate"></input>
 				</div>
 			</div>

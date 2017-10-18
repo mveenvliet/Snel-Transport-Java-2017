@@ -9,6 +9,11 @@
 	<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
     <title>Bestelling Plaatsen</title>
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"></link>
+    <!--  Files for datepicker -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="../static/js/datepicker.js" th:src="@{/js/datepicker.js}"></script> 
 </head>
 
 <body>
@@ -16,23 +21,21 @@
         <div>
             <h1 id="pageHead">Bestelling plaatsen</h1>
             <nav>
-                <ul>
-                    <li class="dropdown"><a href="/" class="dropdownBtn">Bestellingen</a>
-                        <div class="dropdownMenu">
-                            <a href="/">Bestelling plaatsen</a>
-                            <a href="showOrders">Bestellingen weergeven</a>
-                        </div>
-                    </li>
-                    <li class="dropdown"><a class="dropdownBtn">Management</a>
-                        <div class="dropdownMenu">
-                            <a href="customerManagement">KlantManagement</a>
-                            <a href="productManagement">ProductManagement</a>
-                            <a href="truckManagement">Vrachtwagenmanagement</a>
-                        </div>
-                    </li>
-                    <li><a href="routeBepaling">Route Bepaling</a></li>
-                </ul>
-            </nav>
+				<ul>
+					<li class="dropdown"><a href="/" class="dropdownBtn">Bestellingen</a>
+						<div class="dropdownMenu">
+							<a href="/">Bestelling plaatsen</a> <a href="showOrders">Bestellingen
+								weergeven</a>
+						</div></li>
+					<li class="dropdown"><a class="dropdownBtn">Management</a>
+						<div class="dropdownMenu">
+							<a href="customerManagement">Klantmanagement</a> <a
+								href="productManagement">Productmanagement</a> <a
+								href="truckManagement">Vrachtwagenmanagement</a>
+						</div></li>
+					<li><a href="routeBepaling">Route Bepaling</a></li>
+				</ul>
+			</nav>
         </div>
     </header>
 
@@ -357,6 +360,8 @@
                 <form name="baketBtnForm" id="baketBtnForm">
                     <button name="btnSearchProduct" type="submit" class="button_1">Verwijder item</button>
                     <button name="btnSearchProduct" type="submit" class="button_1">Bestelling plaatsen</button>
+					<!-- TO DO: stijl update-->
+					Datum:<input type="text" class="datepicker"></input>
                 </form>
             </div>
         </div>
