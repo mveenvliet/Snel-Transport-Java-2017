@@ -1,6 +1,10 @@
     /*<![CDATA[*/
   $( function() {
-	  $( ".datepicker" ).datepicker();
+	  $( ".datepickerroute" ).datepicker({
+		  onSelect: function(dateText) {
+			    console.log("Selected date: " + dateText + "; input's current value: " + this.value);
+			  }
+			});
 	  $.datepicker.regional['nl'] = {clearText: 'Effacer', clearStatus: '',
 			    closeText: 'sluiten', closeStatus: 'Onveranderd sluiten ',
 			    prevText: '<vorige', prevStatus: 'Zie de vorige maand',
@@ -22,3 +26,4 @@
 
   } );
 /*]]>*/
+  
