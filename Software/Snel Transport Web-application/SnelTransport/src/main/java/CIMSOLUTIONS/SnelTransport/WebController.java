@@ -12,10 +12,10 @@ public class WebController {
         return "index";
     }
 	
-	@RequestMapping(value="/RouteBepaling")
+	@RequestMapping(value="/routeBepaling")
     public String goToRouteBepaling(){
-		System.out.println("RouteBapaling was called");
-        return "RouteBapaling";
+		System.out.println("routeBepaling was called");
+        return "routeBepaling";
     }
 	
 	@RequestMapping(value="/customerManagement")
