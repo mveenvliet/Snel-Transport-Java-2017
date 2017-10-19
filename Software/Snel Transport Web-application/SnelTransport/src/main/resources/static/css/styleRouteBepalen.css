@@ -1,7 +1,7 @@
 #right-panel {
-	font-family: 'Roboto', 'sans-serif';
-	line-height: 40px;
-	padding-left: 10px;
+	font: 15px/1.5 Arial;
+	padding: 0;
+	margin: 0;
 }
 
 #right-panel select, #right-panel input {
