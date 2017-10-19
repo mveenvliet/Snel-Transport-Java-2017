@@ -20,14 +20,16 @@ public class searchCustomerService extends MySqlDB {
 	}
 
 	public String createQuerry(Customer c) {
-		String sqlQuerry = "SELECT * FROM databasesneltransport.contact, databasesneltransport.address WHERE contact.idContact = address.idContact ";
+		String sqlQuerry = "SELECT customer.customerNumber, company.name, customer.firstName, customer.lastName, address.city, address.street, address.houseNumber, address.postalCode "
+				+ "FROM databasesneltransport.customer, databasesneltransport.company, databasesneltransport.address "
+				+ "WHERE customer_idAddress = address.idAddress AND company.idCompany = customer.idCompany ";
 
 		if (c.getCustomerNumber() != 0) {
 			sqlQuerry += "AND customerNumber = " + c.getCustomerNumber();
 		}
-		if (c.getCompanyName() != null && !c.getCompanyName().isEmpty()) {
+		if (c.getCompany().getName() != null && !c.getCompany().getName().isEmpty()) {
 
-			sqlQuerry += "AND nameCompany LIKE '%" + c.getCompanyName() + "%' ";
+			sqlQuerry += " AND name LIKE '%" + c.getCompany().getName() + "%' ";
 		}
 		if (c.getFirstname() != null && !c.getFirstname().isEmpty()) {
 			sqlQuerry += "AND firstName LIKE '%" + c.getFirstname() + "%' ";
@@ -35,7 +37,7 @@ public class searchCustomerService extends MySqlDB {
 		if (c.getLastname() != null && !c.getLastname().isEmpty()) {
 			sqlQuerry += "AND lastName LIKE '%" + c.getLastname() + "%' ";
 		}
-		
+
 		System.out.println(sqlQuerry);
 		return sqlQuerry;
 	}
@@ -50,17 +52,15 @@ public class searchCustomerService extends MySqlDB {
 
 			while (myRs.next()) {
 				Customer tempCustomer = new Customer();
-				tempCustomer.setId(myRs.getInt("idContact"));
 				tempCustomer.setCustomerNumber(myRs.getInt("customerNumber"));
-				tempCustomer.setCompanyName(myRs.getString("nameCompany"));
+				tempCustomer.getCompany().setName(myRs.getString("name"));
 				tempCustomer.setFirstname(myRs.getString("firstName"));
 				tempCustomer.setLastname(myRs.getString("lastName"));
-				tempCustomer.setCity(myRs.getString("city"));
-				tempCustomer.setStreet(myRs.getString("street"));
-				tempCustomer.setHouseNumber(myRs.getString("houseNumber"));
-				tempCustomer.setPostalCode(myRs.getString("postalCode"));
-				tempCustomer.setPhoneNumber(myRs.getString("phoneNumber"));
-				
+				tempCustomer.getAddress().setCity(myRs.getString("city"));
+				tempCustomer.getAddress().setStreet(myRs.getString("street"));
+				tempCustomer.getAddress().setHouseNumber(myRs.getString("houseNumber"));
+				tempCustomer.getAddress().setPostalCode(myRs.getString("postalCode"));
+
 				tempCustomer.createInfoString();
 				tempCustomer.printValues();
 				resultSet.add(tempCustomer);
