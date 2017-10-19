@@ -44,15 +44,19 @@
 	<!-- [RIGHT PANEL]=========================================================================================-->
 	<div id="right-panel">
 
-
-		<p> Datum:</p>
-		<p><input type="text" id="date"  class="datepickerroute"></input></p>
+		<div>
+			<p> Datum:</p>
+			<p><input name="testdate" type="text" id="date" class="datepickerroute"></input></p>
+		</div>
 		<div id="dropdown_menutrucks"></div>
 		<div id="waypointsroute"></div>
 		<div id="btnBerekenRoute"></div>
 
+		<div>
+			<button onclick="CalculateRoute()" class="button_1">Herbereken routes</button>
+		</div>
 		
-		
+        
 		<!--  DIT HIERONDER GAAT NOG WEG -->
 		<div>
 			<b>Waypoints:</b> <br /> <select multiple="multiple" id="waypoints">
@@ -114,8 +118,13 @@
 				} else {
 					window.alert('Directions request failed due to ' + status);
 				}
-			});	
+			});
+	        
 		}
+		function CalculateRoute(){
+        	var date = document.getElementsByName('testdate');
+        	console.log(date.nodeValue;);
+        }
 	/*]]>*/
     </script>
 	<script async="async" defer="defer"
