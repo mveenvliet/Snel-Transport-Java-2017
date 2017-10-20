@@ -1,10 +1,24 @@
-    /*<![CDATA[*/
+/*<![CDATA[*/
   $( function() {
 	  $( ".datepickerroute" ).datepicker({
 		  onSelect: function(dateText) {
-			    console.log("Selected date: " + dateText + "; input's current value: " + this.value);
-			  }
-			});
+			  $.get("/routeBepaling/date", {date:dateText}).then( function(response){
+			  	//console.log(response)
+				  if (response != ''){
+				  	var htmlString = '<div><p>Selecteer vrachtwagen:</p><select name="catagoryList" id="catagoryList">';
+				  	for (i = 0; i < response.length; i++){
+				  		htmlString += ' <option value="Catagory ' + (i + 1) + '">' + response[i] + '</option>';  
+				  	}
+				  	htmlString += '</select></div>';
+				  	document.getElementById("dropdown_menutrucks").innerHTML = htmlString;
+				  	document.getElementById("btnBerekenRoute").innerHTML = '<div><p>Herbereken route></p></div>'+
+                    '<button name="btnHerberekenRoute" class="button_1">Herbereken route</button></div>'; 
+				  } else {
+					  document.getElementById("dropdown_menutrucks").innerHTML = '';
+					  document.getElementById("btnBerekenRoute").innerHTML = '';
+				  }
+					  
+			})}});
 	  $.datepicker.regional['nl'] = {clearText: 'Effacer', clearStatus: '',
 			    closeText: 'sluiten', closeStatus: 'Onveranderd sluiten ',
 			    prevText: '<vorige', prevStatus: 'Zie de vorige maand',
@@ -23,7 +37,12 @@
 			    dateFormat: 'dd-mm-yy', firstDay: 1, 
 			    initStatus: 'Kies een datum', isRTL: false};
 			$.datepicker.setDefaults($.datepicker.regional['nl']);
-
+	
+			
   } );
+  
+  
+  
+  
 /*]]>*/
   

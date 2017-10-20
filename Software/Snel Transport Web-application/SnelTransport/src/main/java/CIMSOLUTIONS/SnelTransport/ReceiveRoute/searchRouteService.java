@@ -4,89 +4,68 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import CIMSOLUTIONS.Database.*;
-import CIMSOLUTIONS.SnelTransport.PlaceOrder.Customer;
 
 public class searchRouteService extends MySqlDB {
 
-	// Search for the earlier computed route from the database
-	private ArrayList<String> locationList = new ArrayList<>();
-	private ArrayList<String> truckList = new ArrayList<>();
-	
-	searchRouteService() {
-		super();
+	private String switchDDMMYYYYtoYYYYMMDD(String date) {
+		
+		String[] parts = date.split("-");	
+		return parts[2] + parts[1]  + parts[0];
+		
 	}
+	
+	public List<String> basicFunction(String date) {
 
-	public void getTrucksByDate(String Date) {
+		System.out.println(date);
+		List<String> plates = getStringFromDatabase(
+				getPlatesFromDateSQL(
+				switchDDMMYYYYtoYYYYMMDD(date)), "licencePlate");
+
+		return plates;
+	}
+	
+	private List<String> getStringFromDatabase(String sqlStatement, String tableHeader) {
 		
-		
+		List<String> list = new ArrayList<>();
+
 		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
 			Statement myStmt = MyCon.createStatement();
-			ResultSet myRsIdTrucks = myStmt.executeQuery(
-					"SELECT idTruck " +
-					"FROM databasesneltransport.routelist " +
-					"WHERE deliveryDate = '" + Date + "')");
-			
-			ResultSet myRSLicencePlateTrucks = myStmt.executeQuery(
-					"SELECT licencePlate " +
-					"FROM databasesneltransport.trucklist " +
-					"WHERE idTruck " +
-					"IN" + myRsIdTrucks.getString("idTruck") + "')");
-			while (myRSLicencePlateTrucks.next()) {
-				truckList.add(myRSLicencePlateTrucks.getString("licencePlate"));
+			ResultSet myRs = myStmt.executeQuery(sqlStatement);
+			while (myRs.next()) {
+				list.add(myRs.getString(tableHeader));
 			}
-		} catch (SQLException e) {
+
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		
-	}
-	
-	public ArrayList<String> getLocationList() {
-		return locationList;
-	}
-	
-	private String lookUpRouteString(String truckName) {
-
-		String sqlQuerry = "SELECT route FROM databasesneltransport.routeList WHERE wagennaam = " + truckName;
-
-		try {
-			Statement myStmt = MyCon.createStatement();
-			return myStmt.executeQuery(sqlQuerry).getString("route");
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "Invalid truckId request";
-		}
+		return list;
 	}
 
-	
+	private String getPlatesFromDateSQL(String date) {
+		String sql = "SELECT licencePlate FROM databasesneltransport.trucklist WHERE idTruck IN (SELECT idTruck FROM databasesneltransport.routelist WHERE deliveryDate = '" + date + "')";
 		
-	public void lookUpRouteList(String truckName) {
-
-		String routeString = lookUpRouteString(truckName);
-
+		return sql;
 		
-		String sqlQuerry = "SELECT * FROM databasesneltransport.addressen WHERE locationID = ";
-		
-		try {
-			for (String locationId : routeString.split(">")) {
-				// TO DO:
-				//	Check deze naamgeving
-				Statement myStmt = MyCon.createStatement();
-				ResultSet myRs = myStmt.executeQuery(sqlQuerry+locationId);
-				
-				
-				
-				String location = 
-						myRs.getString("straat") + " " + 
-						myRs.getString("huisnnumer") + ", " +
-						myRs.getString("postcode") + ", " +
-						myRs.getString("stad");
-				locationList.add(location);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 }
+
+	// Functions:
+	//	input: date
+	//	get all orders for that date
+	//	get all locations corresponding to those orders
+	//	(1. run Christophides Algorithm to check if the route can be done)
+	//	(2. divide the number of nodes)
+	//	(	Rerun 1 -> 2 untill 1 is true)
+	//	(3. check number of nodes each subset)
+	//	(4.	blossem shrink if the number of nodes is more than 8)	
+	//	run bruteforce TSP
+	//	(5.	regrow your blossems)
+	//	store route in the database
+	//	send route (and number of trucs) back to the user
+	
+	
