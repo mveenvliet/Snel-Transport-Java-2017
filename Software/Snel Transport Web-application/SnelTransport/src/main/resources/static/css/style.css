@@ -51,10 +51,19 @@ thead {
 	overflow: hidden;
 }
 
+tr {
+	cursor: default;
+}
+
 .basketContainer {
 	margin-bottom: 5px;
 	margin-left: 5px;
 	float: left;
+}
+
+.highlight {
+	background-color: #214fb9 !important;
+	color: #f4f4f4;
 }
 
 #basketContainerItem1 {
@@ -66,6 +75,10 @@ thead {
 #basketContainerItem2 {
 	max-width: 19%;
 	width: auto;
+}
+
+#shoppingBasket {
+	min-height: 300px;
 }
 
 .productFormItem {
@@ -222,7 +235,7 @@ header a:hover {
 }
 
 .TrippelContainer {
-	margin-top : 15px;
+	margin-top: 15px;
 	margin-bottom: 15px;
 	margin-left: 15px;
 	float: left;
@@ -322,6 +335,10 @@ header a:hover {
 	height: 300px;
 	max-height: 300px;
 	overflow: auto;
+}
+
+#containerInventaris th, tr, td {
+	width: 15%;
 }
 
 #basketContainerItem1 {

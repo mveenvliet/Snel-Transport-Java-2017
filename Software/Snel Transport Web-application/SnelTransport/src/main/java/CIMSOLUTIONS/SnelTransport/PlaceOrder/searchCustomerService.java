@@ -27,7 +27,7 @@ public class searchCustomerService extends MySqlDB {
 		if (c.getCustomerNumber() != 0) {
 			sqlQuerry += "AND customerNumber = " + c.getCustomerNumber();
 		}
-		if (c.getCompany().getName() != null && !c.getCompany().getName().isEmpty()) {
+		if (c.getCompany().getName() != null && ! c.getCompany().getName().isEmpty())  {
 
 			sqlQuerry += " AND name LIKE '%" + c.getCompany().getName() + "%' ";
 		}
