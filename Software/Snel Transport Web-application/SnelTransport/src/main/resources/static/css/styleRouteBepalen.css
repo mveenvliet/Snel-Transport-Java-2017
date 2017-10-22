@@ -41,3 +41,16 @@ html, body {
 	height: 100% vh;
 	width: 100% vh;
 }
+
+table.tableRB {
+	border: 0;
+	background: none;
+}
+
+table.tableRB tr:nth-child(even) {
+	background: rgba(0, 0, 0, 0);
+}
+
+table.tableRB tr:nth-child(odd) {
+	background: rgba(0, 0, 0, 0);
+}
