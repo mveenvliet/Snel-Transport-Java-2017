@@ -105,9 +105,10 @@ public class CalculateRouteService extends MySqlDB {
 			return "noOrders";
 		}
 		DistanceMatrix matrix = new DistanceMatrix(allAddressesInOrderList.urlOfAllLocations(),DistanceMatrix.MinimizationParameter.TIME);
-		matrix.viewMatrix();
+		//matrix.viewMatrix();
 		SolveTSP shortestRoute = new SolveTSP(matrix);
 		Vector<Integer> times = shortestRoute.getTimesRoute(matrix);
+		// \/ has to work for multiple routes
 		RouteDBObject routeToDatebase = new RouteDBObject(1, date, shortestRoute.getRoute(), allAddressesInOrderList.getListOfAddresses(), times);
 		routeToDatebase.insertRouteDB(routeToDatebase);		
 		return "updatedValues";

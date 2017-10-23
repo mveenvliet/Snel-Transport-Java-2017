@@ -28,6 +28,7 @@ public class AddressList extends MySqlDB{
 				tempAddress.setHouseNumber(myRs.getString("houseNumber"));
 				tempAddress.setPostalcode(myRs.getString("postalcode"));
 				tempAddress.setUrlPartition();
+				tempAddress.setMinutesLoadTime(30);
 				resultSet.add(tempAddress);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
@@ -61,6 +62,10 @@ public class AddressList extends MySqlDB{
 		return resultSet;
 	}
 	
+	public Address getSingleAddress(int number) {
+		return resultSet.get(number);
+	}
+	
 	public List<String> getListOfAddressStrings(){
 		List<String> listOfAddresses = new ArrayList<>();
 		for(Address address:resultSet) {
@@ -68,6 +73,7 @@ public class AddressList extends MySqlDB{
 		}
 		
 		return listOfAddresses;
-		
 	}
+	
+	
 }
