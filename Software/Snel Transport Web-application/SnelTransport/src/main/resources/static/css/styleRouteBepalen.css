@@ -36,8 +36,12 @@ html, body {
 	text-align: left;
 }
 
+#right-panel-status {
+	height: 100% vh;
+	width: 100% vh;
+}
+
 #directions-panel {
-	overflow: scroll;
 	height: 100% vh;
 	width: 100% vh;
 }

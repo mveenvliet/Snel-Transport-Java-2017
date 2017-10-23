@@ -14,7 +14,7 @@ public class TestCalcRouteFlow {
 		 
 		CalculateRouteService Test = new CalculateRouteService();
 		
-		Test.calc("21-10-2017");
+		Test.reCalcRoutes("21-10-2017");
 		assertTrue(true);
 	}
 

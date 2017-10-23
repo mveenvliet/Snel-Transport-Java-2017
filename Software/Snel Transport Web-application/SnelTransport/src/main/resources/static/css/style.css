@@ -102,6 +102,10 @@ ul {
 	color: #ffffff;
 }
 
+.button_1:disabled {
+    background: #9abdf4;
+}
+
 .dark {
 	padding: 15px;
 	background: #35424a;
