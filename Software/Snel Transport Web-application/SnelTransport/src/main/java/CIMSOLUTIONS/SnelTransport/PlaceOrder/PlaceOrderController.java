@@ -43,4 +43,18 @@ public class PlaceOrderController {
 		return searchProduct.getResultSet();
 	}
 
+	@RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public String placeOrder(@ModelAttribute("customerNumber") String customerNumber, @ModelAttribute("companyName") String companyName) {
+		System.out.println("order Test:\n");
+		System.out.println("customerNumber: " + customerNumber);
+		System.out.println("companyName: " + companyName);
+//		for (Product product : products) {
+//			product.printValues();
+//		}
+//			order.printValues();
+
+		return "status";
+	}
+
 }
