@@ -176,7 +176,7 @@
 	<section id="headSection">
 		<h1>Winkelwagen</h1>
 	</section>
-	<section id="shoppingBasket">
+	<section id="shoppingBasket" data-ng-controller="shoppingBasketController">
 		<div class="container">
 			<div class="basketContainer" id="basketContainerItem1">
 				<table id="winkelwagenTable">
@@ -196,11 +196,11 @@
 			</div>
 			<div class="basketContainer" id="basketContainerItem2">
 				<form name="baketBtnForm" id="baketBtnForm">
-					<button name="btnSearchProduct" type="submit" class="button_1">Verwijder
+					<button name="btnSearchProduct" type="submit" class="button_1" data-ng-click="removeItemFromShoppingCart()">Verwijder
 						item</button>
-					<button name="btnSearchProduct" type="submit" class="button_1">Bestelling
+					<button name="btnSearchProduct" type="submit" class="button_1" data-ng-click="placeOrder()">Bestelling
 						plaatsen</button>
-					Datum:<input type="text" class="datepicker"></input>
+					Datum:<input type="text" id="deliveryDate" class="datepicker"></input>
 				</form>
 			</div>
 		</div>
