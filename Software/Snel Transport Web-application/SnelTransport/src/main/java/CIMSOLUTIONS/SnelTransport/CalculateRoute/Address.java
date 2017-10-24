@@ -7,7 +7,18 @@ public class Address {
 	private String houseNumber;
 	private String postalcode;
 	private String urlPartition;
-	private int minutesLoadTime;
+	private int minutesLoadTime = 30;
+	
+	Address(){
+		
+	}
+	Address(String city, String street, String houseNumber, String postalcode){
+		this.city = city;
+		this.street = street;
+		this.houseNumber = houseNumber;
+		this.postalcode = postalcode;
+		setUrlPartition();
+	}
 	
 	public String getCity() {
 		return city;
@@ -49,5 +60,15 @@ public class Address {
 		this.minutesLoadTime = minutesLoadTime;
 	}
 	
+	public void showAddress() {
+		System.out.println("city:            " + city);
+		System.out.println("street:          " + street);
+		System.out.println("houseNumber:     " + houseNumber);
+		System.out.println("postalcode:      " + postalcode);
+		System.out.println("urlPartition:    " + urlPartition);
+		System.out.println("minutesLoadTime: " + minutesLoadTime);
+		
+
+	}
 	
 }

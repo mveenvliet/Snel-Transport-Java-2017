@@ -15,10 +15,10 @@ public class RouteDBObject extends MySqlDB{
 	private String timeWaypoints;
 	
 	
-	RouteDBObject(int idTruck, String date, String route, List<Address> addresses, List<Integer> times){
+	RouteDBObject(int idTruck, String date, String route, List<Address> addresses, Address home, String times){
 		this.setIdTruck(idTruck);
 		this.setDate(date);
-		this.setRoute(route, addresses);
+		this.setRoute(route, addresses, home);
 		this.setTimeWaypoints(times);	
 	}
 	
@@ -37,10 +37,11 @@ public class RouteDBObject extends MySqlDB{
 	public String getRoute() {
 		return route;
 	}
-	public void setRoute(String route, List<Address> addresses) {
+	public void setRoute(String route, List<Address> addresses, Address home) {
 		String shortRoute = "";
 		int idAddress = 0;
-		int start = 0;
+		int homeId = 0;
+		addresses.add(0,home);
 		for (int iter = 0 ; iter < addresses.size() ; iter++) {
 			String sql = 
 					"SELECT idAddress " + 
@@ -53,23 +54,18 @@ public class RouteDBObject extends MySqlDB{
 			idAddress = getIntDatabase(sql, "idAddress");
 			if (iter == 0) {
 				shortRoute += idAddress;
-				start = idAddress;
+				homeId = idAddress;
 			} else {
 				shortRoute += "<" + idAddress; 
 			}
 		}
-		this.route = shortRoute + "<" + start;
+		this.route = shortRoute + "<" + homeId;
 	}
 	public String getTimeWaypoints() {
 		return timeWaypoints;
 	}
-	public void setTimeWaypoints(List<Integer> timeBetweenWaypoints) {
-		
-		String concatenated = timeBetweenWaypoints.get(0).toString();
-		for(int iter = 1; iter<timeBetweenWaypoints.size();iter++) {
-			concatenated += "<" + timeBetweenWaypoints.get(iter).toString();
-		}
-		this.timeWaypoints = concatenated;
+	public void setTimeWaypoints(String timeBetweenWaypoints) {
+		this.timeWaypoints = timeBetweenWaypoints;
 	}
 
 	private void storeRouteToDatabase(String sqlStatement) {
@@ -124,4 +120,6 @@ public class RouteDBObject extends MySqlDB{
 		System.out.println(this.route);
 		System.out.println(this.timeWaypoints);
 	}
+	
+	
 }

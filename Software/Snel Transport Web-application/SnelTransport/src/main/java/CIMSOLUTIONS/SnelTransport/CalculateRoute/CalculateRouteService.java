@@ -1,5 +1,6 @@
 package CIMSOLUTIONS.SnelTransport.CalculateRoute;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -98,19 +99,35 @@ public class CalculateRouteService extends MySqlDB {
 		
 		String date = switchDDMMYYYYtoYYYYMMDD(badFormatDate);
 		AddressList allAddressesInOrderList = new AddressList();
-		allAddressesInOrderList.setAddressesFromDatabase(setDefaultHomeAddressSQL());
 		allAddressesInOrderList.setAddressesFromDatabase(locationsAtDatesSQL(date));
-		System.out.println(allAddressesInOrderList.getListOfAddresses().size());
-		if( allAddressesInOrderList.getListOfAddresses().size() == 1) {
+		if( allAddressesInOrderList.getNumberOfAddresses() == 0) {
 			return "noOrders";
 		}
+		Address source = new Address("Gouda","Zeugstraat","92","2801JD");
+		DistanceSource distanceToDepo = new DistanceSource(allAddressesInOrderList,source);
 		DistanceMatrix matrix = new DistanceMatrix(allAddressesInOrderList.urlOfAllLocations(),DistanceMatrix.MinimizationParameter.TIME);
-		//matrix.viewMatrix();
+		matrix.viewMatrix();
+		System.out.println("?");
 		SolveTSP shortestRoute = new SolveTSP(matrix);
-		Vector<Integer> times = shortestRoute.getTimesRoute(matrix);
+		System.out.println("?");
+		DivideRoute routeWithMinTrucks = new DivideRoute();
+		System.out.println("?");
+		routeWithMinTrucks.walkRoute(shortestRoute,  matrix, allAddressesInOrderList, distanceToDepo);
+		routeWithMinTrucks.viewOptimum();
+		
+		//Vector<Integer> times = shortestRoute.getTimesRoute(matrix);
 		// \/ has to work for multiple routes
-		RouteDBObject routeToDatebase = new RouteDBObject(1, date, shortestRoute.getRoute(), allAddressesInOrderList.getListOfAddresses(), times);
-		routeToDatebase.insertRouteDB(routeToDatebase);		
+		System.out.println("?");
+		
+		for (int iter = 0 ; iter < routeWithMinTrucks.getOptimalNrOfTrucks() ; iter++) {
+			// GET AVAILABLE TRUCKS---------------------------v
+			RouteDBObject routeToDatebase = new RouteDBObject(1, date, routeWithMinTrucks.getOptimalRoutePerTruck().get(iter), 
+					allAddressesInOrderList.getListOfAddresses(), source, routeWithMinTrucks.getOptimalRoutePerTruck().get(iter));
+			routeToDatebase.viewRoutDBObject();
+			//routeToDatebase.insertRouteDB(routeToDatebase);
+		}
+		;
+		
 		return "updatedValues";
 	}
 	
