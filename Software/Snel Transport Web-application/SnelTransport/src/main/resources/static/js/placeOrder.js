@@ -181,7 +181,9 @@ pOrder.controller('productController', function($scope, $http, $location) {
 	}
 });
 
-pOrder.controller('shoppingBasketController',
+pOrder
+		.controller(
+				'shoppingBasketController',
 				function($scope, $http, $location) {
 
 					$scope.removeItemFromShoppingCart = function($scope, $http,
@@ -191,7 +193,7 @@ pOrder.controller('shoppingBasketController',
 						var rows = document.getElementById("winkelwagenTbody").rows;
 						var table = document.getElementById("winkelwagenTbody");
 
-//						console.log(selectedRow);
+						// console.log(selectedRow);
 
 						for (var i = 0; i < rows.length; i++) {
 							if (selectedRow[0].cells[0].innerHTML == rows[i].cells[0].innerHTML) {
@@ -211,7 +213,7 @@ pOrder.controller('shoppingBasketController',
 						}
 
 						var customer = document.getElementById("customerList");
-//						console.log(customer.value);
+						// console.log(customer.value);
 						var str = customer.value;
 						var customerNumber = str.slice(0, str.indexOf(":"));
 						str = str.slice(str.indexOf(":") + 2);
@@ -225,52 +227,58 @@ pOrder.controller('shoppingBasketController',
 						str = str.slice(str.indexOf(",") + 2);
 						var postalcode = str;
 
-						for (var i = 0; i < rows.length; i++) {
+						 for (var i = 0; i < rows.length; i++) {
+						
+						 products.push({
+						 productNumber : rows[i].cells[0].innerHTML,
+						 discription : rows[i].cells[1].innerHTML,
+						 type : rows[i].cells[2].innerHTML,
+						 amount : rows[i].cells[4].innerHTML,
+						 price : rows[i].cells[3].innerHTML
+						 });
+						 // if (selectedRow[0].cells[0].innerHTML ==
+						 // rows[i].cells[0].innerHTML) {
+						 // table.deleteRow(i);
+						 // }
+						 }
+//						 console.log(products);
 
-							products.push({
-								productNumber : rows[i].cells[0].innerHTML,
-								discription : rows[i].cells[1].innerHTML,
-								type : rows[i].cells[2].innerHTML,
-								amount : rows[i].cells[4].innerHTML,
-								price : rows[i].cells[3].innerHTML
-							});
-							// if (selectedRow[0].cells[0].innerHTML ==
-							// rows[i].cells[0].innerHTML) {
-							// table.deleteRow(i);
-							// }
-						}
-//						console.log(products);
+						var deliveryDate = document
+								.getElementById("deliveryDate");
+						// console.log(deliveryDate);
+						// console.log(deliveryDate.value);
+						// console.log(deliveryDate.innerHTML);
 
-						var deliveryDate = document.getElementById("deliveryDate");
-//						console.log(deliveryDate);
-//						console.log(deliveryDate.value);
-//						console.log(deliveryDate.innerHTML);
-
+						 var data = {
+						  customerNumber : customerNumber,
+						  companyName : companyName,
+						  city : city,
+						  street : street,
+						  houseNumber : houseNumber,
+						  postalcode : postalcode,
+						  deliveryDate : deliveryDate.value,
+						 products : products
+						 };
+//						products.push("hoi");
+//						products.push("Mark");
 //						var data = {
-////							customerNumber : customerNumber,
-////							companyName : companyName
-////							city : city,
-////							street : street,
-////							houseNumber : houseNumber,
-////							postalcode : postalcode,
-////							deliveryDate : deliveryDate.value,
+//							//								
+//							hoi : "hoi",
+//							mark : "mark",
 //							products : products
 //						};
-						var data = {
-								products : products
-							};
 						console.log(data);
-						$.post("placeOrder", data, config).then(
-										function(response) {
-											window.alert(response);
-											// clear vieuw if order was succesvol
-											
-										},
-										function error(response) {
-//											console.log("response: " + response);
-//											$scope.postResultMessage = "Error with status: " + response.statusText;
-										});
 
+						$.post("placeOrder", data, config).then(
+								function(response) {
+									window.alert(response);
+									// clear vieuw if order was
+									// succesvol
+
+								}, function error(response) {
+									// console.log("response: " + response);
+									// $scope.postResultMessage = "Error with status: " + response.statusText;
+								});
 
 					}
 

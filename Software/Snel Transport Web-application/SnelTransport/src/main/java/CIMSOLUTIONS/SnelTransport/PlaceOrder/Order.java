@@ -9,20 +9,15 @@ public class Order {
 	private int orderNumber;
 	private String orderDate;
 	private String deliveryDate;
-	private java.text.SimpleDateFormat mysqlDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private java.text.SimpleDateFormat dutchDateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy");
+//	private java.text.SimpleDateFormat mysqlDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private Customer customer = new Customer();
 	private ArrayList<Product> orderLineList = new ArrayList<>();
-	
-	int customerId;
-	private String companyName;
-	private String city;
-	private String street;
-	private String houseNumber;
-	private String postalcode;
 	
 	
 	public Order() {
 		super();
+		setOrderDate();
 	}
 
 
@@ -79,7 +74,7 @@ public class Order {
 	public void setOrderDate() {
 		Date currentDate = new java.util.Date();
 
-		orderDate = mysqlDateFormat.format(orderDate);
+		orderDate = dutchDateFormat.format(currentDate);
 		System.out.println(currentDate);
 	}
 	
