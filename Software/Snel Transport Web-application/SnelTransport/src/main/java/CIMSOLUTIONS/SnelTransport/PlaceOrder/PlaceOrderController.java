@@ -45,16 +45,32 @@ public class PlaceOrderController {
 
 	@RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
 	@ResponseBody
-	public String placeOrder(@ModelAttribute("customerNumber") String customerNumber, @ModelAttribute("companyName") String companyName) {
+	public String placeOrder(@ModelAttribute(value="products") ProductWrapper products) {
 		System.out.println("order Test:\n");
-		System.out.println("customerNumber: " + customerNumber);
-		System.out.println("companyName: " + companyName);
-//		for (Product product : products) {
-//			product.printValues();
-//		}
+		System.out.println("products: " + products.getItems());
+		
+		for (Product product : products.getItems()) {
+			product.printValues();
+		}
 //			order.printValues();
 
 		return "status";
 	}
+	
+//	@RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String placeOrder(@ModelAttribute("customerNumber") String customerNumber, @ModelAttribute("companyName") String companyName, @ModelAttribute(value="products") ProductWrapper products) {
+//		System.out.println("order Test:\n");
+//		System.out.println("customerNumber: " + customerNumber);
+//		System.out.println("companyName: " + companyName);
+//		System.out.println("products: " + products.getItems());
+//		
+//		for (Product product : products.getItems()) {
+//			product.printValues();
+//		}
+////			order.printValues();
+//
+//		return "status";
+//	}
 
 }

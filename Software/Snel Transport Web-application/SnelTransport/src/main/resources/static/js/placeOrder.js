@@ -181,9 +181,7 @@ pOrder.controller('productController', function($scope, $http, $location) {
 	}
 });
 
-pOrder
-		.controller(
-				'shoppingBasketController',
+pOrder.controller('shoppingBasketController',
 				function($scope, $http, $location) {
 
 					$scope.removeItemFromShoppingCart = function($scope, $http,
@@ -193,7 +191,7 @@ pOrder
 						var rows = document.getElementById("winkelwagenTbody").rows;
 						var table = document.getElementById("winkelwagenTbody");
 
-						console.log(selectedRow);
+//						console.log(selectedRow);
 
 						for (var i = 0; i < rows.length; i++) {
 							if (selectedRow[0].cells[0].innerHTML == rows[i].cells[0].innerHTML) {
@@ -213,7 +211,7 @@ pOrder
 						}
 
 						var customer = document.getElementById("customerList");
-						console.log(customer.value);
+//						console.log(customer.value);
 						var str = customer.value;
 						var customerNumber = str.slice(0, str.indexOf(":"));
 						str = str.slice(str.indexOf(":") + 2);
@@ -241,25 +239,27 @@ pOrder
 							// table.deleteRow(i);
 							// }
 						}
-						console.log(products);
+//						console.log(products);
 
 						var deliveryDate = document.getElementById("deliveryDate");
-						console.log(deliveryDate);
-						console.log(deliveryDate.value);
-						console.log(deliveryDate.innerHTML);
+//						console.log(deliveryDate);
+//						console.log(deliveryDate.value);
+//						console.log(deliveryDate.innerHTML);
 
+//						var data = {
+////							customerNumber : customerNumber,
+////							companyName : companyName
+////							city : city,
+////							street : street,
+////							houseNumber : houseNumber,
+////							postalcode : postalcode,
+////							deliveryDate : deliveryDate.value,
+//							products : products
+//						};
 						var data = {
-							customerNumber : customerNumber,
-							companyName : companyName,
-							city : city,
-							street : street,
-							houseNumber : houseNumber,
-							postalcode : postalcode,
-							deliveryDate : deliveryDate.value,
-							products : products
-						};
+								products : products
+							};
 						console.log(data);
-
 						$.post("placeOrder", data, config).then(
 										function(response) {
 											window.alert(response);
