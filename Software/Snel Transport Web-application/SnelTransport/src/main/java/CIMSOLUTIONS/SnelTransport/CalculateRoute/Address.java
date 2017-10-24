@@ -7,7 +7,7 @@ public class Address {
 	private String houseNumber;
 	private String postalcode;
 	private String urlPartition;
-	
+	private int minutesLoadTime;
 	
 	public String getCity() {
 		return city;
@@ -41,6 +41,12 @@ public class Address {
 							this.houseNumber + "+" + 
 							this.city.replaceAll(" ", "%20") + "+" + 
 							this.postalcode.replaceAll(" ", "%20"); 
+	}
+	public int getMinutesLoadTime() {
+		return minutesLoadTime;
+	}
+	public void setMinutesLoadTime(int minutesLoadTime) {
+		this.minutesLoadTime = minutesLoadTime;
 	}
 	
 	

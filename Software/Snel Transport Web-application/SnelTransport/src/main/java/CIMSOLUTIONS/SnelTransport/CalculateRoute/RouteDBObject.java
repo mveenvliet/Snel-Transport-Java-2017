@@ -40,6 +40,7 @@ public class RouteDBObject extends MySqlDB{
 	public void setRoute(String route, List<Address> addresses) {
 		String shortRoute = "";
 		int idAddress = 0;
+		int start = 0;
 		for (int iter = 0 ; iter < addresses.size() ; iter++) {
 			String sql = 
 					"SELECT idAddress " + 
@@ -52,11 +53,12 @@ public class RouteDBObject extends MySqlDB{
 			idAddress = getIntDatabase(sql, "idAddress");
 			if (iter == 0) {
 				shortRoute += idAddress;
+				start = idAddress;
 			} else {
 				shortRoute += "<" + idAddress; 
 			}
 		}
-		this.route = shortRoute;
+		this.route = shortRoute + "<" + start;
 	}
 	public String getTimeWaypoints() {
 		return timeWaypoints;

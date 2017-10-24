@@ -11,10 +11,23 @@ import CIMSOLUTIONS.Database.MySqlDB;
 
 public class CalculateRouteService extends MySqlDB {
 	
+	private String getStringFromDatabase(String sqlStatement, String tableHeader) {
+		
+		String result = "";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Statement myStmt = MyCon.createStatement();
+			ResultSet myRs = myStmt.executeQuery(sqlStatement);
+			while (myRs.next()) {
+				result = myRs.getString(tableHeader);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
-	private List<Address> resultSet = new ArrayList<>();
-	
-	public CalculateRouteService(){
+	private String setDefaultHomeAddressSQL(){
 		String setHomeSQL = 
 				"SELECT city, street, houseNumber, postalcode " +
 				"FROM databasesneltransport.address " +
@@ -22,10 +35,10 @@ public class CalculateRouteService extends MySqlDB {
 				"IN (SELECT customer_idAddress " + 
 					"FROM databasesneltransport.customer " + 
 					"WHERE customerNumber = '1')";
-		getAddressesFromDatabase(setHomeSQL);
+		return setHomeSQL;
 	}
 	
-	CalculateRouteService(int customerNumber){
+	private String setDefaultHomeAddressSQL(int customerNumber){
 		String setHomeSQL = 
 				"SELECT city, street, houseNumber, postalcode " +
 				"FROM databasesneltransport.address " +
@@ -33,7 +46,7 @@ public class CalculateRouteService extends MySqlDB {
 				"IN (SELECT customer_idAddress " + 
 					"FROM databasesneltransport.customer " + 
 					"WHERE customerNumber = '" + customerNumber + "')";
-		getAddressesFromDatabase(setHomeSQL);
+		return setHomeSQL;
 	}
 	
 
@@ -42,27 +55,7 @@ public class CalculateRouteService extends MySqlDB {
 		return parts[2] + "-" + parts[1] + "-" + parts[0];
 	}
 
-	private void getAddressesFromDatabase(String sqlStatement) {
-		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-			Statement myStmt = MyCon.createStatement();
-			ResultSet myRs = myStmt.executeQuery(sqlStatement);
-			while (myRs.next()) {
-				Address tempAddress = new Address();
-				tempAddress.setCity(myRs.getString("city"));
-				tempAddress.setStreet(myRs.getString("street"));
-				tempAddress.setHouseNumber(myRs.getString("houseNumber"));
-				tempAddress.setPostalcode(myRs.getString("postalcode"));
-				tempAddress.setUrlPartition();
-				resultSet.add(tempAddress);
-			}
-
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	
 	String locationsAtDatesSQL(String date) {
@@ -78,44 +71,59 @@ public class CalculateRouteService extends MySqlDB {
 		return sql;
 	}
 	
-	String urlOfAllLocations(List<Address> addresses) {
-		String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
-		for (int iter = 0 ; iter < addresses.size() ; iter++) {
-			url += addresses.get(iter).getUrlPartition();
-			if (iter + 1 != addresses.size()) {
-				url += "|";
-			}
-		}
-		url += "&destinations=";
-		for (int iter = 0 ; iter < addresses.size() ; iter++) {
-			url += addresses.get(iter).getUrlPartition();
-			if (iter + 1 != addresses.size()) {
-				url += "|";
-			}
-		}
-		// TO DO:
-		//	Er staat hier nog een hardcoded googlemaps api
-		url += "&mode=driving&language=en-EN&key=AIzaSyANJR6Knc1KAoc_OrdnGxrBmtehcWXr30o";
-		
-		return url;
-	}
-
-
-	public void calc(String badFormatDate) {
-		
-		
-		String date = switchDDMMYYYYtoYYYYMMDD(badFormatDate);
-		getAddressesFromDatabase(locationsAtDatesSQL(date));
-		DistanceMatrix matrix = new DistanceMatrix(urlOfAllLocations(resultSet),DistanceMatrix.MinimizationParameter.TIME);
-		matrix.viewMatrix();
-		SolveTSP shortestRoute = new SolveTSP(matrix);
-		Vector<Integer> times = shortestRoute.getTimesRoute(matrix);
-		RouteDBObject routeToDatebase = new RouteDBObject(1, date, shortestRoute.getRoute(), resultSet, times);
-		routeToDatebase.insertRouteDB(routeToDatebase);
-		//routeToDatebase.viewRoutDBObject();
-		
-		
+	
+	String routeAtDateFromTruckSQL(String date, String licencePlate) {
+		String sql = 
+				"SELECT route " +
+				"FROM databasesneltransport.routeList " +
+				"WHERE idTruck = (" +
+					"SELECT idTruck " +
+					"FROM databasesneltransport.trucklist " +
+					"WHERE licenceplate = '" + licencePlate + "')" +
+				" AND deliverydate = '" + date + "'";
+		return sql;
 	}
 	
+	
+	String locationFromLocationIdSQL(int locationId) {
+		String sql = 
+				"SELECT city, street, houseNumber, postalcode " +
+						"FROM databasesneltransport.address " +
+						"WHERE idAddress = '" + locationId + "'";
+				return sql;
+	}
+
+
+	public String reCalcRoutes(String badFormatDate) {
+		
+		String date = switchDDMMYYYYtoYYYYMMDD(badFormatDate);
+		AddressList allAddressesInOrderList = new AddressList();
+		allAddressesInOrderList.setAddressesFromDatabase(setDefaultHomeAddressSQL());
+		allAddressesInOrderList.setAddressesFromDatabase(locationsAtDatesSQL(date));
+		System.out.println(allAddressesInOrderList.getListOfAddresses().size());
+		if( allAddressesInOrderList.getListOfAddresses().size() == 1) {
+			return "noOrders";
+		}
+		DistanceMatrix matrix = new DistanceMatrix(allAddressesInOrderList.urlOfAllLocations(),DistanceMatrix.MinimizationParameter.TIME);
+		//matrix.viewMatrix();
+		SolveTSP shortestRoute = new SolveTSP(matrix);
+		Vector<Integer> times = shortestRoute.getTimesRoute(matrix);
+		// \/ has to work for multiple routes
+		RouteDBObject routeToDatebase = new RouteDBObject(1, date, shortestRoute.getRoute(), allAddressesInOrderList.getListOfAddresses(), times);
+		routeToDatebase.insertRouteDB(routeToDatebase);		
+		return "updatedValues";
+	}
+	
+	
+	public List<String> getAllLocationsAtDateFromTruck(String badFormatDate, String licencePlate){
+		String date = switchDDMMYYYYtoYYYYMMDD(badFormatDate);
+		
+		String route = getStringFromDatabase(routeAtDateFromTruckSQL(date,licencePlate), "route");
+		AddressList allAddressesInRoute = new AddressList();
+		for(String locationId : route.split("<")) {
+			allAddressesInRoute.setAddressesFromDatabase(locationFromLocationIdSQL(Integer.parseInt(locationId)));
+		}
+		return allAddressesInRoute.getListOfAddressStrings();
+	}
 	
 }
