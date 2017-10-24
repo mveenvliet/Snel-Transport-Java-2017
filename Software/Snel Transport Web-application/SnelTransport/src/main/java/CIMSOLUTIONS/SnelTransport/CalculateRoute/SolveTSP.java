@@ -13,33 +13,46 @@ public class SolveTSP {
 
 	private int shortestDistance;
 	private String route = "";
+	private int iterCounter = 0;//(nrOfNodes - 1)!
 
 	void ComputeBFmTSP(DistanceMatrix matrix) {
-
+		
+		this.iterCounter = fact(matrix.getHeight() - 1);
 		recursivemTSP(matrix, "", route);
-		String orderedRoute = 	route.substring(route.indexOf("a"), route.length()) +  
-								route.substring(0,route.indexOf("a"));
-		route = orderedRoute + 'a';
+		route = route + 'a';
 	}
 
+	private int fact(int n) {
+		if (n == 0 || n == 1) {
+			return 1;
+		} else {
+			return fact(n - 1) * n;
+		}
+	}
 	
 	private void recursivemTSP(DistanceMatrix matrix, String firstHalve, String secondHalve) {
 
 		int nrNodesSecondHalve = secondHalve.length();
-		if (nrNodesSecondHalve == 0) {
-			int distanceCycle = distanceRoute(matrix, firstHalve, matrix.getWidth())
-					+ distanceRoute(matrix, firstHalve.substring(matrix.getWidth() - 1, matrix.getWidth()) + firstHalve.substring(0, 1), 2);
-			if (distanceCycle < shortestDistance) {
-				route = firstHalve;
-				shortestDistance = distanceCycle;
-			}
-		} else {
-			for (int nodeSecondHalve = 0; nodeSecondHalve < nrNodesSecondHalve; nodeSecondHalve++) {
-				recursivemTSP(matrix, firstHalve + secondHalve.charAt(nodeSecondHalve),
-						secondHalve.substring(0, nodeSecondHalve)
-								+ secondHalve.substring(nodeSecondHalve + 1, nrNodesSecondHalve));
+
+		if (iterCounter != 0) {
+			if (nrNodesSecondHalve == 0) {
+				iterCounter -= 1;
+				int distanceCycle = distanceRoute(matrix, firstHalve, matrix.getWidth()) + distanceRoute(matrix,
+						firstHalve.substring(matrix.getWidth() - 1, matrix.getWidth()) + firstHalve.substring(0, 1), 2);
+				if (distanceCycle < shortestDistance) {
+					route = firstHalve;
+					shortestDistance = distanceCycle;
+				}
+
+			} else {
+				for (int nodeSecondHalve = 0; nodeSecondHalve < nrNodesSecondHalve; nodeSecondHalve++) {
+					recursivemTSP(matrix, firstHalve + secondHalve.charAt(nodeSecondHalve),
+							secondHalve.substring(0, nodeSecondHalve)
+									+ secondHalve.substring(nodeSecondHalve + 1, nrNodesSecondHalve));
+				}
 			}
 		}
+
 	}
 
 	int distanceRoute(DistanceMatrix matrix, String route, int nrOfNodes) {

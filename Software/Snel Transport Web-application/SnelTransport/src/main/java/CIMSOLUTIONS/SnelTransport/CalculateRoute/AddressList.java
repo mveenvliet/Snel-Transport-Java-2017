@@ -75,5 +75,8 @@ public class AddressList extends MySqlDB{
 		return listOfAddresses;
 	}
 	
+	public int getNumberOfAddresses() {
+		return resultSet.size();
+	}
 	
 }
