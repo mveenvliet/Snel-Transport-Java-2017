@@ -58,6 +58,14 @@ pOrder.controller('postCustomerController', function($scope, $http, $location) {
 		}
 		var custNum = document.getElementById("customerNumber").value;
 		console.log(typeof custNum);
+		console.log(custNum)
+		if(custNum < 0 || custNum.indexOf(".") !== -1)
+			{
+				window.alert("Foutive invoer voor klantnummer.")
+				custNum = 0;
+				return;
+			}
+		
 		if (custNum == '') {
 			custNum = 0;
 		}
