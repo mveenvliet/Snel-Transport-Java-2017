@@ -25,11 +25,11 @@ public class searchCustomerService extends MySqlDB {
 				+ "WHERE customer_idAddress = address.idAddress AND company.idCompany = customer.idCompany ";
 
 		if (c.getCustomerNumber() != 0) {
-			sqlQuerry += "AND customerNumber = " + c.getCustomerNumber();
+			sqlQuerry += "AND customerNumber = '" + c.getCustomerNumber() + "' ";
 		}
 		if (c.getCompany().getName() != null && ! c.getCompany().getName().isEmpty())  {
 
-			sqlQuerry += " AND name LIKE '%" + c.getCompany().getName() + "%' ";
+			sqlQuerry += "AND name LIKE '%" + c.getCompany().getName() + "%' ";
 		}
 		if (c.getFirstname() != null && !c.getFirstname().isEmpty()) {
 			sqlQuerry += "AND firstName LIKE '%" + c.getFirstname() + "%' ";
