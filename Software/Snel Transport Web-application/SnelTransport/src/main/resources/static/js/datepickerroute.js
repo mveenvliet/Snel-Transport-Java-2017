@@ -50,19 +50,22 @@
 		  document.getElementById("calcRouteButton").disabled = true;
 		  var time = 
 		  $.get("/calcRoute/date", {date:time}).then( function(response){
-			  console.log(response);
 		  switch(response){
 		  	case "updatedValues":
 		  		document.getElementById("right-panel-status").innerHTML = '<p>De routes zijn geupdated</p>';
 		  		document.getElementById("directions-panel").innerHTML = '';
 		  		break;
-		  	//case "noUpdatedValues":
-		  	//	document.getElementById("dropdown_menutrucks").innerHTML = '<p>De routes zijn up-to-date/p>';
-		  	//	break;
+		  	case "exceededKeyQuota":
+		  		document.getElementById("right-panel-status").innerHTML = '<p>De quota voor aantal routeberekening is overschreden, overweeg een upgrade of probeer morgen weer	</p>';
+		  		document.getElementById("directions-panel").innerHTML = '';
+		  		break;
 		  	case "noOrders":
 		  		document.getElementById("right-panel-status").innerHTML = '<p>Er zijn geen bestellingen te leveren voor deze datum</p>';
 		  		document.getElementById("directions-panel").innerHTML = '';
 		  		break;
+		  	default:
+		  		document.getElementById("right-panel-status").innerHTML = '<p>' + response + '</p>';
+	  			document.getElementById("directions-panel").innerHTML = '';
 		  }})
 	  } else {
 		  document.getElementById("right-panel-status").innerHTML = '<p>Selecteer eerst een datum waarvoor de routes berekend moeten worden</p>';
@@ -90,18 +93,38 @@
 	  if(licencePlate != ""){
 		  	$.get("/getRouteByTruckAndDate", {date:time,licencePlate:truck}).then( function(response){
 		  		var waypts = [];
+		  		var warning = false;
 		  		for (var i = 1; i < response.length - 1; i++) {
+		  			if 	(warning){
+		  				if ((response[i].indexOf('Middelburg') != -1) ||
+		  					(response[i].indexOf('Zierikzee') != -1)){
+		  					waypts.push({
+		  						location:'A58+BredaA73',
+		  						stopover: false});
+		  				} else if (response[i].indexOf('Enschede') != -1){
+		  					waypts.push({
+		  						location:'A73+Nijmegen',
+		  						stopover: false});
+		  				}
+		  				warning = false;
+		  			} 
+		  			if(	(response[i].indexOf('Maastricht') != -1) || 
+			  				(response[i].indexOf('Roermond') != -1) || 
+			  				(response[i].indexOf('Sittard') != -1)){
+			  				warning = true;
+			  			}
 		  			waypts.push({
 		  				location:response[i],
 		  				stopover: true});
-		  			}	
+		  		}	
 						
 		  		directionsService.route({
 					origin:response[0],
 					destination: response[response.length - 1],
 					waypoints: waypts,
 					optimizeWaypoints: true,
-					travelMode: 'DRIVING'
+					travelMode: 'DRIVING',
+					region : 'NL'
 				}, function(response, status) {
 					if (status === 'OK') {
 						directionsDisplay.setDirections(response);

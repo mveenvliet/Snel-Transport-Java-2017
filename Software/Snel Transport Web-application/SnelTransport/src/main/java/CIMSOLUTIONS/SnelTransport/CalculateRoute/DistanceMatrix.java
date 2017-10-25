@@ -98,4 +98,8 @@ public class DistanceMatrix {
 	public int getElement(int x, int y) {
 		return matrix.get(y).get(x);
 	}
+	
+	public void setElement(int dest, int src, int value) {
+		matrix.get(dest).set(src,value);
+	}
 }

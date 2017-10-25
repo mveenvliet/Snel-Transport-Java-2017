@@ -98,37 +98,41 @@ public class CalculateRouteService extends MySqlDB {
 	public String reCalcRoutes(String badFormatDate) {
 		
 		String date = switchDDMMYYYYtoYYYYMMDD(badFormatDate);
+		
+		DeletePrevious cleanUp = new DeletePrevious(date);
+		
+		Address source = new Address("Gouda","Zeugstraat","92","2801JD");
 		AddressList allAddressesInOrderList = new AddressList();
 		allAddressesInOrderList.setAddressesFromDatabase(locationsAtDatesSQL(date));
 		if( allAddressesInOrderList.getNumberOfAddresses() == 0) {
 			return "noOrders";
 		}
-		Address source = new Address("Gouda","Zeugstraat","92","2801JD");
+		
+		
 		DistanceSource distanceToDepo = new DistanceSource(allAddressesInOrderList,source);
 		DistanceMatrix matrix = new DistanceMatrix(allAddressesInOrderList.urlOfAllLocations(),DistanceMatrix.MinimizationParameter.TIME);
-		matrix.viewMatrix();
-		System.out.println("?");
+		CorrectionMatrix correction = new CorrectionMatrix(allAddressesInOrderList, matrix);
+
 		SolveTSP shortestRoute = new SolveTSP(matrix);
-		System.out.println("?");
-		DivideRoute routeWithMinTrucks = new DivideRoute();
-		System.out.println("?");
-		routeWithMinTrucks.walkRoute(shortestRoute,  matrix, allAddressesInOrderList, distanceToDepo);
-		routeWithMinTrucks.viewOptimum();
-		
-		//Vector<Integer> times = shortestRoute.getTimesRoute(matrix);
-		// \/ has to work for multiple routes
-		System.out.println("?");
-		
-		for (int iter = 0 ; iter < routeWithMinTrucks.getOptimalNrOfTrucks() ; iter++) {
-			// GET AVAILABLE TRUCKS---------------------------v
-			RouteDBObject routeToDatebase = new RouteDBObject(1, date, routeWithMinTrucks.getOptimalRoutePerTruck().get(iter), 
-					allAddressesInOrderList.getListOfAddresses(), source, routeWithMinTrucks.getOptimalRoutePerTruck().get(iter));
-			routeToDatebase.viewRoutDBObject();
-			//routeToDatebase.insertRouteDB(routeToDatebase);
+		if((matrix.getHeight() == 0)||(distanceToDepo.getSizeList() == 0)) {
+			return "exceededKeyQuota";
 		}
-		;
 		
-		return "updatedValues";
+		DivideRoute routeWithMinTrucks = new DivideRoute();
+		routeWithMinTrucks.walkRoute(shortestRoute,  matrix, allAddressesInOrderList, distanceToDepo);
+		
+		GetAvailableTruck setTrucks = new GetAvailableTruck(routeWithMinTrucks.getOptimalNrOfTrucks(), date);
+		for (int iter = 0 ; iter < routeWithMinTrucks.getOptimalNrOfTrucks() ; iter++) {
+			RouteDBObject routeToDatabase = new RouteDBObject(setTrucks.getAllTruckIds().get(iter), date, routeWithMinTrucks.getOptimalRoutePerTruck().get(iter), 
+					allAddressesInOrderList.getListOfAddresses(), source, routeWithMinTrucks.getOptimalTimeWaypointsPerTruck().get(iter));
+			routeToDatabase.viewRoutDBObject();
+			routeToDatabase.insertRouteDB(routeToDatabase);
+		}
+		if (routeWithMinTrucks.getOptimalNrOfTrucks() > setTrucks.getNrOfAvailableTrucks()) {
+			return "Er zijn " + (routeWithMinTrucks.getOptimalNrOfTrucks() - setTrucks.getNrOfAvailableTrucks()) + " extra vrachtwagens nodig"; 
+		} else {	
+			return "updatedValues";
+		}
 	}
 	
 	

@@ -44,10 +44,7 @@ public class DistanceSource {
 				url += "|";
 			}
 		}
-		// TO DO:
-		//	Er staat hier nog een hardcoded url
-		url += "&mode=driving&language=en-EN&key=AIzaSyANJR6Knc1KAoc_OrdnGxrBmtehcWXr30o";
-				
+		url += "&mode=driving&language=nl-NL&key=" + Keys.distanceKey;				
 		setListFromJSON(url,distanceFromSource);		
 		
 	}
@@ -61,9 +58,7 @@ public class DistanceSource {
 			}
 		}
 		url += "&destinations=" + sourceAddress;
-		// TO DO:
-		//	Er staat hier nog een hardcoded url
-		url += "&mode=driving&language=en-EN&key=AIzaSyANJR6Knc1KAoc_OrdnGxrBmtehcWXr30o";
+		url += "&mode=driving&language=nl-NL&key=" + Keys.distanceKey;
 		
 		setListFromJSON(url,distanceToSource);
 	}
@@ -112,6 +107,9 @@ public class DistanceSource {
 		}
 	}
 
+	public int getSizeList() {
+		return Math.min(distanceToSource.size(),distanceFromSource.size());
+	}
 	public int getDistanceFromSourceToPoint(int indexAddress) {
 		return distanceFromSource.get(indexAddress);
 	}

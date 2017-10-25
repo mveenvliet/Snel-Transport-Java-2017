@@ -48,11 +48,11 @@ public class DivideRoute {
 					newRoute += route.charAt((startPosition + nodeInRoute + 1)%numberOfNodes);
 					nodeInRoute += 1;
 					
+					waypoint += "<" + Integer.toString(60*addresses.getSingleAddress(indexNextAddress).getMinutesLoadTime() +
+							matrix.getElement(indexNextAddress, indexCurrentAddress));
+					
 					indexCurrentAddress = route.charAt((startPosition + nodeInRoute)%numberOfNodes) - 'a';
 					indexNextAddress = route.charAt((startPosition + nodeInRoute + 1)%numberOfNodes) - 'a';
-					
-					
-					waypoint += "<" + Integer.toString(timePassed);
 					
 					timeNextStop = timePassed + 
 							60*addresses.getSingleAddress(indexNextAddress).getMinutesLoadTime() +

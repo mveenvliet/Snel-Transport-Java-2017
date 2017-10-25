@@ -37,30 +37,36 @@ public class RouteDBObject extends MySqlDB{
 	public String getRoute() {
 		return route;
 	}
-	public void setRoute(String route, List<Address> addresses, Address home) {
-		String shortRoute = "";
-		int idAddress = 0;
-		int homeId = 0;
-		addresses.add(0,home);
-		for (int iter = 0 ; iter < addresses.size() ; iter++) {
-			String sql = 
-					"SELECT idAddress " + 
-					"FROM databasesneltransport.address" +
-					" WHERE (city, street, housenumber) = ('" +
-					addresses.get(iter).getCity() + "', '" +
-					addresses.get(iter).getStreet() + "', '" +
-					addresses.get(iter).getHouseNumber() + "')";
 
+	public void setRoute(String route, List<Address> addresses, Address home) {
+
+		String routeToStore = "";
+		int idAddress;
+		String sql = 
+				"SELECT idAddress " + 
+				"FROM databasesneltransport.address " + 
+				"WHERE (city, street, housenumber) = ('" + 
+					home.getCity() + "', '" + 
+					home.getStreet() + "', '" +
+					home.getHouseNumber() + "')";
+		int idHome = getIntDatabase(sql, "idAddress");
+		routeToStore += idHome;
+		for (int iter = 0; iter < route.length(); iter++) {
+			int index = route.charAt(iter) - 'a';
+			sql = 
+					"SELECT idAddress " + 
+					"FROM databasesneltransport.address " + 
+					"WHERE (city, street, housenumber) = ('" +
+						addresses.get(index).getCity() + "', '" + 
+						addresses.get(index).getStreet() + "', '" +
+						addresses.get(index).getHouseNumber() + "')";
 			idAddress = getIntDatabase(sql, "idAddress");
-			if (iter == 0) {
-				shortRoute += idAddress;
-				homeId = idAddress;
-			} else {
-				shortRoute += "<" + idAddress; 
-			}
+			routeToStore += "<" + idAddress;
 		}
-		this.route = shortRoute + "<" + homeId;
+		routeToStore += "<" + idHome;
+		this.route = routeToStore;
 	}
+
 	public String getTimeWaypoints() {
 		return timeWaypoints;
 	}
@@ -107,11 +113,12 @@ public class RouteDBObject extends MySqlDB{
 					"SELECT idRouteList " +
 					"FROM databasesneltransport.routelist " +
 					"WHERE route = '" + routeObject.route + "' " + 
-					"AND deliverydate = '" + routeObject.date + "') " + 
+					"AND deliverydate = '" + routeObject.date + "'), " +
+					"status = 'wordt berzorgd' " +
 						"WHERE (idAddress) " +
-						"IN ('" + route.replaceAll("<","','") + "')";
+						"IN ('" + route.replaceAll("<","','") + "') AND deliverydate = '" +date + "'";
+		System.out.println(sqlOrderlist);
 		storeRouteToDatabase(sqlOrderlist);
-
 	}
 	
 	public void viewRoutDBObject() {
