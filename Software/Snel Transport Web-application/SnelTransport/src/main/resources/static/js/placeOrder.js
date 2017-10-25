@@ -59,13 +59,12 @@ pOrder.controller('postCustomerController', function($scope, $http, $location) {
 		var custNum = document.getElementById("customerNumber").value;
 		console.log(typeof custNum);
 		console.log(custNum)
-		if(custNum < 0 || custNum.indexOf(".") !== -1)
-			{
-				window.alert("Foutive invoer voor klantnummer.")
-				custNum = 0;
-				return;
-			}
-		
+		if (custNum < 0 || custNum.indexOf(".") !== -1) {
+			window.alert("Foutive invoer voor klantnummer.")
+			custNum = 0;
+			return;
+		}
+
 		if (custNum == '') {
 			custNum = 0;
 		}
@@ -235,57 +234,38 @@ pOrder
 						str = str.slice(str.indexOf(",") + 2);
 						var postalcode = str;
 
-						 for (var i = 0; i < rows.length; i++) {
-						
-						 products.push({
-						 productNumber : rows[i].cells[0].innerHTML,
-						 discription : rows[i].cells[1].innerHTML,
-						 type : rows[i].cells[2].innerHTML,
-						 amount : rows[i].cells[4].innerHTML,
-						 price : rows[i].cells[3].innerHTML
-						 });
-						 // if (selectedRow[0].cells[0].innerHTML ==
-						 // rows[i].cells[0].innerHTML) {
-						 // table.deleteRow(i);
-						 // }
-						 }
-//						 console.log(products);
+						for (var i = 0; i < rows.length; i++) {
+
+							products.push({
+								productNumber : rows[i].cells[0].innerHTML,
+								discription : rows[i].cells[1].innerHTML,
+								type : rows[i].cells[2].innerHTML,
+								amount : rows[i].cells[4].innerHTML,
+								price : rows[i].cells[3].innerHTML
+							});
+						}
 
 						var deliveryDate = document
 								.getElementById("deliveryDate");
-						// console.log(deliveryDate);
-						// console.log(deliveryDate.value);
-						// console.log(deliveryDate.innerHTML);
 
-						 var data = {
-						  customerNumber : customerNumber,
-						  companyName : companyName,
-						  city : city,
-						  street : street,
-						  houseNumber : houseNumber,
-						  postalcode : postalcode,
-						  deliveryDate : deliveryDate.value,
-						 products : products
-						 };
-//						products.push("hoi");
-//						products.push("Mark");
-//						var data = {
-//							//								
-//							hoi : "hoi",
-//							mark : "mark",
-//							products : products
-//						};
+						var data = {
+							customerNumber : customerNumber,
+							companyName : companyName,
+							city : city,
+							street : street,
+							houseNumber : houseNumber,
+							postalcode : postalcode,
+							deliveryDate : deliveryDate.value,
+							products : products
+						};
+
 						console.log(data);
 
 						$.post("placeOrder", data, config).then(
 								function(response) {
 									window.alert(response);
-									// clear vieuw if order was
-									// succesvol
 
 								}, function error(response) {
-									// console.log("response: " + response);
-									// $scope.postResultMessage = "Error with status: " + response.statusText;
 								});
 
 					}

@@ -22,6 +22,10 @@ public class Customer {
 		this.getCompany().setName(companyName);
 		this.customerNumber = customerNumber;
 	}
+	public Customer(int customerNumber, String companyName) {
+		this.getCompany().setName(companyName);
+		this.customerNumber = customerNumber;
+	}
 
 	public String getFirstname() {
 		return firstname;

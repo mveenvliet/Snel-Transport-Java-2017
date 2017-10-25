@@ -1,14 +1,8 @@
 package CIMSOLUTIONS.SnelTransport.PlaceOrder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
-import static java.util.Arrays.asList;
 
 @RestController
 public class PlaceOrderController {
