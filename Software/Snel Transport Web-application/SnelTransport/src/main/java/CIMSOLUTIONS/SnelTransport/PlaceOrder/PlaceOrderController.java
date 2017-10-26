@@ -20,7 +20,6 @@ public class PlaceOrderController {
 
 		searchCustomerService searchCustomer = new searchCustomerService();
 		Customer customer = new Customer(customerNumber, companyName, firstname, lastname);
-		searchCustomer.createQuerry(customer);
 		searchCustomer.lookUpCustomer(customer);
 		return searchCustomer.getResultSet();
 	}

@@ -10,7 +10,7 @@ pOrder.controller('tableController', function($scope, $http, $location) {
 		 * headers.
 		 */
 		var rows = $('tr').not('#tableHeaders');
-
+		var row = $(this);
 		/* Create 'click' event handler for rows */
 		rows.on('click', function(e) {
 
