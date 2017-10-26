@@ -16,7 +16,7 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="../static/js/datepicker.js" th:src="@{/js/datepicker.js}"></script>
+<script src="../static/js/datepickerNoPast.js" th:src="@{/js/datepickerNoPast.js}"></script>
 </head>
 
 <body data-ng-app="placeOrder">
@@ -200,7 +200,7 @@
 						item</button>
 					<button name="btnSearchProduct" type="submit" class="button_1" data-ng-click="placeOrder()">Bestelling
 						plaatsen</button>
-					Datum:<input type="text" id="deliveryDate" class="datepicker"></input>
+					Datum:<input type="text" id="deliveryDate" class="datepickerNoPast"></input>
 				</form>
 			</div>
 		</div>
