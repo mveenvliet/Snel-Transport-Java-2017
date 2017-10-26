@@ -68,7 +68,7 @@
 				<label for="customerId">Klantnummer:</label>
 				<div>
 					<input name="customerId" id="customerId" type="number"
-						data-ng-model="customerNumber"></input>
+						data-ng-model="customerNumber" min="1"></input>
 				</div>
 			</div>
 			<div class="customerFormItem">
@@ -110,7 +110,7 @@
 				<label for="StatusCustomer">Status:</label>
 				<div>
 					<select name="StatusCustomer" id="StatusCustomer">
-						<option value="Normal">Normal</option>
+						<option value="Normaal">Normaal</option>
 						<option value="Blacklisted">Blacklisted</option>
 					</select>
 				</div>
@@ -198,7 +198,7 @@
 							data-ng-click="editLocatie()">Locatie wijzigen</button>
 					</div>
 				</div>
-				<div class="customerFormItem">
+			 	<div class="customerFormItem">
 					<div>
 						<button name="btnRemoveLocation" type="submit" class="button_1"
 							data-ng-click="removeLocation()">Locatie verwijderen</button>

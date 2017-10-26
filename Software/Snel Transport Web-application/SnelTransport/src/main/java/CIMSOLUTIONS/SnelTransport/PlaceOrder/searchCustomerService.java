@@ -43,8 +43,8 @@ public class searchCustomerService extends MySqlDB {
 			sqlQuerry += "AND emailAddress LIKE '%" + c.getEmailAddress() + "%' ";
 		}
 		if (c.getStatus() != null && !c.getStatus().isEmpty()) {
-			sqlQuerry += "AND status = '" + c.getStatus() + "%' ";
-		}
+			sqlQuerry += "AND status = '" + c.getStatus() + "' ";
+		}		
 		System.out.println(sqlQuerry);
 		return sqlQuerry;
 	}
