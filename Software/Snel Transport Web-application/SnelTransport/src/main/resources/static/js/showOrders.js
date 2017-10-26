@@ -276,7 +276,8 @@ pOrder.controller('orderLineController', function($scope, $http, $location) {
 		$.post("showOrder/editStatusOrder", data, config).then(
 				function(response) {
 					console.log(response);
-					window.allert(response)
+					window.alert(response)
+
 					
 				},
 				function error(response) {

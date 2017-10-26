@@ -35,25 +35,25 @@ public class SearchOrder extends MySqlDB {
 	public String createQuerryOrder(Order o) {
 		List<Integer> idAddressen = new ArrayList<>();
 		if (o.getCustomer().getCompany().getName() != null && !o.getCustomer().getCompany().getName().isEmpty()) {
-			String querry = "SELECT * FROM databasesneltransport.company WHERE name = '" + o.getCustomer().getCompany().getName() + "'";
+			String querry = "SELECT * FROM databasesneltransport.company WHERE name = '"
+					+ o.getCustomer().getCompany().getName() + "'";
 			int companyId;
-			
+
 			try {
 				Statement myStmt = MyCon.createStatement();
 
 				ResultSet myRs = myStmt.executeQuery(querry);
-				if(myRs.next()) {
+				if (myRs.next()) {
 					companyId = myRs.getInt("idCompany");
-				}
-				else {
+				} else {
 					return "SELECT * FROM databasesneltransport.orderlist, databasesneltransport.address WHERE orderlist.idAddress = address.idAddress";
 				}
 				querry = "SELECT idAddress FROM databasesneltransport.address WHERE idCompany = '" + companyId + "'";
 				myRs = myStmt.executeQuery(querry);
-				while(myRs.next()) {
+				while (myRs.next()) {
 					idAddressen.add(myRs.getInt("idAddress"));
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -68,11 +68,10 @@ public class SearchOrder extends MySqlDB {
 			boolean first = true;
 			sqlQuerry += "AND orderlist.idAddress IN(";
 			for (Integer integer : idAddressen) {
-				if(first) {
+				if (first) {
 					sqlQuerry += integer;
 					first = false;
-				}
-				else {
+				} else {
 					sqlQuerry += ", " + integer;
 				}
 			}
@@ -121,15 +120,17 @@ public class SearchOrder extends MySqlDB {
 		}
 
 	}
-	
+
 	public List<String> lookUpProductNumber(int productId) {
 		List<String> productNumName = new ArrayList<>();
-		
+
 		Statement myStmt;
 		try {
 			myStmt = MyCon.createStatement();
-			ResultSet myRs = myStmt.executeQuery("SELECT description, productNumber FROM databasesneltransport.productlist WHERE idProductList = '" + productId + "'");
-			if(myRs.next()) {
+			ResultSet myRs = myStmt.executeQuery(
+					"SELECT description, productNumber FROM databasesneltransport.productlist WHERE idProductList = '"
+							+ productId + "'");
+			if (myRs.next()) {
 				productNumName.add(myRs.getString("productNumber"));
 				productNumName.add(myRs.getString("description"));
 			}
@@ -139,14 +140,15 @@ public class SearchOrder extends MySqlDB {
 		}
 		return productNumName;
 	}
-	
+
 	public String createQuerryOrderLines(Order o) {
-		String sqlQuerry = "SELECT * FROM databasesneltransport.orderline WHERE idOrderList = '" + o.getOrderNumber() + "'";
+		String sqlQuerry = "SELECT * FROM databasesneltransport.orderline WHERE idOrderList = '" + o.getOrderNumber()
+				+ "'";
 
 		System.out.println(sqlQuerry);
 		return sqlQuerry;
 	}
-	
+
 	public void lookUpOrderLines(Order o) {
 
 		String sqlQuerry = createQuerryOrderLines(o);
@@ -158,7 +160,7 @@ public class SearchOrder extends MySqlDB {
 			boolean first = true;
 
 			while (myRs.next()) {
-				if(first) {	
+				if (first) {
 					tempOrder.setOrderId(myRs.getInt("idOrderList"));
 					tempOrder.setOrderNumber(myRs.getInt("idOrderList"));
 					first = false;
@@ -184,37 +186,61 @@ public class SearchOrder extends MySqlDB {
 		}
 
 	}
-	
+
 	public String setOrderStatus(Order o) {
-		PreparedStatement  myStmt;
-		try {
-			myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.orderlist SET status = '"+ o.getStatus() + "' WHERE idOrderList = '" + o.getOrderNumber() + "'");
-			int count = myStmt.executeUpdate();
-			if(count > 0) {
-				return "Order status changed to: " + o.getStatus();
+		PreparedStatement myStmt;
+
+		if (o.getStatus() == "Bezorgd") {
+			try {
+				myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.orderlist SET status = 'Bezorgd' WHERE idOrderList = '" + o.getOrderNumber() + "'");
+				int count = myStmt.executeUpdate();
+				if (!(count > 0)) {
+					return "Failed to change order status to: " + o.getStatus();
+				}
+				
+				myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.orderLine SET status = 'Bezorgd' WHERE idOrderList = '" + o.getOrderNumber() + "'");
+				count = myStmt.executeUpdate();
+				if (count > 0) {
+					return "Order status changed to: " + o.getStatus();
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return "Failed to change order status to: " + o.getStatus();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "Failed to change order status to: " + o.getStatus();
+
+		} else {
+			try {
+				myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.orderlist SET status = '" + o.getStatus()
+						+ "' WHERE idOrderList = '" + o.getOrderNumber() + "'");
+				int count = myStmt.executeUpdate();
+				if (count > 0) {
+					return "Order status changed to: " + o.getStatus();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return "Failed to change order status to: " + o.getStatus();
+			}
 		}
-
-		return "Failed to change order status to: " + o.getStatus();	
+		return "Failed to change order status to: " + o.getStatus();
 	}
-	
-	public String setOrderLineStatus(Order o) {
-//		PreparedStatement  myStmt;
-//		try {
-//			myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.orderline SET status = '"+ o.getStatus() + "' WHERE idOrderList = '" + o.getOrderNumber() + "'");
-//			int count = myStmt.executeUpdate();
-//			if(count > 0) {
-//				return "Orderline status changed to: " + o.getStatus();
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			return "Failed to change orderline status to: " + o.getStatus();
-//		}
 
-		return "Failed to change orderline status to: " + o.getStatus();	
+	public String setOrderLineStatus(Order o) {
+		// PreparedStatement myStmt;
+		// try {
+		// myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.orderline SET
+		// status = '"+ o.getStatus() + "' WHERE idOrderList = '" + o.getOrderNumber() +
+		// "'");
+		// int count = myStmt.executeUpdate();
+		// if(count > 0) {
+		// return "Orderline status changed to: " + o.getStatus();
+		// }
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// return "Failed to change orderline status to: " + o.getStatus();
+		// }
+
+		return "Failed to change orderline status to: " + o.getStatus();
 	}
 
 }
