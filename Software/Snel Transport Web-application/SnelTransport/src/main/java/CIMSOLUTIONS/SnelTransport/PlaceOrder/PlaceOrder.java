@@ -85,10 +85,9 @@ public class PlaceOrder extends MySqlDB {
 
 	private boolean checkIfProductsExcist() {
 		PreparedStatement preparedStmt;
-		Iterator<Product> itr = order.getOrderLineList().iterator();
+//		Iterator<Product> itr = order.getOrderLineList().iterator();
 		try {
-			while (itr.hasNext()) {
-				Product product = (Product) itr.next();
+			for (Product product : order.getOrderLineList()) {
 				System.out.println(product.getProductNumber() + "\t" + product.getName() + "\t" + product.getAmount());
 
 				preparedStmt = MyCon.prepareStatement("SELECT idProductList FROM databasesneltransport.productlist WHERE productNumber = ?");
@@ -97,16 +96,32 @@ public class PlaceOrder extends MySqlDB {
 				ResultSet myRs = preparedStmt.executeQuery();
 				if (myRs.next()) {
 					product.setId(myRs.getInt("idProductList"));
-					return true;
+					System.out.println("productId: " + product.getId());
 				} else {
 					return false;
 				}
 			}
+			
+//			while (itr.hasNext()) {
+//				Product product = (Product) itr.next();
+//				System.out.println(product.getProductNumber() + "\t" + product.getName() + "\t" + product.getAmount());
+//
+//				preparedStmt = MyCon.prepareStatement("SELECT idProductList FROM databasesneltransport.productlist WHERE productNumber = ?");
+//				preparedStmt.setString(1, product.getProductNumber());
+//
+//				ResultSet myRs = preparedStmt.executeQuery();
+//				if (myRs.next()) {
+//					product.setId(myRs.getInt("idProductList"));
+//					return true;
+//				} else {
+//					return false;
+//				}
+//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	private boolean insertOrderLines() {
@@ -121,7 +136,8 @@ public class PlaceOrder extends MySqlDB {
 				preparedStmt.setDouble(2, product.getPrice());
 				preparedStmt.setInt(3, order.getOrderId());
 				preparedStmt.setInt(4, product.getId());
-
+				System.out.println("productId orderline: " + product.getId());
+				System.out.println("productNumber: " + product.getProductNumber());
 				preparedStmt.execute();
 			}
 
