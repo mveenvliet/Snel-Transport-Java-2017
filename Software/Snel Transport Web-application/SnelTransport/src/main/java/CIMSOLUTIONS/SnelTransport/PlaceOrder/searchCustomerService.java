@@ -21,7 +21,8 @@ public class searchCustomerService extends MySqlDB {
 
 	public String createQuerry(Customer c) {
 
-		String sqlQuerry = "SELECT customer.customerNumber, company.name, customer.firstName, customer.lastName, customer.email, customer.phoneNumber, customer.status, address.city, address.street, address.houseNumber, address.postalCode "
+		String sqlQuerry = "SELECT customer.customerNumber, company.name, customer.firstName, customer.lastName, customer.email, customer.phoneNumber, customer.status, "
+					+ "address.city, address.street, address.houseNumber, address.postalCode, address.locationSpecification "
 					+ "FROM databasesneltransport.customer, databasesneltransport.company, databasesneltransport.address "
 						+ "WHERE customer_idAddress = address.idAddress AND company.idCompany = customer.idCompany ";
 		
@@ -69,6 +70,7 @@ public class searchCustomerService extends MySqlDB {
 				tempCustomer.getAddress().setStreet(myRs.getString("street"));
 				tempCustomer.getAddress().setHouseNumber(myRs.getString("houseNumber"));
 				tempCustomer.getAddress().setPostalCode(myRs.getString("postalCode"));
+				tempCustomer.getAddress().setLocationSpecification(myRs.getString("locationSpecification"));
 				tempCustomer.createInfoString();
 				tempCustomer.printValues();
 				resultSet.add(tempCustomer);

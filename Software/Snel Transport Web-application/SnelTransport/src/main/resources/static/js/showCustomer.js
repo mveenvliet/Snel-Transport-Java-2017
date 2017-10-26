@@ -1,6 +1,20 @@
 var vCustomer = angular.module('showCustomer', []);
 
 vCustomer.controller('postCustomerController', function($scope, $http, $location) {
+	$scope.EmptyAll = function() {
+		document.getElementById('customerId').value='';
+		document.getElementById('companyName').value='';
+		document.getElementById('firstName').value='';
+		document.getElementById('lastName').value='';
+		document.getElementById('emailAddress').value='';
+		document.getElementById('telNumber').value='';
+		document.getElementById('streetName').value='';
+		document.getElementById('houseNumber').value='';
+		document.getElementById('postalCode').value='';
+		document.getElementById('cityName').value='';
+		document.getElementById('LocationDiscription').value='';
+	}
+	
 	$scope.submitCustomer = function() {
 		var config = {
 			headers : {
@@ -46,7 +60,7 @@ vCustomer.controller('postCustomerController', function($scope, $http, $location
 						var emailAddress = row.insertCell(4);
 						var phoneNumber = row.insertCell(5);
 						customerNumber.innerHTML = response[i].customerNumber;
-						companyName.innerHTML = response[i].company.name;
+						companyName.innerText = response[i].company.name;
 						firstName.innerHTML = response[i].firstname;
 						lastName.innerHTML = response[i].lastname;
 						emailAddress.innerHTML = response[i].emailAddress;
@@ -85,12 +99,12 @@ vCustomer.controller('tableController', function($scope, $http, $location) {
 					'Accept' : 'application/json'
 				}
 			}
-		data = {customerNumber : parseInt(row[0].cells[0].innerHTML),
-				companyName : row[0].cells[1].innerHTML,
-				firstName : row[0].cells[2].innerHTML,
-				lastName : row[0].cells[3].innerHTML,
-				emailAddress : row[0].cells[4].innerHTML,
-				telNumber : row[0].cells[5].innerHTML
+		data = {customerNumber : parseInt(row[0].cells[0].innerText),
+				companyName : row[0].cells[1].innerText,
+				firstName : row[0].cells[2].innerText,
+				lastName : row[0].cells[3].innerText,
+				emailAddress : row[0].cells[4].innerText,
+				telNumber : row[0].cells[5].innerText
 		}
 
 		$.get("searchSetCustomer", data, config).then(
@@ -99,17 +113,20 @@ vCustomer.controller('tableController', function($scope, $http, $location) {
 					document.getElementById('houseNumber').value=response[0].address.houseNumber;
 					document.getElementById('postalCode').value=response[0].address.postalCode;
 					document.getElementById('streetName').value=response[0].address.street;
-					document.getElementById('LocationDiscription').value=response[0].address.street;
+					document.getElementById('LocationDiscription').value=response[0].address.locationSpecification;
 		})
 		
-		document.getElementById('customerId').value=row[0].cells[0].innerHTML;
-		document.getElementById('companyName').value=row[0].cells[1].innerHTML;
-		document.getElementById('firstName').value=row[0].cells[2].innerHTML;
-		document.getElementById('lastName').value=row[0].cells[3].innerHTML;
-		document.getElementById('emailAddress').value=row[0].cells[4].innerHTML;
-		document.getElementById('telNumber').value=row[0].cells[5].innerHTML;
+		document.getElementById('customerId').value=row[0].cells[0].innerText;
+		document.getElementById('companyName').value=row[0].cells[1].innerText;
+		document.getElementById('firstName').value=row[0].cells[2].innerText;
+		document.getElementById('lastName').value=row[0].cells[3].innerText;
+		document.getElementById('emailAddress').value=row[0].cells[4].innerText;
+		document.getElementById('telNumber').value=row[0].cells[5].innerText;
 		
 		$scope.companyName  = '?';
 		
 	});
 });
+
+//vCustomer.controller('postCustomerController', function($scope, $http, $location) {
+//	);
