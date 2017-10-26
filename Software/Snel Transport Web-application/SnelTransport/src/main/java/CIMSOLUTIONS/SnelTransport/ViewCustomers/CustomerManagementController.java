@@ -26,10 +26,11 @@ public class CustomerManagementController {
 			@RequestParam("companyName") String companyName, 
 			@RequestParam("firstName") String firstName,
 			@RequestParam("lastName") String lastName,
-			@RequestParam("emailAddress") String emailAddress) {
+			@RequestParam("emailAddress") String emailAddress,
+			@RequestParam("status") String status) {
 
 		searchCustomerService searchCustomer = new searchCustomerService();
-		Customer customer = new Customer(customerNumber, companyName, firstName, lastName, emailAddress);
+		Customer customer = new Customer(customerNumber, companyName, firstName, lastName, emailAddress, status);
 		
 		searchCustomer.lookUpCustomer(customer);
 		return searchCustomer.getResultSet();

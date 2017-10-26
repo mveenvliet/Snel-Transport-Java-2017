@@ -39,12 +39,14 @@
 	<section id="headSection">
 		<h1>Inventaris</h1>
 	</section>
-	<section id="inventaris">
+	
+	
+	<section id="inventaris" data-ng-controller="tableController">
 		<div class="container">
 			<div id="containerProductManagement">
 				<table>
 					<thead>
-						<tr>
+						<tr id="tableHeaders">
 							<th>Productnummer</th>
 							<th>Naam</th>
 							<th>Soort</th>
@@ -55,210 +57,34 @@
 							<th>Status</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>iphone7</td>
-							<td>mobiel</td>
-							<td>669</td>
-							<td>25</td>
-							<td>A</td>
-							<td>1</td>
-							<td>Op vaaraad</td>
-						</tr>
-
+					<tbody id="customerTbody">
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
-
-	<section id="shoppingBasket">
-		<div class="container">
-			<div class="TrippelContainer" id="TrippelContainer1">
-				<p>
-					<label for="productNumber">Productnummer:</label> <input
-						name="productNumber" id="productNumber" type="text"
+	
+	<section id="alterProduct">
+		<div class="container" data-ng-controller="postCustomerController">
+			<div class="productFormItem">
+				<label for="productNumber">Productnummer:</label>
+				<div>
+					<input name="productNumber" id="productNumber" type="text"
 						data-ng-model="productNumber"></input>
-				</p>
-				<p>
-					<label for="productName">Product naam:</label> <input
-						name="productName" id="productName" type="text"
+				</div>
+			</div>
+			<div class="productFormItem">
+				<label for="productName">Naam:</label>
+				<div>
+					<input name="productName" id="productName" type="text"
 						data-ng-model="productName"></input>
-				</p>
-				<p>
-					<label for="productType">Type: </label> <select multiple="multiple"
-						id="productType">
+				</div>
+			</div>
+			<div class="productFormItem">
+			<label for="catagory">Soort:</label>
+				<div>
+					<select  name="catagoryList" id="catagoryList">
+						<option value=""></option>
 						<option value="Board">Board</option>
 						<option value="Computers">Computers</option>
 						<option value="Displays">Displays</option>
@@ -269,9 +95,43 @@
 						<option value="Storage">Storage</option>
 						<option value="Tablets">Tablets</option>
 					</select>
-				</p>
-				<p>
-					<label for="productStatus">Status:</label> <select
+				</div></div>
+			<div class="productFormItem">
+				<label for="productPrice">Prijs:</label>
+				<div>
+					<input name="productPrice" id="productPrice" type="text"
+						data-ng-model="productPrice"></input>
+				</div>
+			</div>
+			<div class="productFormItem">
+				<label for="amount">Aantal:</label>
+				<div>
+					<input name="amount" id="amount" type="numeric"
+						data-ng-model="amount"></input>
+				</div>
+			</div>
+			<div class="productFormItem">
+				<label for="warehouse">Warenhuis:</label>
+				<div>
+					<select name="catagoryList" id="catagoryList">
+						<option value=""></option>
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="C">C</option>
+					</select>
+				</div>
+			</div>
+			<div class="productFormItem">
+				<label for="compartimentNumber">Compartimentnummer:</label>
+				<div>
+					<input name="compartimentNumber" id="compartimentNumber" type="numeric"
+						data-ng-model="compartimentNumber"></input>
+				</div>
+			</div>
+			<div class="productFormItem">
+				<label for="productStatus">Status:</label> 
+				<div>
+				<select
 						name="StatusList" id="StatusList">
 						<option value="Actief">Actief</option>
 						<option value="NietActief">Niet actief</option>
@@ -281,50 +141,34 @@
 						<option value="VerdwijntBinnenkort">Verdwijnt binnenkort</option>
 						<option value="Sale">Sale</option>
 					</select>
-
-				</p>
+			</div></div>
+		</div>
+	</section>
+	
+	
+	<section id="alterCustomerButtons">
+		<div class="container" data-ng-controller="postCustomerController">
+			<div class="customerFormItem">
+				<div>
+					<button name="btnSearchCustomer" type="submit" class="button_1"
+					 	data-ng-click="submitCustomer()">Product zoeken</button>
+				</div>
 			</div>
-			<div class="TrippelContainer" id="TrippelContainer2">
-				<p>
-					<label for="productPrijs">Prijs:</label> <input name="productPrijs"
-						id="productPrijs" type="number" step="0.01"
-						data-ng-model="productPrijs"></input>
-				</p>
-				<p>
-					<label for="productAmount">Product naam:</label> <input
-						name="productAmount" id="productAmount" type="number"
-						data-ng-model="productAmount"></input>
-				</p>
-				<p>
-					<label for="selectieWarenhuis">Warenhuis:</label> <select
-						name="selectieWarenhuis" id="selectieWarenhuis">
-						<option value="A">A</option>
-						<option value="B">B</option>
-						<option value="C">C</option>
-					</select>
-				</p>
-				<p>
-					<label for="compartmentNumber">Compartementnummer:</label> <input
-						name="compartmentNumber" id="compartmentNumber" type="number"
-						data-ng-model="productPrijs"></input>
-				</p>
+			<div class="customerFormItem">
+				<div>
+					 <button name="btnEditCustomer" type="submit" class="button_1">Product wijzigen</button>
+				</div>
 			</div>
-
-			<div class="TrippelContainer" id="TrippelContainer3">
-				<button name="btnSearchProduct" type="submit" class="button_1">Product
-					zoeken</button>
-				<br />
-				<button name="btnSearchProduct" type="submit" class="button_1">Product
-					wijzigen</button>
-				<br />
-				<button name="btnSearchProduct" type="submit" class="button_1">Product
-					toevoegen</button>
-				<br />
-				<button name="btnSearchProduct" type="submit" class="button_1">Product
-					verwijderen</button>
-				<br /> <input name="showHistory" id="showHistory" type="checkbox"
-					data-ng-model="showHistory"></input> <label for="labelShowHistory">Laat
-					geschiedenis zien.</label>
+			<div class="customerFormItem">
+				<div>
+					<button name="btnRemoveCustomer" type="submit" class="button_1">Product toevoegen</button>
+				</div>
+			</div>
+			<div class="customerFormItem">
+				<div>
+					<button name="btnAddCustomer" type="submit" class="button_1"
+					>Product verwijderen</button>
+				</div>
 			</div>
 		</div>
 	</section>

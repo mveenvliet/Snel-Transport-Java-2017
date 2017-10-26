@@ -23,12 +23,13 @@ public class Customer {
 		this.customerNumber = customerNumber;
 	}
 	
-	public Customer(int customerNumber, String companyName, String firstname, String lastname, String emailAddress) {
+	public Customer(int customerNumber, String companyName, String firstname, String lastname, String emailAddress, String status) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.getCompany().setName(companyName);
 		this.customerNumber = customerNumber;
 		this.emailAddress = emailAddress;
+		this.status = status;
 	}
 	
 	public Customer(int customerNumber, String companyName) {
