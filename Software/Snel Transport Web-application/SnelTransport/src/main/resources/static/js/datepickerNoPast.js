@@ -1,9 +1,10 @@
 /*<![CDATA[*/
   $( function() {
-	  var dateToday = new Date();
+	  var tomorrow = new Date();
+	  tomorrow.setDate(tomorrow.getDate() + 1);
 	  $( ".datepickerNoPast" ).datepicker();
 	  $.datepicker.regional['nl'] = {clearText: 'Effacer', clearStatus: '',
-			  	minDate: dateToday,
+			  	minDate: tomorrow,
 			    closeText: 'sluiten', closeStatus: 'Onveranderd sluiten ',
 			    prevText: '<vorige', prevStatus: 'Zie de vorige maand',
 			    nextText: 'volgende>', nextStatus: 'Zie de volgende maand',
