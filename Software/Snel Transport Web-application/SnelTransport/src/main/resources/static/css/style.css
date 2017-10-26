@@ -120,6 +120,12 @@ ul {
 	margin: 10px 10px 10px 5px;
 }
 
+.productFormItem {
+	float: left;
+	min-width: 10%;
+	margin: 10px 10px 10px 5px;
+}
+
 /* Header **/
 header {
 	background: #214fb9;

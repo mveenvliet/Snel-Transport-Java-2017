@@ -3,25 +3,9 @@
 	  $( ".datepickerroute" ).datepicker({
 		  onSelect: function(dateText) {
 			  document.getElementById("calcRouteButton").disabled = false;
-			  $.get("/routeBepaling/date", {date:dateText}).then( function(response){
-				  if (response != ''){
-					document.getElementById("right-panel-status").innerHTML = '';
-				  	var htmlString = "<div><p>Selecteer vrachtwagen:</p><select name='licencePlate' id='licencePlate' >";
-				  	htmlString += ' <option> </option>';
-				  	for (i = 0; i < response.length; i++){
-				  		htmlString += ' <option value=\'' + response[i] + '\'>' + response[i] + '</option>';
-				  	}
-				  	htmlString += '</select></div><br>';
-				  	document.getElementById("dropdown_menutrucks").innerHTML = htmlString;
-
-				  } else {
-					  document.getElementById("right-panel-status").innerHTML = '<p>Nog geen routes bekend voor deze dag</p>';
-					  document.getElementById("dropdown_menutrucks").innerHTML = ''; 
-					  document.getElementById("directions-panel").innerHTML = ''; 
-
-				  }
-					  
-			})}});
+			  showOption(dateText);
+		  }});
+	  
 	  $.datepicker.regional['nl'] = {clearText: 'Effacer', clearStatus: '',
 			    closeText: 'sluiten', closeStatus: 'Onveranderd sluiten ',
 			    prevText: '<vorige', prevStatus: 'Zie de vorige maand',
@@ -44,16 +28,38 @@
 			
   } );
   
+  function showOption(dateText){
+	  //console.log('bij response wordt de dropdownweergegeven en anderes geen route bekend, lege dropdown en lege route')
+	 $.get("/routeBepaling/date", {date:dateText}).then( function(response){
+		  if (response != ''){
+			document.getElementById("right-panel-status").innerHTML = '';
+		  	var htmlString = "<div><p>Selecteer vrachtwagen:</p><select name='licencePlate' id='licencePlate' >";
+		  	htmlString += ' <option> </option>';
+		  	for (i = 0; i < response.length; i++){
+		  		htmlString += ' <option value=\'' + response[i] + '\'>' + response[i] + '</option>';
+		  	}
+		  	htmlString += '</select></div><br>';
+		  	document.getElementById("dropdown_menutrucks").innerHTML = htmlString;
+
+		  } else {
+			  document.getElementById("right-panel-status").innerHTML = '<p>Nog geen routes bekend voor deze dag</p>';
+			  document.getElementById("dropdown_menutrucks").innerHTML = ''; 
+			  document.getElementById("directions-panel").innerHTML = ''; 
+		  }
+	})
+  }
+  
   function updateRouteAtDate(){
-	  var time = document.getElementById('date').value;
-	  if (time != ""){
-		  document.getElementById("calcRouteButton").disabled = true;
-		  var time = 
+	  var dateText = document.getElementById('date').value;
+	  if (dateText != ""){
+		  document.getElementById("calcRouteButton").disabled = true; 
 		  $.get("/calcRoute/date", {date:time}).then( function(response){
+		  //var response = "Er zijn 3 trucks extra nodig";
 		  switch(response){
 		  	case "updatedValues":
 		  		document.getElementById("right-panel-status").innerHTML = '<p>De routes zijn geupdated</p>';
 		  		document.getElementById("directions-panel").innerHTML = '';
+		  		showOption(dateText); //
 		  		break;
 		  	case "exceededKeyQuota":
 		  		document.getElementById("right-panel-status").innerHTML = '<p>De quota voor aantal routeberekening is overschreden, overweeg een upgrade of probeer morgen weer	</p>';
@@ -66,7 +72,10 @@
 		  	default:
 		  		document.getElementById("right-panel-status").innerHTML = '<p>' + response + '</p>';
 	  			document.getElementById("directions-panel").innerHTML = '';
-		  }})
+	  			showOption(dateText); //
+	  			
+		  }
+		  })
 	  } else {
 		  document.getElementById("right-panel-status").innerHTML = '<p>Selecteer eerst een datum waarvoor de routes berekend moeten worden</p>';
 	  }
@@ -138,13 +147,10 @@
 							sumTime += route.legs[i].duration.value;
 							sumDistance += route.legs[i].distance.value;
 						}
-						var sumWithLoading = sumTime + (route.legs.length - 1)*1800;
 						
 						
 						summaryPanel.innerHTML += '<table class = "tableRB"><tr><td><b>Reistijd</b></td><td><b>'+ 
 													Math.floor(sumTime/3600) + ':' + Math.floor(sumTime/60)%60 + ':' + sumTime%60 + 
-													'</b></td></tr><tr><td><b>Tijd met laden</b></td><td><b>'+ 
-													Math.floor(sumWithLoading/3600) + ':' + Math.floor(sumWithLoading/60)%60 + ':' + sumWithLoading%60+
 													'</b></td></tr><tr><td><b>Lengte route</b></td><td><b>'+ 
 													Math.round( sumDistance/100) / 10 + ' km</b></td></tr></table><br>';
 						for (var i = 0; i < route.legs.length; i++) {

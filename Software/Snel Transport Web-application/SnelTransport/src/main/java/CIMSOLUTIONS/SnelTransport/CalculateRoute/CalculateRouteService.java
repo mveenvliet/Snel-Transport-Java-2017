@@ -1,12 +1,10 @@
 package CIMSOLUTIONS.SnelTransport.CalculateRoute;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+
 
 import CIMSOLUTIONS.Database.MySqlDB;
 
@@ -28,27 +26,27 @@ public class CalculateRouteService extends MySqlDB {
 		return result;
 	}
 	
-	private String setDefaultHomeAddressSQL(){
-		String setHomeSQL = 
-				"SELECT city, street, houseNumber, postalcode " +
-				"FROM databasesneltransport.address " +
-				"WHERE idAddress " +
-				"IN (SELECT customer_idAddress " + 
-					"FROM databasesneltransport.customer " + 
-					"WHERE customerNumber = '1')";
-		return setHomeSQL;
-	}
+//	private String setDefaultHomeAddressSQL(){
+//		String setHomeSQL = 
+//				"SELECT city, street, houseNumber, postalcode " +
+//				"FROM databasesneltransport.address " +
+//				"WHERE idAddress " +
+//				"IN (SELECT customer_idAddress " + 
+//					"FROM databasesneltransport.customer " + 
+//					"WHERE customerNumber = '1')";
+//		return setHomeSQL;
+//	}
 	
-	private String setDefaultHomeAddressSQL(int customerNumber){
-		String setHomeSQL = 
-				"SELECT city, street, houseNumber, postalcode " +
-				"FROM databasesneltransport.address " +
-				"WHERE idAddress " +
-				"IN (SELECT customer_idAddress " + 
-					"FROM databasesneltransport.customer " + 
-					"WHERE customerNumber = '" + customerNumber + "')";
-		return setHomeSQL;
-	}
+//	private String setDefaultHomeAddressSQL(int customerNumber){
+//		String setHomeSQL = 
+//				"SELECT city, street, houseNumber, postalcode " +
+//				"FROM databasesneltransport.address " +
+//				"WHERE idAddress " +
+//				"IN (SELECT customer_idAddress " + 
+//					"FROM databasesneltransport.customer " + 
+//					"WHERE customerNumber = '" + customerNumber + "')";
+//		return setHomeSQL;
+//	}
 	
 
 	private String switchDDMMYYYYtoYYYYMMDD(String date) {
@@ -99,7 +97,7 @@ public class CalculateRouteService extends MySqlDB {
 		
 		String date = switchDDMMYYYYtoYYYYMMDD(badFormatDate);
 		
-		DeletePrevious cleanUp = new DeletePrevious(date);
+		new DeletePrevious(date);
 		
 		Address source = new Address("Gouda","Zeugstraat","92","2801JD");
 		AddressList allAddressesInOrderList = new AddressList();
@@ -111,7 +109,7 @@ public class CalculateRouteService extends MySqlDB {
 		
 		DistanceSource distanceToDepo = new DistanceSource(allAddressesInOrderList,source);
 		DistanceMatrix matrix = new DistanceMatrix(allAddressesInOrderList.urlOfAllLocations(),DistanceMatrix.MinimizationParameter.TIME);
-		CorrectionMatrix correction = new CorrectionMatrix(allAddressesInOrderList, matrix);
+		new CorrectionMatrix(allAddressesInOrderList, matrix);
 
 		SolveTSP shortestRoute = new SolveTSP(matrix);
 		if((matrix.getHeight() == 0)||(distanceToDepo.getSizeList() == 0)) {

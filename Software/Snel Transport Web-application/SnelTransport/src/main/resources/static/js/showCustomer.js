@@ -123,10 +123,5 @@ vCustomer.controller('tableController', function($scope, $http, $location) {
 		document.getElementById('emailAddress').value=row[0].cells[4].innerText;
 		document.getElementById('telNumber').value=row[0].cells[5].innerText;
 		
-		$scope.companyName  = '?';
-		
 	});
 });
-
-//vCustomer.controller('postCustomerController', function($scope, $http, $location) {
-//	);

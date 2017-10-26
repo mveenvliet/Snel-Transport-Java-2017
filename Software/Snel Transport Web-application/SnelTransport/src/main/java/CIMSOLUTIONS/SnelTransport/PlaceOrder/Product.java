@@ -1,7 +1,5 @@
 package CIMSOLUTIONS.SnelTransport.PlaceOrder;
 
-import static org.mockito.Matchers.booleanThat;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +45,20 @@ public class Product {
 		typeList = type;
 	}
 
+	public Product(String productNumber, String productName, String categoryList, double productPrice, 
+			int amount, String warehouse, int compartimentNumber, String productStatus) {
+		this.productNumber = productNumber;
+		this.name = productName;
+		this.typeString = categoryList;
+		this.price = productPrice;
+		this.amount = amount;
+		this.location = warehouse;
+		this.compatmentNumber = compartimentNumber;
+		this.status = productStatus;
+	
+	}
+	
+	
 	public int getId() {
 		return id;
 	}

@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"></meta>
 <meta name="viewport" content="width=device-width"></meta>
-<meta name="placeOrder" content="Order placement"></meta>
+<meta name="showProducts" content="Show products"></meta>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="../static/js/placeOrder.js" th:src="@{/js/placeOrder.js}"></script>
+<script src="../static/js/showProducts.js" th:src="@{/js/showProducts.js}"></script>
 <title>Productmanagement</title>
 <link rel="stylesheet" href="../static/css/style.css"
 	th:href="@{/css/style.css}"></link>
@@ -39,8 +39,8 @@
 	<section id="headSection">
 		<h1>Inventaris</h1>
 	</section>
-	
-	
+
+
 	<section id="inventaris" data-ng-controller="tableController">
 		<div class="container">
 			<div id="containerProductManagement">
@@ -57,15 +57,15 @@
 							<th>Status</th>
 						</tr>
 					</thead>
-					<tbody id="customerTbody">
+					<tbody id="productTbody">
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
-	
+
 	<section id="alterProduct">
-		<div class="container" data-ng-controller="postCustomerController">
+		<div class="container" data-ng-controller="viewProductController">
 			<div class="productFormItem">
 				<label for="productNumber">Productnummer:</label>
 				<div>
@@ -81,9 +81,9 @@
 				</div>
 			</div>
 			<div class="productFormItem">
-			<label for="catagory">Soort:</label>
+			<label for="category">Soort:</label>
 				<div>
-					<select  name="catagoryList" id="catagoryList">
+					<select  name="categoryList" id="categoryList">
 						<option value=""></option>
 						<option value="Board">Board</option>
 						<option value="Computers">Computers</option>
@@ -106,14 +106,14 @@
 			<div class="productFormItem">
 				<label for="amount">Aantal:</label>
 				<div>
-					<input name="amount" id="amount" type="numeric"
+					<input name="amount" id="amount" type="text"
 						data-ng-model="amount"></input>
 				</div>
 			</div>
 			<div class="productFormItem">
 				<label for="warehouse">Warenhuis:</label>
 				<div>
-					<select name="catagoryList" id="catagoryList">
+					<select name="categoryList" id="categoryList">
 						<option value=""></option>
 						<option value="A">A</option>
 						<option value="B">B</option>
@@ -124,12 +124,12 @@
 			<div class="productFormItem">
 				<label for="compartimentNumber">Compartimentnummer:</label>
 				<div>
-					<input name="compartimentNumber" id="compartimentNumber" type="numeric"
+					<input name="compartimentNumber" id="compartimentNumber" type="text"
 						data-ng-model="compartimentNumber"></input>
 				</div>
 			</div>
 			<div class="productFormItem">
-				<label for="productStatus">Status:</label> 
+				<label for="productStatus">Status:</label>
 				<div>
 				<select
 						name="StatusList" id="StatusList">
@@ -144,30 +144,36 @@
 			</div></div>
 		</div>
 	</section>
-	
-	
+
+
 	<section id="alterCustomerButtons">
 		<div class="container" data-ng-controller="postCustomerController">
-			<div class="customerFormItem">
+			<div class="productFormItem">
 				<div>
-					<button name="btnSearchCustomer" type="submit" class="button_1"
-					 	data-ng-click="submitCustomer()">Product zoeken</button>
+					<button name="btnSearchProduct" type="submit" class="button_1"
+					 	data-ng-click="submitProduct()">Product zoeken</button>
 				</div>
 			</div>
-			<div class="customerFormItem">
+			<div class="productFormItem">
 				<div>
-					 <button name="btnEditCustomer" type="submit" class="button_1">Product wijzigen</button>
+					 <button name="btnEditProduct" type="submit" class="button_1">Product wijzigen</button>
 				</div>
 			</div>
-			<div class="customerFormItem">
+			<div class="productFormItem">
 				<div>
-					<button name="btnRemoveCustomer" type="submit" class="button_1">Product toevoegen</button>
+					<button name="btnAddProduct" type="submit" class="button_1">Product toevoegen</button>
 				</div>
 			</div>
-			<div class="customerFormItem">
+			<div class="productFormItem">
 				<div>
-					<button name="btnAddCustomer" type="submit" class="button_1"
+					<button name="btnRemoveProduct" type="submit" class="button_1"
 					>Product verwijderen</button>
+				</div>
+			</div>
+			<div class="productFormItem">
+				<div>
+					<button name="btnEmptyAllFields" type="submit" class="button_1" 
+					data-ng-click="EmptyAll()">Leeg alle velden</button>
 				</div>
 			</div>
 		</div>
