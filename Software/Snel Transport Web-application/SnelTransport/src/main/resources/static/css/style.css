@@ -93,7 +93,7 @@ ul {
 }
 
 .button_1 {
-	height: 23px;
+	min-height: 23px;
 	background: #214fb9;
 	border: 0;
 	margin-bottom: 5px;
@@ -445,7 +445,10 @@ ul#services li {
 		display: block;
 		width: 100%;
 	}
-}
+	#basketContainerItem2{
+		width: 80%;
+		min-height: 100px;
+	}
 
 @media ( max-width : 1107px) {
 	#customerList {

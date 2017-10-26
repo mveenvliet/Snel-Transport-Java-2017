@@ -37,7 +37,7 @@ public class searchCustomerService extends MySqlDB {
 		if (c.getLastname() != null && !c.getLastname().isEmpty()) {
 			sqlQuerry += "AND lastName LIKE '%" + c.getLastname() + "%' ";
 		}
-
+		sqlQuerry += "ORDER BY customerNumber ASC";
 		System.out.println(sqlQuerry);
 		return sqlQuerry;
 	}

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import CIMSOLUTIONS.SnelTransport.PlaceOrder.Customer;
 import CIMSOLUTIONS.SnelTransport.PlaceOrder.Order;
+import CIMSOLUTIONS.SnelTransport.PlaceOrder.Product;
 import CIMSOLUTIONS.SnelTransport.PlaceOrder.searchCustomerService;
 
 @RestController
@@ -54,12 +55,39 @@ public class ShowOrderController {
 	
 	@RequestMapping(value = "/showOrder/editStatusOrder", method = RequestMethod.POST)
 	@ResponseBody
-	public String getAllOrders(@RequestParam("orderNumber") int orderNumber, @RequestParam("status") String status ) {
+	public String editStatusOrder(@RequestParam("orderNumber") int orderNumber, @RequestParam("status") String status ) {
 		Order order = new Order();
 		order.setOrderNumber(orderNumber);
 		order.setStatus(status);
 		SearchOrder searchOrder = new SearchOrder();
 		return searchOrder.setOrderStatus(order);
 	}
+	
+	@RequestMapping(value = "/showOrder/editStatusProductInOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public String editStatusOrderLine(@RequestParam("orderNumber")  int orderNumber, @RequestParam("productNumber") String productNumber, @RequestParam("status") String status ) {
+		Order order = new Order();
+		Product product = new Product();
+		product.setProductNumber(productNumber);
+		product.setStatus(status);
+		order.setOrderNumber(orderNumber);
+		
+		System.out.println(status);
+		System.out.println(productNumber);
+		System.out.println(orderNumber);
+		order.getOrderLineList().add(product);
+		SearchOrder searchOrder = new SearchOrder();
+		return searchOrder.setOrderLineStatus(order);
+	}
+	
+	@RequestMapping(value = "showOrder/deleteOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteOrder(@RequestParam("orderNumber")  int orderNumber) {
+	
+		System.out.println(orderNumber);
+		SearchOrder searchOrder = new SearchOrder();
+		return searchOrder.deleteOrder(orderNumber);
+	}
+
 
 }

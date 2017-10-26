@@ -42,10 +42,10 @@ public class searchProductService extends MySqlDB {
 		}
 		for (String type : p.getTypeList()) {
 			if (type != null && !type.isEmpty()) {
-				sqlQuerry += "AND type LIKE '%" + type + "%' ";
+				sqlQuerry += "AND type = '" + type + "' ";
 			}
 		}
-
+		sqlQuerry += "ORDER BY productNumber";
 		System.out.println(sqlQuerry);
 		return sqlQuerry;
 	}

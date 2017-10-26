@@ -106,7 +106,7 @@
 						<tr>
 							<th>Order nummer</th>
 							<th>Bestel datum</th>
-							<th>Bezorg datum</th>
+							<th>Lever datum</th>
 							<th>status</th>
 							<th>Klant nummer</th>
 							<th>Stad</th>
@@ -136,7 +136,6 @@
 				<div>
 					<select name="statusBestelling" id="statusBestelling"
 						style="width: 100%">
-						<option value=""></option>
 						<option value="Besteld">Besteld</option>
 						<option value="Wordt bezorgd">Wordt bezorgd</option>
 						<option value="Deels bezorgd">Deels bezorgd</option>
@@ -177,22 +176,21 @@
 			</div>
 			<div class="basketContainer" id="basketContainerItem2" data-ng-controller="orderLineController">
 				<form name="baketBtnForm" id="baketBtnForm">
-					<button type="submit" class="button_1" data-ng-click="selectOrder()">Bestelling anuleren</button>
+					<button type="submit" class="button_1" data-ng-click="deleteOrder()">Bestelling anuleren</button>
 				</form>
 				<div class="customerFormItem">
 					<label for="catagoryList">Status bestelling:</label>
 					<div>
-						<select name="statusBestelling" id="statusBestelling"
+						<select name="statusProduct" id="statusProduct"
 							style="width: 100%">
-							<option value=""></option>
 							<option value="Besteld">Besteld</option>
 							<option value="Wordt bezorgd">Wordt bezorgd</option>
 							<option value="Bezorgd">Bezorgd</option>
+							<option value="Geannuleerd">Geannuleerd</option>
 						</select>
 					</div>
 					<button name="Wijzig status" type="submit" class="button_1"
-						data-ng-click="editStatusProduct()" style="margin-top: 5px">Klant
-						zoeken</button>
+						data-ng-click="editStatusProduct()" style="margin-top: 5px">Status wijzigen</button>
 				</div>
 			</div>
 		</div>
