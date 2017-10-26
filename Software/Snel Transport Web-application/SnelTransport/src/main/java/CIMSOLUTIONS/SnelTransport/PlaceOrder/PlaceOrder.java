@@ -122,6 +122,14 @@ public class PlaceOrder extends MySqlDB {
 				preparedStmt.setInt(4, product.getId());
 
 				preparedStmt.execute();
+				
+				preparedStmt = MyCon.prepareStatement("UPDATE databasesneltransport.productlist SET amount =  amount -'"
+						+ product.getAmount() + "' WHERE productNumber = '" + product.getProductNumber()
+						+ "'");
+				int count = preparedStmt.executeUpdate();
+				if (count > 0) {
+					return true;
+				}
 			}
 
 		} catch (SQLException e) {

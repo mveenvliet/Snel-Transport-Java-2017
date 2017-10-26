@@ -129,27 +129,34 @@ pOrder.controller('productController', function($scope, $http, $location) {
 		var selectedRow = document.getElementsByClassName("highlight");
 		var table = document.getElementById("winkelwagenTbody");
 		if (selectedRow[0].cells[0]) {
-			var row = table.insertRow(-1);
-			var productNumber = row.insertCell(0);
-			var name = row.insertCell(1);
-			var type = row.insertCell(2);
-			var price = row.insertCell(3);
-			var amount = row.insertCell(4);
 
-			console.log(selectedRow);
-			console.log(selectedRow[0].cells[0].innerHTML);
-			console.log(selectedRow[0].cells[1].innerHTML);
-			console.log(selectedRow[0].cells[2].innerHTML);
-			console.log(selectedRow[0].cells[3].innerHTML);
-			console.log(selectedRow[0].cells[4].innerHTML);
-			console.log(selectedRow[0].cells[5].innerHTML);
+			if (sbAmount.value <= parseInt(selectedRow[0].cells[4].innerHTML)) { // &&
+																					// sbAmount.value
+																					// != 0
+				var row = table.insertRow(-1);
+				var productNumber = row.insertCell(0);
+				var name = row.insertCell(1);
+				var type = row.insertCell(2);
+				var price = row.insertCell(3);
+				var amount = row.insertCell(4);
 
-			productNumber.innerHTML = selectedRow[0].cells[0].innerHTML;
-			name.innerHTML = selectedRow[0].cells[1].innerHTML;
-			type.innerHTML = selectedRow[0].cells[2].innerHTML;
-			price.innerHTML = selectedRow[0].cells[3].innerHTML
-					* sbAmount.value;
-			amount.innerHTML = sbAmount.value;
+				console.log(selectedRow);
+				console.log(selectedRow[0].cells[0].innerHTML);
+				console.log(selectedRow[0].cells[1].innerHTML);
+				console.log(selectedRow[0].cells[2].innerHTML);
+				console.log(selectedRow[0].cells[3].innerHTML);
+				console.log(selectedRow[0].cells[4].innerHTML);
+				console.log(selectedRow[0].cells[5].innerHTML);
+
+				productNumber.innerHTML = selectedRow[0].cells[0].innerHTML;
+				name.innerHTML = selectedRow[0].cells[1].innerHTML;
+				type.innerHTML = selectedRow[0].cells[2].innerHTML;
+				price.innerHTML = selectedRow[0].cells[3].innerHTML
+						* sbAmount.value;
+				amount.innerHTML = sbAmount.value;
+			} else {
+				window.alert("Er zijn niet genoeg producten op vooraad.")
+			}
 		}
 	}
 });
@@ -186,60 +193,81 @@ pOrder
 						}
 
 						var customer = document.getElementById("customerList");
-						// console.log(customer.value);
 						if (rows.length > 0) {
 							if (customer.value) {
 								var deliveryDate = document
 										.getElementById("deliveryDate");
+								console.log(deliveryDate.value);
 								if (deliveryDate.value) {
-									var str = customer.value;
-									var customerNumber = str.slice(0, str
-											.indexOf(":"));
-									str = str.slice(str.indexOf(":") + 2);
-									var companyName = str.slice(0, str
-											.indexOf(","));
-									str = str.slice(str.indexOf(",") + 2);
-									var city = str.slice(0, str.indexOf(","));
-									str = str.slice(str.indexOf(",") + 2);
-									var street = str.slice(0, str.indexOf(","));
-									str = str.slice(str.indexOf(",") + 2);
-									var houseNumber = str.slice(0, str
-											.indexOf(","));
-									str = str.slice(str.indexOf(",") + 2);
-									var postalcode = str;
+//									var date = new Date();
+//									var m = date.getMonth() + 1;
+//									var d = date.getDate();
+//									var y = date.getFullYear();
+//
+//									date = d + '-' + m + '-' + y;
+//									var dateString =  deliveryDate.value;
+//									// datum groter dan date today hier veder
+//									delDate = new Date(deliveryDate.value);
+//									console.log(date);
+//									console.log(delDate);
+//									console.log(delDate > date);
+//
+//									if (delDate > date) {
+										var str = customer.value;
+										var customerNumber = str.slice(0, str
+												.indexOf(":"));
+										str = str.slice(str.indexOf(":") + 2);
+										var companyName = str.slice(0, str
+												.indexOf(","));
+										str = str.slice(str.indexOf(",") + 2);
+										var city = str.slice(0, str
+												.indexOf(","));
+										str = str.slice(str.indexOf(",") + 2);
+										var street = str.slice(0, str
+												.indexOf(","));
+										str = str.slice(str.indexOf(",") + 2);
+										var houseNumber = str.slice(0, str
+												.indexOf(","));
+										str = str.slice(str.indexOf(",") + 2);
+										var postalcode = str;
 
-									for (var i = 0; i < rows.length; i++) {
+										for (var i = 0; i < rows.length; i++) {
 
-										products
-												.push({
-													productNumber : rows[i].cells[0].innerHTML,
-													discription : rows[i].cells[1].innerHTML,
-													type : rows[i].cells[2].innerHTML,
-													amount : rows[i].cells[4].innerHTML,
-													price : rows[i].cells[3].innerHTML
+											products
+													.push({
+														productNumber : rows[i].cells[0].innerHTML,
+														discription : rows[i].cells[1].innerHTML,
+														type : rows[i].cells[2].innerHTML,
+														amount : rows[i].cells[4].innerHTML,
+														price : rows[i].cells[3].innerHTML
+													});
+										}
+
+										var data = {
+											customerNumber : customerNumber,
+											companyName : companyName,
+											city : city,
+											street : street,
+											houseNumber : houseNumber,
+											postalcode : postalcode,
+											deliveryDate : deliveryDate.value,
+											products : products
+										};
+
+										console.log(data);
+
+										$.post("placeOrder", data, config)
+												.then(function(response) {
+													window.alert(response);
+
+												}, function error(response) {
 												});
-									}
-
-									var data = {
-										customerNumber : customerNumber,
-										companyName : companyName,
-										city : city,
-										street : street,
-										houseNumber : houseNumber,
-										postalcode : postalcode,
-										deliveryDate : deliveryDate.value,
-										products : products
-									};
-
-									console.log(data);
-
-									$.post("placeOrder", data, config).then(
-											function(response) {
-												window.alert(response);
-
-											}, function error(response) {
-											});
+//									} else {
+//										window
+//												.alert("De ingevoerde datum is ongeldig.")
+//									}
 								} else {
+
 									window
 											.alert("Order kan niet geplaatst worden, er is geen leverdatum ingevoerd.")
 								}
