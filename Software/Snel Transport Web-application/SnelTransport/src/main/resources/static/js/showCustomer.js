@@ -99,6 +99,7 @@ vCustomer.controller('tableController', function($scope, $http, $location) {
 					document.getElementById('houseNumber').value=response[0].address.houseNumber;
 					document.getElementById('postalCode').value=response[0].address.postalCode;
 					document.getElementById('streetName').value=response[0].address.street;
+					document.getElementById('LocationDiscription').value=response[0].address.street;
 		})
 		
 		document.getElementById('customerId').value=row[0].cells[0].innerHTML;

@@ -15,7 +15,8 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="../static/js/datepickerNoPast.js" th:src="@{/js/datepickerNoPast.js}"></script>
+<script src="../static/js/datepickerNoPast.js"
+	th:src="@{/js/datepickerNoPast.js}"></script>
 </head>
 
 <body data-ng-app="placeOrder">
@@ -84,10 +85,7 @@
 	<section id="customerSelection">
 		<div class="container">
 			<select name="customerList" id="customerList">
-				<option value="Customer 1">Customer 1</option>
-				<option value="Customer 2">Customer 2</option>
-				<option value="Customer 3">Customer 3</option>
-				<option value="Customer 4">Customer 4</option>
+
 			</select>
 		</div>
 	</section>
@@ -146,7 +144,7 @@
 
 		</div>
 	</section>
-	<section id="headSection" >
+	<section id="headSection">
 		<h1>Inventaris</h1>
 	</section>
 	<section id="inventaris" data-ng-controller="tableController">
@@ -164,7 +162,7 @@
 						</tr>
 					</thead>
 					<tbody id="inventarisTbody">
-						
+
 
 					</tbody>
 				</table>
@@ -175,7 +173,8 @@
 	<section id="headSection">
 		<h1>Winkelwagen</h1>
 	</section>
-	<section id="shoppingBasket" data-ng-controller="shoppingBasketController">
+	<section id="shoppingBasket"
+		data-ng-controller="shoppingBasketController">
 		<div class="container">
 			<div class="basketContainer" id="basketContainerItem1">
 				<table id="winkelwagenTable">
@@ -193,13 +192,19 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="basketContainer" id="basketContainerItem2">
+			<div class="basketContainer" id="basketContainerItem2"
+				style="float: left">
 				<form name="baketBtnForm" id="baketBtnForm">
-					<button name="btnSearchProduct" type="submit" class="button_1" data-ng-click="removeItemFromShoppingCart()">Verwijder
+					<button type="submit" class="button_1" id="deleteOrderbBtn"
+						data-ng-click="removeItemFromShoppingCart()" style="float: left">Verwijder
 						item</button>
-					<button name="btnSearchProduct" type="submit" class="button_1" data-ng-click="placeOrder()">Bestelling
+					<button type="submit" id="placeOrderBtn" class="button_1"
+						data-ng-click="placeOrder()" style="float: left">Bestelling
 						plaatsen</button>
-					Datum:<input type="text" id="deliveryDate" class="datepickerNoPast"></input>
+					<div>
+						Datum: <input type="text" id="deliveryDate"
+							class="datepickerNoPast"></input>
+					</div>
 				</form>
 			</div>
 		</div>
