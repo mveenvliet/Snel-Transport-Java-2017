@@ -110,12 +110,12 @@ public class PlaceOrder extends MySqlDB {
 
 	private boolean insertOrderLines() {
 		PreparedStatement preparedStmt;
-		Iterator<Product> itr = order.getOrderLineList().iterator();
+
 		try {
-			while (itr.hasNext()) {
-				Product product = (Product) itr.next();
+				for (Product product : order.getOrderLineList()) {
 				preparedStmt = MyCon.prepareStatement(
 						"INSERT INTO databasesneltransport.orderline (amount, price, idOrderList, idProductNumber)" + " values (?, ?, ?, ?)");
+				System.out.println(order.getOrderId());
 				preparedStmt.setInt(1, product.getAmount());
 				preparedStmt.setDouble(2, product.getPrice());
 				preparedStmt.setInt(3, order.getOrderId());
@@ -127,8 +127,8 @@ public class PlaceOrder extends MySqlDB {
 						+ product.getAmount() + "' WHERE productNumber = '" + product.getProductNumber()
 						+ "'");
 				int count = preparedStmt.executeUpdate();
-				if (count > 0) {
-					return true;
+				if (!(count > 0)) {
+					return false;
 				}
 			}
 
@@ -143,26 +143,32 @@ public class PlaceOrder extends MySqlDB {
 	private boolean insertOrderInOrderList() {
 		PreparedStatement preparedStmt;
 		try {
-			preparedStmt = MyCon.prepareStatement("SELECT MAX(idOrderList) AS idOrderList FROM databasesneltransport.orderlist");
-			ResultSet myRs = preparedStmt.executeQuery();
-			
-			if (myRs.next()) {
-				order.setOrderId(myRs.getInt("idOrderList") +1);
-				order.setOrderNumber(myRs.getInt("idOrderList") +1);
-			} else {
-				return false;
-			}
-			
+
+			System.out.println("test2");
 			preparedStmt = MyCon.prepareStatement(
-					"INSERT INTO databasesneltransport.orderlist (orderlist.customerNumber, orderlist.orderNumber, orderlist.orderDate, orderlist.deliveryDate, orderlist.idAddress)"
-							+ " values (?, ?, ?, ?, ?)");
+					"INSERT INTO databasesneltransport.orderlist (orderlist.customerNumber, orderlist.orderDate, orderlist.deliveryDate, orderlist.idAddress)"
+							+ " values (?, ?, ?, ?)");
 			preparedStmt.setInt(1, order.getCustomer().getCustomerNumber());
-			preparedStmt.setInt(2, order.getOrderNumber());
-			preparedStmt.setString(3, Order.switchDateFormat(order.getOrderDate()));
-			preparedStmt.setString(4, Order.switchDateFormat(order.getDeliveryDate()));
-			preparedStmt.setInt(5, order.getCustomer().getAddress().getId());
+			preparedStmt.setString(2, Order.switchDateFormat(order.getOrderDate()));
+			preparedStmt.setString(3, Order.switchDateFormat(order.getDeliveryDate()));
+			preparedStmt.setInt(4, order.getCustomer().getAddress().getId());
 
 			preparedStmt.execute();
+			System.out.println("test3");
+			preparedStmt = MyCon.prepareStatement("SELECT MAX(idOrderList) AS idOrderList FROM databasesneltransport.orderlist");
+			ResultSet myRs = preparedStmt.executeQuery();
+			if (myRs.next()) {
+				order.setOrderId(myRs.getInt("idOrderList") );
+				order.setOrderNumber(myRs.getInt("idOrderList") );
+				preparedStmt = MyCon.prepareStatement("UPDATE databasesneltransport.orderlist SET orderNumber = '"+ order.getOrderNumber() + "' WHERE idOrderList = '" + order.getOrderId() + "'");
+				int count = preparedStmt.executeUpdate();
+				if (!(count > 0)) {
+					return false;
+				}
+			}
+			else {
+				return false;
+			}
 
 			return true;
 		} catch (SQLException e) {

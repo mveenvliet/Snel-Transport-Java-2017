@@ -72,94 +72,124 @@ pOrder.controller('postCustomerController', function($scope, $http, $location) {
 
 });
 
-pOrder.controller('productController', function($scope, $http, $location) {
+pOrder
+		.controller(
+				'productController',
+				function($scope, $http, $location) {
 
-	$scope.submitProduct = function() {
-		var config = {
-			headers : {
-				'Accept' : 'application/json'
-			}
-		}
+					$scope.submitProduct = function() {
+						var config = {
+							headers : {
+								'Accept' : 'application/json'
+							}
+						}
 
-		var data = {
-			productNumber : document.getElementById("productId").value,
-			productName : document.getElementById("productName").value,
-			productType : document.getElementById("catagoryList").value
+						var data = {
+							productNumber : document
+									.getElementById("productId").value,
+							productName : document
+									.getElementById("productName").value,
+							productType : document
+									.getElementById("catagoryList").value
 
-		};
-		console.log(data);
+						};
+						console.log(data);
 
-		$.get("searchProduct", data, config).then(
-				function(response) {
-					var table = document.getElementById("inventarisTbody");
+						$
+								.get("searchProduct", data, config)
+								.then(
+										function(response) {
+											var table = document
+													.getElementById("inventarisTbody");
 
-					console.log(response.data);
-					console.log(response);
+											console.log(response.data);
+											console.log(response);
 
-					$("#inventarisTbody").empty();
-					for (i = 0; i < response.length; i++) {
+											$("#inventarisTbody").empty();
+											for (i = 0; i < response.length; i++) {
 
-						var row = table.insertRow(-1);
-						var productNumber = row.insertCell(0);
-						var name = row.insertCell(1);
-						var type = row.insertCell(2);
-						var price = row.insertCell(3);
-						var amount = row.insertCell(4);
-						var status = row.insertCell(5);
+												var row = table.insertRow(-1);
+												var productNumber = row
+														.insertCell(0);
+												var name = row.insertCell(1);
+												var type = row.insertCell(2);
+												var price = row.insertCell(3);
+												var amount = row.insertCell(4);
+												var status = row.insertCell(5);
 
-						productNumber.innerHTML = response[i].productNumber;
-						name.innerHTML = response[i].name;
-						type.innerHTML = response[i].typeListString;
-						price.innerHTML = response[i].price;
-						amount.innerHTML = response[i].amount;
-						status.innerHTML = response[i].status;
+												productNumber.innerHTML = response[i].productNumber;
+												name.innerHTML = response[i].name;
+												type.innerHTML = response[i].typeListString;
+												price.innerHTML = response[i].price;
+												amount.innerHTML = response[i].amount;
+												status.innerHTML = response[i].status;
+											}
+
+										},
+										function error(response) {
+											console.log(response);
+											$scope.postResultMessage = "Error with status: "
+													+ response.statusText;
+										});
+
 					}
 
-				},
-				function error(response) {
-					console.log(response);
-					$scope.postResultMessage = "Error with status: "
-							+ response.statusText;
+					$scope.addItemToShoppingCart = function($scope, $http,
+							$location) {
+						var sbAmount = document.getElementById("sbAmount");
+						var selectedRow = document
+								.getElementsByClassName("highlight");
+						var table = document.getElementById("winkelwagenTbody");
+						if (selectedRow[0].cells[0]) {
+
+							if (sbAmount.value <= parseInt(selectedRow[0].cells[4].innerHTML)) { // &&
+								// sbAmount.value
+								// != 0
+								console.log(selectedRow);
+								console.log(selectedRow[0].cells[0].innerHTML);
+								console.log(selectedRow[0].cells[1].innerHTML);
+								console.log(selectedRow[0].cells[2].innerHTML);
+								console.log(selectedRow[0].cells[3].innerHTML);
+								console.log(selectedRow[0].cells[4].innerHTML);
+								console.log(selectedRow[0].cells[5].innerHTML);
+								var rows = document
+										.getElementById("winkelwagenTbody").rows;
+								var check = true;
+								for (var i = 0; i < rows.length; i++) {
+									if (rows[i].cells[0].innerHTML == selectedRow[0].cells[0].innerHTML) {
+										var p = selectedRow[i].cells[3].innerHTML
+												* (parseInt(sbAmount.value) + parseInt(rows[i].cells[4].innerHTML));
+										rows[i].cells[3].innerHTML = p
+												.toFixed(2);
+										rows[i].cells[4].innerHTML = parseInt(sbAmount.value) + parseInt(rows[i].cells[4].innerHTML);
+										check = false
+
+									}
+
+								}
+								if (check) {
+									var row = table.insertRow(-1);
+									var productNumber = row.insertCell(0);
+									var name = row.insertCell(1);
+									var type = row.insertCell(2);
+									var price = row.insertCell(3);
+									var amount = row.insertCell(4);
+
+									productNumber.innerHTML = selectedRow[0].cells[0].innerHTML;
+									name.innerHTML = selectedRow[0].cells[1].innerHTML;
+									type.innerHTML = selectedRow[0].cells[2].innerHTML;
+									var p = selectedRow[0].cells[3].innerHTML
+											* sbAmount.value;
+									price.innerHTML = p.toFixed(2);
+									amount.innerHTML = sbAmount.value;
+								}
+							} else {
+								window
+										.alert("Er zijn niet genoeg producten op vooraad.")
+							}
+						}
+					}
 				});
-
-	}
-
-	$scope.addItemToShoppingCart = function($scope, $http, $location) {
-		var sbAmount = document.getElementById("sbAmount");
-		var selectedRow = document.getElementsByClassName("highlight");
-		var table = document.getElementById("winkelwagenTbody");
-		if (selectedRow[0].cells[0]) {
-
-			if (sbAmount.value <= parseInt(selectedRow[0].cells[4].innerHTML)) { // &&
-																					// sbAmount.value
-																					// != 0
-				var row = table.insertRow(-1);
-				var productNumber = row.insertCell(0);
-				var name = row.insertCell(1);
-				var type = row.insertCell(2);
-				var price = row.insertCell(3);
-				var amount = row.insertCell(4);
-
-				console.log(selectedRow);
-				console.log(selectedRow[0].cells[0].innerHTML);
-				console.log(selectedRow[0].cells[1].innerHTML);
-				console.log(selectedRow[0].cells[2].innerHTML);
-				console.log(selectedRow[0].cells[3].innerHTML);
-				console.log(selectedRow[0].cells[4].innerHTML);
-				console.log(selectedRow[0].cells[5].innerHTML);
-
-				productNumber.innerHTML = selectedRow[0].cells[0].innerHTML;
-				name.innerHTML = selectedRow[0].cells[1].innerHTML;
-				type.innerHTML = selectedRow[0].cells[2].innerHTML;
-				price.innerHTML = selectedRow[0].cells[3].innerHTML
-						* sbAmount.value;
-				amount.innerHTML = sbAmount.value;
-			} else {
-				window.alert("Er zijn niet genoeg producten op vooraad.")
-			}
-		}
-	}
-});
 
 pOrder
 		.controller(
@@ -199,73 +229,71 @@ pOrder
 										.getElementById("deliveryDate");
 								console.log(deliveryDate.value);
 								if (deliveryDate.value) {
-//									var date = new Date();
-//									var m = date.getMonth() + 1;
-//									var d = date.getDate();
-//									var y = date.getFullYear();
-//
-//									date = d + '-' + m + '-' + y;
-//									var dateString =  deliveryDate.value;
-//									// datum groter dan date today hier veder
-//									delDate = new Date(deliveryDate.value);
-//									console.log(date);
-//									console.log(delDate);
-//									console.log(delDate > date);
-//
-//									if (delDate > date) {
-										var str = customer.value;
-										var customerNumber = str.slice(0, str
-												.indexOf(":"));
-										str = str.slice(str.indexOf(":") + 2);
-										var companyName = str.slice(0, str
-												.indexOf(","));
-										str = str.slice(str.indexOf(",") + 2);
-										var city = str.slice(0, str
-												.indexOf(","));
-										str = str.slice(str.indexOf(",") + 2);
-										var street = str.slice(0, str
-												.indexOf(","));
-										str = str.slice(str.indexOf(",") + 2);
-										var houseNumber = str.slice(0, str
-												.indexOf(","));
-										str = str.slice(str.indexOf(",") + 2);
-										var postalcode = str;
+									// var date = new Date();
+									// var m = date.getMonth() + 1;
+									// var d = date.getDate();
+									// var y = date.getFullYear();
+									//
+									// date = d + '-' + m + '-' + y;
+									// var dateString = deliveryDate.value;
+									// // datum groter dan date today hier veder
+									// delDate = new Date(deliveryDate.value);
+									// console.log(date);
+									// console.log(delDate);
+									// console.log(delDate > date);
+									//
+									// if (delDate > date) {
+									var str = customer.value;
+									var customerNumber = str.slice(0, str
+											.indexOf(":"));
+									str = str.slice(str.indexOf(":") + 2);
+									var companyName = str.slice(0, str
+											.indexOf(","));
+									str = str.slice(str.indexOf(",") + 2);
+									var city = str.slice(0, str.indexOf(","));
+									str = str.slice(str.indexOf(",") + 2);
+									var street = str.slice(0, str.indexOf(","));
+									str = str.slice(str.indexOf(",") + 2);
+									var houseNumber = str.slice(0, str
+											.indexOf(","));
+									str = str.slice(str.indexOf(",") + 2);
+									var postalcode = str;
 
-										for (var i = 0; i < rows.length; i++) {
+									for (var i = 0; i < rows.length; i++) {
 
-											products
-													.push({
-														productNumber : rows[i].cells[0].innerHTML,
-														discription : rows[i].cells[1].innerHTML,
-														type : rows[i].cells[2].innerHTML,
-														amount : rows[i].cells[4].innerHTML,
-														price : rows[i].cells[3].innerHTML
-													});
-										}
-
-										var data = {
-											customerNumber : customerNumber,
-											companyName : companyName,
-											city : city,
-											street : street,
-											houseNumber : houseNumber,
-											postalcode : postalcode,
-											deliveryDate : deliveryDate.value,
-											products : products
-										};
-
-										console.log(data);
-
-										$.post("placeOrder", data, config)
-												.then(function(response) {
-													window.alert(response);
-
-												}, function error(response) {
+										products
+												.push({
+													productNumber : rows[i].cells[0].innerHTML,
+													discription : rows[i].cells[1].innerHTML,
+													type : rows[i].cells[2].innerHTML,
+													amount : rows[i].cells[4].innerHTML,
+													price : rows[i].cells[3].innerHTML
 												});
-//									} else {
-//										window
-//												.alert("De ingevoerde datum is ongeldig.")
-//									}
+									}
+
+									var data = {
+										customerNumber : customerNumber,
+										companyName : companyName,
+										city : city,
+										street : street,
+										houseNumber : houseNumber,
+										postalcode : postalcode,
+										deliveryDate : deliveryDate.value,
+										products : products
+									};
+
+									console.log(data);
+
+									$.post("placeOrder", data, config).then(
+											function(response) {
+												window.alert(response);
+
+											}, function error(response) {
+											});
+									//									} else {
+									//										window
+									//												.alert("De ingevoerde datum is ongeldig.")
+									//									}
 								} else {
 
 									window
