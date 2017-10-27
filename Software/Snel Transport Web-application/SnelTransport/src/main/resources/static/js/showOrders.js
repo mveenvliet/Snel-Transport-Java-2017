@@ -354,8 +354,10 @@ pOrder
 												console.log(response);
 												if(response.indexOf('was deleted') != -1){
 													document.getElementById("orderTable").deleteRow(selectedRow[0].rowIndex);
+													window.alert("De Bestelling met Ordernummer: " + orderNumber + "is succesvol verwijderd.")
+												}else{
+													window.alert(response)	
 												}
-												window.alert(response)
 											},
 											function error(response) {
 												console.log(response);
@@ -377,7 +379,7 @@ pOrder
 						console.log("selected row length: "
 								+ selectedRow[0].cells.length);
 						if (selectedRow[0].cells.length == 6) {
-							if (confirm("Weet je zeker dat je deze bestelling wilt verwijderen?"))
+							if (confirm("Weet je zeker dat je dit product uit de bestelling wil verwijderen?"))
 								var orderNumber = selectedRow[0].cells[0].innerHTML;
 							var productNumber = selectedRow[0].cells[1].innerHTML;
 							console.log(status);
@@ -399,7 +401,10 @@ pOrder
 									.then(
 											function(response) {
 												console.log(response);
-												window.alert(response)
+												if(response.indexOf('verwijderd') != -1){
+													document.getElementById("tableShoppinfBasket").deleteRow(selectedRow[0].rowIndex);
+												}
+													window.alert(response)	
 											},
 											function error(response) {
 												console.log(response);

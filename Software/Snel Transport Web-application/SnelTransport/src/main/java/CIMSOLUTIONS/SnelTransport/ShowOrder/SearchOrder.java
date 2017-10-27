@@ -135,7 +135,6 @@ public class SearchOrder extends MySqlDB {
 				productNumName.add(myRs.getString("description"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return productNumName;
@@ -226,7 +225,7 @@ public class SearchOrder extends MySqlDB {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					return "Failed to change order status to: " + o.getStatus();
+					return "Kan order status niet wijzigen naar: " + o.getStatus();
 				}
 			}
 		}
@@ -246,41 +245,41 @@ public class SearchOrder extends MySqlDB {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return "Failed to change orderline status to: " + o.getOrderLineList().get(0).getStatus();
+				return "Kan product status niet wijzigen naar: " + o.getOrderLineList().get(0).getStatus();
 			}
 		}
 
-		return "Failed to change orderline status to: " + o.getOrderLineList().get(0).getStatus();
+		return "Kan product status niet wijzigen naar: " + o.getOrderLineList().get(0).getStatus();
 	}
 
 	public String deleteOrder(int orderNumber) {
 		if (orderNumber > 0) {
 			PreparedStatement myStmt;
 			try {
-				if(orderlineToInventaris(orderNumber)) {
-				myStmt = MyCon.prepareStatement("DELETE FROM databasesneltransport.orderline WHERE idOrderList = '"
-						+ orderNumber + "'");
-				int count = myStmt.executeUpdate();
-				if (!(count > 0)) {
-					return "Could not delete the order with ordernumber: " + orderNumber;
+				if (orderlineToInventaris(orderNumber)) {
+					myStmt = MyCon.prepareStatement(
+							"DELETE FROM databasesneltransport.orderline WHERE idOrderList = '" + orderNumber + "'");
+					int count = myStmt.executeUpdate();
+					if (!(count > 0)) {
+						return "Kan order met ordernumber: " + orderNumber + " niet verwijderen.";
+					}
+					myStmt = MyCon.prepareStatement(
+							"DELETE FROM databasesneltransport.orderlist WHERE idOrderList = '" + orderNumber + "'");
+					count = myStmt.executeUpdate();
+					if (!(count > 0)) {
+						return "Kan order met ordernumber: " + orderNumber + " niet verwijderen.";
+					}
+				} else {
+					return "Kan order met ordernumber: " + orderNumber + " niet verwijderen.";
 				}
-				myStmt = MyCon.prepareStatement("DELETE FROM databasesneltransport.orderlist WHERE idOrderList = '"
-						+ orderNumber + "'");
-				count = myStmt.executeUpdate();
-				if (!(count > 0)) {
-					return "Could not delete the order with ordernumber: " + orderNumber;
-				}
-				}else {
-					return "Could not delete the order with ordernumber: " + orderNumber;
-				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return "Could not delete the order with ordernumber: " + orderNumber;
+				return "Kan order met ordernumber: " + orderNumber + " niet verwijderen.";
 			}
 
 		} else {
-			return "Could not delete the order with ordernumber: " + orderNumber;
+			return "Kan order met ordernumber: " + orderNumber + " niet verwijderen.";
 		}
 		return "The order with ordernumber: " + orderNumber + " was deleted.";
 	}
@@ -288,13 +287,14 @@ public class SearchOrder extends MySqlDB {
 	public boolean orderlineToInventaris(int orderNumber) {
 		List<Product> productList = new ArrayList<>();
 		PreparedStatement myStmt;
-		
+
 		try {
-			myStmt = MyCon.prepareStatement("Select idProductNumber, amount FROM databasesneltransport.orderline WHERE idOrderList = '"
-					+ orderNumber + "'");
-			
+			myStmt = MyCon.prepareStatement(
+					"Select idProductNumber, amount FROM databasesneltransport.orderline WHERE idOrderList = '"
+							+ orderNumber + "'");
+
 			ResultSet myRs = myStmt.executeQuery();
-			while(myRs.next()) {
+			while (myRs.next()) {
 				Product p = new Product();
 				p.setId(myRs.getInt("idProductNumber"));
 				p.setAmount(myRs.getInt("amount"));
@@ -302,8 +302,7 @@ public class SearchOrder extends MySqlDB {
 			}
 			for (Product product : productList) {
 				myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.productlist SET amount =  amount +'"
-						+ product.getAmount() + "' WHERE idProductList = '" + product.getId()
-						+ "'");
+						+ product.getAmount() + "' WHERE idProductList = '" + product.getId() + "'");
 				int count = myStmt.executeUpdate();
 				if (count > 0) {
 					return true;
@@ -312,19 +311,66 @@ public class SearchOrder extends MySqlDB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
-		
+
 	}
 
 	public String deleteOrderLine(int orderNumber, String productNumber) {
 		PreparedStatement myStmt;
-		
-		
+		int id;
+		int amount;
+		try {
+			myStmt = MyCon.prepareStatement(
+					"Select idProductList FROM databasesneltransport.productlist WHERE productNumber = '"
+							+ productNumber + "'");
+			ResultSet myRs = myStmt.executeQuery();
+			if (myRs.next()) {
+				id = myRs.getInt("idProductList");
+				myStmt = MyCon.prepareStatement(
+						"Select amount FROM databasesneltransport.orderline WHERE idProductNumber = '" + id + "'");
+				myRs = myStmt.executeQuery();
+				if (myRs.next()) {
+					amount = myRs.getInt("amount");
+					myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.productlist SET amount =  amount +'"
+							+ amount + "' WHERE idProductList = '" + id + "'");
+					int count = myStmt.executeUpdate();
+					if (count > 0) {
+						myStmt = MyCon
+								.prepareStatement("DELETE FROM databasesneltransport.orderline WHERE idOrderList = '" + orderNumber + "' AND idProductNumber = '" + id + "'");
+						count = myStmt.executeUpdate();
+						if (count > 0) {
+							myStmt = MyCon.prepareStatement("SELECT * FROM databasesneltransport.orderline WHERE idOrderList = '" + orderNumber + "'");
+							myRs = myStmt.executeQuery();
+							if(myRs.next()) {
+								return "Het product met product nummer : " + productNumber + " is uit de bestelling verwijderd.";
+							} else {
+								myStmt = MyCon.prepareStatement(
+										"DELETE FROM databasesneltransport.orderlist WHERE idOrderList = '" + orderNumber + "'");
+								count = myStmt.executeUpdate();
+								if (count > 0) {
+									return "Het product en de bestelling met ordernummer: " + orderNumber + " zijn succesvol verwijderd.";
+								}								
+							}
+						} else {
+							return "Kan het product niet uit de bestelling verwijderen";
+						}
+					} else {
+						return "Kan het product niet uit de bestelling verwijderen";
+					}
+				} else {
+					return "Kan het product niet uit de bestelling verwijderen";
+				}
+			} else {
+				return "Kan het product niet uit de bestelling verwijderen";
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
-
 }
-
-
