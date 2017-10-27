@@ -64,6 +64,8 @@ public class searchProductService extends MySqlDB {
 				if (!checkIfProductInResultset(myRs.getInt("idProductList"))) {
 					tempProduct.setId(myRs.getInt("idProductList"));
 					tempProduct.setProductNumber(myRs.getString("productNumber"));
+					tempProduct.setProductNumber(myRs.getString("productNumber"));
+					tempProduct.setStatus(myRs.getString("status"));
 					tempProduct.setName(myRs.getString("description"));
 					tempProduct.setPrice(myRs.getDouble("price"));
 					tempProduct.setAmount(myRs.getInt("amount"));

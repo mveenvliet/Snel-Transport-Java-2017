@@ -4,16 +4,19 @@
 <head>
 <meta charset="utf-8"></meta>
 <meta name="viewport" content="width=device-width"></meta>
-<meta name="showProducts" content="Show products"></meta>
+<meta name="showProduct" content="Show products"></meta>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="../static/js/showProducts.js" th:src="@{/js/showProducts.js}"></script>
+<script src="../static/js/showProduct.js" th:src="@{/js/showProduct.js}"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <title>Productmanagement</title>
 <link rel="stylesheet" href="../static/css/style.css"
 	th:href="@{/css/style.css}"></link>
 </head>
 
-<body>
+<body data-ng-app="showProduct">
 	<header>
 		<div>
 			<h1 id="pageHead">Productmanagement</h1>
@@ -111,9 +114,9 @@
 				</div>
 			</div>
 			<div class="productFormItem">
-				<label for="warehouse">Warenhuis:</label>
+				<label for="warehouse" >Warenhuis:</label>
 				<div>
-					<select name="categoryList" id="categoryList">
+					<select name="warehouse" id="warehouse">
 						<option value=""></option>
 						<option value="A">A</option>
 						<option value="B">B</option>
@@ -129,10 +132,9 @@
 				</div>
 			</div>
 			<div class="productFormItem">
-				<label for="productStatus">Status:</label>
+				<label for="productStatus" id="productStatus">Status:</label>
 				<div>
-				<select
-						name="StatusList" id="StatusList">
+				<select	name="statusList" id="statusList">
 						<option value="Actief">Actief</option>
 						<option value="NietActief">Niet actief</option>
 						<option value="TijdelijkNietLeverbaar">Tijdelijk niet
@@ -146,8 +148,8 @@
 	</section>
 
 
-	<section id="alterCustomerButtons">
-		<div class="container" data-ng-controller="postCustomerController">
+	<section id="alterCustomerButtons" data-ng-controller="viewProductController">
+		<div class="container">
 			<div class="productFormItem">
 				<div>
 					<button name="btnSearchProduct" type="submit" class="button_1"

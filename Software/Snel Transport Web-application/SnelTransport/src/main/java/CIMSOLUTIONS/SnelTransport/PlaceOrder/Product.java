@@ -45,15 +45,15 @@ public class Product {
 		typeList = type;
 	}
 
-	public Product(String productNumber, String productName, String categoryList, double productPrice, 
-			int amount, String warehouse, int compartimentNumber, String productStatus) {
+	public Product(String productNumber, String productName, String categoryList,  
+			String warehouse, int compartimentNumber, String productStatus) {
 		this.productNumber = productNumber;
 		this.name = productName;
-		this.typeString = categoryList;
-		this.price = productPrice;
-		this.amount = amount;
+		this.typeList.add(categoryList);
 		this.location = warehouse;
-		this.compatmentNumber = compartimentNumber;
+		if (compartimentNumber != 0) { 
+			this.compatmentNumber = compartimentNumber;
+		}
 		this.status = productStatus;
 	
 	}

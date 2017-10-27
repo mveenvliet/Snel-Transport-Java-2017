@@ -1,4 +1,4 @@
-var vProduct = angular.module('showProducts', []);
+var vProduct = angular.module('showProduct', []);
 
 vProduct.controller('viewProductController', function($scope, $http, $location) {
 	$scope.EmptyAll = function() {
@@ -19,16 +19,22 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 			}
 		}
 
+		var tempComNum = parseInt(document.getElementById("compartimentNumber").value);
+		if(isNaN(tempComNum)){
+			tempComNum = 0;
+		}
+		
+		console.log(document.getElementById("categoryList").value)
 		var data = {
 			productNumber : document.getElementById("productNumber").value,
 			productName : document.getElementById("productName").value,
-			catgoryList : document.getElementById("categoryList").value,
-			productPrice : document.getElementById("productPrice").value,
-			amount : document.getElementById("amount").value,
+			categoryList : document.getElementById("categoryList").value,
 			warehouse : document.getElementById("warehouse").value,
-			compartimentNumber : document.getElementById("compartimentNumber").value,
-			productStatus : document.getElementById("productStatus").value
+			compartimentNumber : tempComNum,
+			productStatus : document.getElementById("statusList").value
 		};
+		
+
 		$.get("searchSetProduct", data, config).then(
 				function(response) {
 					console.log(response)
@@ -39,7 +45,7 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 					$("#productTbody").empty();
 					for (i = 0; i < response.length; i++) {
 			
-						var row = table.insertRow(-1);
+						var row = table.insertRow(-1);			
 						
 						var productNumber = row.insertCell(0);
 						var productName = row.insertCell(1);
@@ -51,18 +57,18 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 						var status = row.insertCell(7);
 						
 						productNumber.innerText = response[i].productNumber;
-						productName.innerText = response[i].productName;
-						categoryList.innerText = response[i].categoryList;
-						productPrice.innerText = response[i].productPrice;
+						productName.innerText = response[i].name;
+						categoryList.innerText = response[i].typeListString;
+						productPrice.innerText = response[i].price;
 						amount.innerText = response[i].amount;
-						warehouse.innerText = response[i].warehouse;
-						compartimentNumber.innerText = response[i].compartimentNumber;
+						warehouse.innerText = response[i].location;
 						status.innerText = response[i].status;
 						
 					}
 				},
 				function error(response) {
 					console.log(response);
+					console.log('error?')
 					$scope.postResultMessage = "Error with status: "
 							+ response.statusText;
 				});
