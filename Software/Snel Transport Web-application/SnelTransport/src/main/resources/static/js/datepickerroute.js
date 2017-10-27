@@ -3,7 +3,7 @@
 	  $( ".datepickerroute" ).datepicker({
 		  onSelect: function(dateText) {
 			  document.getElementById("calcRouteButton").disabled = false;
-			  showOption(dateText);
+			  showOption(dateText,'');
 		  }});
 	  
 	  $.datepicker.regional['nl'] = {clearText: 'Effacer', clearStatus: '',
@@ -28,13 +28,13 @@
 			
   } );
   
-  function showOption(dateText){
-	  //console.log('bij response wordt de dropdownweergegeven en anderes geen route bekend, lege dropdown en lege route')
+  function showOption(dateText,status){
 	 $.get("/routeBepaling/date", {date:dateText}).then( function(response){
 		  if (response != ''){
-			  if (document.getElementById("right-panel-status").value = 'Nog geen routes bekend voor deze dag'){
-				  document.getElementById("right-panel-status").innerHTML = '';
-			  }
+			  document.getElementById("right-panel-status").innerHTML = status;
+			  //if (document.getElementById("right-panel-status").value = 'Nog geen routes bekend voor deze dag'){
+			//	  document.getElementById("right-panel-status").innerHTML = '';
+			  //}
 		  	var htmlString = "<div><p>Selecteer vrachtwagen:</p><select name='licencePlate' id='licencePlate' >";
 		  	htmlString += ' <option> </option>';
 		  	for (i = 0; i < response.length; i++){
@@ -56,12 +56,11 @@
 	  if (dateText != ""){
 		  document.getElementById("calcRouteButton").disabled = true; 
 		  $.get("/calcRoute/date", {date:dateText}).then( function(response){
-		  //var response = "Er zijn 3 trucks extra nodig";
 		  switch(response){
 		  	case "updatedValues":
 		  		document.getElementById("right-panel-status").innerHTML = '<p>De routes zijn geupdated</p>';
 		  		document.getElementById("directions-panel").innerHTML = '';
-		  		showOption(dateText); //
+		  		showOption(dateText,'<p>De routes zijn geupdated</p>'); //
 		  		break;
 		  	case "exceededKeyQuota":
 		  		document.getElementById("right-panel-status").innerHTML = '<p>De quota voor aantal routeberekening is overschreden, overweeg een upgrade of probeer morgen weer	</p>';
@@ -74,7 +73,7 @@
 		  	default:
 		  		document.getElementById("right-panel-status").innerHTML = '<p>' + response + '</p>';
 	  			document.getElementById("directions-panel").innerHTML = '';
-	  			showOption(dateText); //
+	  			showOption(dateText,'<p>' + response + '</p>'); //
 	  			
 		  }
 		  })
