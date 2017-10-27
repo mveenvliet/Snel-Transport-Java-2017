@@ -115,10 +115,10 @@ public class CalculateRouteService extends MySqlDB {
 		if((matrix.getHeight() == 0)||(distanceToDepo.getSizeList() == 0)) {
 			return "exceededKeyQuota";
 		}
-		
+		System.out.println(shortestRoute.getRoute());
 		DivideRoute routeWithMinTrucks = new DivideRoute();
 		routeWithMinTrucks.walkRoute(shortestRoute,  matrix, allAddressesInOrderList, distanceToDepo);
-		
+		System.out.println(routeWithMinTrucks.getOptimalRoutePerTruck());
 		GetAvailableTruck setTrucks = new GetAvailableTruck(routeWithMinTrucks.getOptimalNrOfTrucks(), date);
 		for (int iter = 0 ; iter < routeWithMinTrucks.getOptimalNrOfTrucks() ; iter++) {
 			RouteDBObject routeToDatabase = new RouteDBObject(setTrucks.getAllTruckIds().get(iter), date, routeWithMinTrucks.getOptimalRoutePerTruck().get(iter), 

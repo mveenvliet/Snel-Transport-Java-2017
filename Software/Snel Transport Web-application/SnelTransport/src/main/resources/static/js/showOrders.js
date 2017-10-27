@@ -304,7 +304,12 @@ pOrder
 									.then(
 											function(response) {
 												console.log(response);
-												window.alert(response)
+												if (response.indexOf("Orderline status changed to:") != -1){
+													window.alert('De status van het product is gewijzigd naar: ' + status)
+													document.getElementById("tableShoppinfBasket").rows[selectedRow[0].rowIndex].cells[5].innerHTML = status;
+												} else{
+													window.alert(response);
+												}
 											},
 											function error(response) {
 												console.log(response);

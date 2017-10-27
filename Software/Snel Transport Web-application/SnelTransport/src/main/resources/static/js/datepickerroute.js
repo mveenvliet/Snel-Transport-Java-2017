@@ -102,6 +102,7 @@
 	  var time = document.getElementById('date').value;
 	  if(licencePlate != ""){
 		  	$.get("/getRouteByTruckAndDate", {date:time,licencePlate:truck}).then( function(response){
+		  		console.log(response)
 		  		var waypts = [];
 		  		var warning = false;
 		  		for (var i = 1; i < response.length - 1; i++) {
@@ -144,14 +145,18 @@
 						
 						var sumTime = 0;
 						var sumDistance = 0;
+                        
+
 						for (var i = 0; i < route.legs.length; i++) {
 							sumTime += route.legs[i].duration.value;
 							sumDistance += route.legs[i].distance.value;
 						}
 						
-						
+						var sumWithLoading = sumTime + (route.legs.length - 1)*1800;
 						summaryPanel.innerHTML += '<table class = "tableRB"><tr><td><b>Reistijd</b></td><td><b>'+ 
 													Math.floor(sumTime/3600) + ':' + Math.floor(sumTime/60)%60 + ':' + sumTime%60 + 
+                                                    '</b></td></tr><tr><td><b>Tijd met laden</b></td><td><b>'+ 
+                                                    Math.floor(sumWithLoading/3600) + ':' + Math.floor(sumWithLoading/60)%60 + ':' + sumWithLoading%60+
 													'</b></td></tr><tr><td><b>Lengte route</b></td><td><b>'+ 
 													Math.round( sumDistance/100) / 10 + ' km</b></td></tr></table><br>';
 						for (var i = 0; i < route.legs.length; i++) {

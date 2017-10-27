@@ -27,7 +27,7 @@ public class DivideRoute {
 		for (int startPosition = 0 ; startPosition < numberOfNodes ; startPosition++) {
 			for (int nodeInRoute = 0 ; nodeInRoute < numberOfNodes; ) {
 				String newRoute = "" + route.charAt((startPosition + nodeInRoute)%numberOfNodes);
-				
+				System.out.print(nodeInRoute + " > " );
 				int indexCurrentAddress = route.charAt((startPosition + nodeInRoute)%numberOfNodes) - 'a';	
 				int indexNextAddress = route.charAt((startPosition + nodeInRoute + 1)%numberOfNodes) - 'a';
 				
@@ -41,13 +41,13 @@ public class DivideRoute {
 				
 				int timeNextStopCycle = timeNextStop  +
 						distanceSources.getDistanceToSourceFromPoint(indexNextAddress);
-				
-				while(timeNextStopCycle < availableTime) {
+				while((timeNextStopCycle < availableTime) && (nodeInRoute != numberOfNodes - 1)) {
 					timePassed = timeNextStop;
 					
 					newRoute += route.charAt((startPosition + nodeInRoute + 1)%numberOfNodes);
-					nodeInRoute += 1;
-					
+					nodeInRoute++;
+					System.out.print(nodeInRoute + " > ");
+
 					waypoint += "<" + Integer.toString(60*addresses.getSingleAddress(indexNextAddress).getMinutesLoadTime() +
 							matrix.getElement(indexNextAddress, indexCurrentAddress));
 					
@@ -62,6 +62,8 @@ public class DivideRoute {
 							distanceSources.getDistanceToSourceFromPoint(indexNextAddress);
 				
 				}
+				System.out.println();
+				System.out.println("Route: " + newRoute + " tijd: " + timePassed);
 				nodeInRoute += 1;
 				routePerTruck.add(newRoute);	
 				totalTimePerTruck.add(timePassed + distanceSources.getDistanceToSourceFromPoint(indexNextAddress));
