@@ -141,51 +141,71 @@ pOrder
 								.getElementsByClassName("highlight");
 						var table = document.getElementById("winkelwagenTbody");
 						if (selectedRow[0].cells[0]) {
+							if (parseInt(sbAmount.value) > 0) {
+								if (parseInt(sbAmount.value) <= parseInt(selectedRow[0].cells[4].innerHTML)) {
+									console.log(selectedRow);
+									console
+											.log(selectedRow[0].cells[0].innerHTML);
+									console
+											.log(selectedRow[0].cells[1].innerHTML);
+									console
+											.log(selectedRow[0].cells[2].innerHTML);
+									console
+											.log(selectedRow[0].cells[3].innerHTML);
+									console
+											.log(selectedRow[0].cells[4].innerHTML);
+									console
+											.log(selectedRow[0].cells[5].innerHTML);
+									var rows = document
+											.getElementById("winkelwagenTbody").rows;
+									var check = true;
 
-							if (sbAmount.value <= parseInt(selectedRow[0].cells[4].innerHTML)) { // &&
-								// sbAmount.value
-								// != 0
-								console.log(selectedRow);
-								console.log(selectedRow[0].cells[0].innerHTML);
-								console.log(selectedRow[0].cells[1].innerHTML);
-								console.log(selectedRow[0].cells[2].innerHTML);
-								console.log(selectedRow[0].cells[3].innerHTML);
-								console.log(selectedRow[0].cells[4].innerHTML);
-								console.log(selectedRow[0].cells[5].innerHTML);
-								var rows = document
-										.getElementById("winkelwagenTbody").rows;
-								var check = true;
-								for (var i = 0; i < rows.length; i++) {
-									if (rows[i].cells[0].innerHTML == selectedRow[0].cells[0].innerHTML) {
-										var p = selectedRow[i].cells[3].innerHTML
-												* (parseInt(sbAmount.value) + parseInt(rows[i].cells[4].innerHTML));
-										rows[i].cells[3].innerHTML = p
-												.toFixed(2);
-										rows[i].cells[4].innerHTML = parseInt(sbAmount.value) + parseInt(rows[i].cells[4].innerHTML);
-										check = false
+									for (var i = 0; i <= rows.length; i++) {
+										if (rows[i]) {
+											if (rows[i].cells[0].innerHTML == selectedRow[0].cells[0].innerHTML) {
+												check = false
+												if ((parseInt(sbAmount.value) + parseInt(rows[i].cells[4].innerHTML)) <= (parseInt(selectedRow[0].cells[4].innerHTML))) {
+													var p = selectedRow[0].cells[3].innerHTML
+															* (parseInt(sbAmount.value) + parseInt(rows[i].cells[4].innerHTML));
+													rows[i].cells[3].innerHTML = p
+															.toFixed(2);
+													rows[i].cells[4].innerHTML = parseInt(sbAmount.value)
+															+ parseInt(rows[i].cells[4].innerHTML);
+													sbAmount.value = 1;
+												} else {
+													window
+															.alert("Er zijn niet genoeg producten op vooraad.")
+												}
+
+											}
+										}
 
 									}
+									if (check) {
+										var row = table.insertRow(-1);
+										var productNumber = row.insertCell(0);
+										var name = row.insertCell(1);
+										var type = row.insertCell(2);
+										var price = row.insertCell(3);
+										var amount = row.insertCell(4);
 
-								}
-								if (check) {
-									var row = table.insertRow(-1);
-									var productNumber = row.insertCell(0);
-									var name = row.insertCell(1);
-									var type = row.insertCell(2);
-									var price = row.insertCell(3);
-									var amount = row.insertCell(4);
+										productNumber.innerHTML = selectedRow[0].cells[0].innerHTML;
+										name.innerHTML = selectedRow[0].cells[1].innerHTML;
+										type.innerHTML = selectedRow[0].cells[2].innerHTML;
+										var p = selectedRow[0].cells[3].innerHTML
+												* sbAmount.value;
+										price.innerHTML = p.toFixed(2);
+										amount.innerHTML = sbAmount.value;
 
-									productNumber.innerHTML = selectedRow[0].cells[0].innerHTML;
-									name.innerHTML = selectedRow[0].cells[1].innerHTML;
-									type.innerHTML = selectedRow[0].cells[2].innerHTML;
-									var p = selectedRow[0].cells[3].innerHTML
-											* sbAmount.value;
-									price.innerHTML = p.toFixed(2);
-									amount.innerHTML = sbAmount.value;
+										sbAmount.value = 1;
+									}
+								} else {
+									window
+											.alert("Er zijn niet genoeg producten op vooraad.")
 								}
 							} else {
 								window
-										.alert("Er zijn niet genoeg producten op vooraad.")
+										.alert("Probeer je deze applicatie kapot te maken?")
 							}
 						}
 					}
@@ -287,13 +307,15 @@ pOrder
 									$.post("placeOrder", data, config).then(
 											function(response) {
 												window.alert(response);
+												location.reload(true);
 
 											}, function error(response) {
 											});
-									//									} else {
-									//										window
-									//												.alert("De ingevoerde datum is ongeldig.")
-									//									}
+									// } else {
+									// window
+									// .alert("De ingevoerde datum is
+									// ongeldig.")
+									// }
 								} else {
 
 									window
