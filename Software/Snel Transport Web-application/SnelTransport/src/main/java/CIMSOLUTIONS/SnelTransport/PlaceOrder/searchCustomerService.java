@@ -46,6 +46,7 @@ public class searchCustomerService extends MySqlDB {
 			sqlQuerry += "AND status = '" + c.getStatus() + "' ";
 		}		
 		System.out.println(sqlQuerry);
+		sqlQuerry += "ORDER BY customerNumber";
 		return sqlQuerry;
 	}
 
