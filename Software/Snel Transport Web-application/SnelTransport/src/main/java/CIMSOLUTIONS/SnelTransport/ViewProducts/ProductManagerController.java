@@ -21,14 +21,12 @@ public class ProductManagerController {
 			@RequestParam("productNumber") String productNumber,
 			@RequestParam("productName") String productName,
 			@RequestParam("categoryList") String categoryList,
-			@RequestParam(value =  "productPrice") double productPrice,
-			@RequestParam(value = "amount") int amount,
 			@RequestParam("warehouse") String warehouse,
-			@RequestParam(value = "compartimentNumber") int compartimentNumber,
+			@RequestParam(value = "compartimentNumber", required = false) int compartimentNumber,
 			@RequestParam("productStatus") String productStatus){
-			
-		Product product = new Product(productNumber, productName, categoryList, productPrice, 
-			amount, warehouse, compartimentNumber, productStatus);
+		
+		Product product = new Product(productNumber, productName, categoryList, 
+			warehouse, compartimentNumber, productStatus);
 		searchProductService searchProduct = new searchProductService();	
 		searchProduct.lookUpProduct(product);
 		return searchProduct.getResultSet();

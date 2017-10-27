@@ -32,7 +32,9 @@
 	  //console.log('bij response wordt de dropdownweergegeven en anderes geen route bekend, lege dropdown en lege route')
 	 $.get("/routeBepaling/date", {date:dateText}).then( function(response){
 		  if (response != ''){
-			document.getElementById("right-panel-status").innerHTML = '';
+			  if (document.getElementById("right-panel-status").value = 'Nog geen routes bekend voor deze dag'){
+				  document.getElementById("right-panel-status").innerHTML = '';
+			  }
 		  	var htmlString = "<div><p>Selecteer vrachtwagen:</p><select name='licencePlate' id='licencePlate' >";
 		  	htmlString += ' <option> </option>';
 		  	for (i = 0; i < response.length; i++){
@@ -53,7 +55,7 @@
 	  var dateText = document.getElementById('date').value;
 	  if (dateText != ""){
 		  document.getElementById("calcRouteButton").disabled = true; 
-		  $.get("/calcRoute/date", {date:time}).then( function(response){
+		  $.get("/calcRoute/date", {date:dateText}).then( function(response){
 		  //var response = "Er zijn 3 trucks extra nodig";
 		  switch(response){
 		  	case "updatedValues":
