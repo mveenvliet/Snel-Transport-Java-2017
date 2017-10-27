@@ -282,7 +282,7 @@ public class SearchOrder extends MySqlDB {
 		} else {
 			return "Could not delete the order with ordernumber: " + orderNumber;
 		}
-		return "The order with ordernumber: " + orderNumber + " was delleted.";
+		return "The order with ordernumber: " + orderNumber + " was deleted.";
 	}
 
 	public boolean orderlineToInventaris(int orderNumber) {

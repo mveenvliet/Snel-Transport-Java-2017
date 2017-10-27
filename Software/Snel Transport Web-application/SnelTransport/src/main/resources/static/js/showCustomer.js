@@ -44,7 +44,6 @@ vCustomer.controller('postCustomerController', function($scope, $http, $location
 		};
 		$.get("searchSetCustomer", data, config).then(
 				function(response) {
-					console.log(response)
 					if (response.length < 1){
 						window.alert('Er zijn geen resultaten gevonden');
 					}
@@ -69,7 +68,6 @@ vCustomer.controller('postCustomerController', function($scope, $http, $location
 					}
 				},
 				function error(response) {
-					console.log(response);
 					$scope.postResultMessage = "Error with status: "
 							+ response.statusText;
 				});
@@ -101,12 +99,12 @@ vCustomer.controller('tableController', function($scope, $http, $location) {
 			}
 		data = {customerNumber : parseInt(row[0].cells[0].innerText),
 				companyName : row[0].cells[1].innerText,
-				firstName : row[0].cells[2].innerText,
-				lastName : row[0].cells[3].innerText,
-				emailAddress : row[0].cells[4].innerText,
-				telNumber : row[0].cells[5].innerText
+				firstName : row[0].cells[2].innerHTML,
+				lastName : row[0].cells[3].innerHTML,
+				emailAddress : row[0].cells[4].innerHTML,
+				telNumber : row[0].cells[5].innerText,
+				status : document.getElementById("StatusCustomer").value
 		}
-
 		$.get("searchSetCustomer", data, config).then(
 				function(response) {
 					document.getElementById('cityName').value=response[0].address.city;

@@ -63,7 +63,7 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 						amount.innerText = response[i].amount;
 						warehouse.innerText = response[i].location;
 						status.innerText = response[i].status;
-						
+						compartimentNumber.innerText = response[i].compatmentNumber;
 					}
 				},
 				function error(response) {
@@ -103,7 +103,7 @@ vProduct.controller('tableController', function($scope, $http, $location) {
 		document.getElementById('amount').value=row[0].cells[4].innerText;
 		document.getElementById('warehouse').value=row[0].cells[5].innerText;
 		document.getElementById('compartimentNumber').value=row[0].cells[6].innerText;
-		document.getElementById('status').value=row[0].cells[7].innerText;
+		document.getElementById('productStatus').value=row[0].cells[7].innerText;
 		
 	});
 });

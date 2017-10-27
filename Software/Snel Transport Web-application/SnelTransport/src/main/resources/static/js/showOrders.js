@@ -2,12 +2,12 @@ var pOrder = angular.module('showOrder', []);
 
 pOrder.controller('tableController', function($scope, $http, $location) {
 	$("tbody").on("click", "tr", function selectRow() {
-		console.log("click function called");
 
 		var rows = $('tr').not('#tableHeaders');
 		var row = $(this);
 		rows.removeClass('highlight');
 		row.addClass('highlight');
+
 
 	});
 });
@@ -17,7 +17,7 @@ pOrder
 				'searchOrderController',
 				function($scope, $http, $location) {
 					$scope.submitCustomer = function() {
-
+						
 						var config = {
 							headers : {
 								'Accept' : 'application/json'
@@ -254,8 +254,14 @@ pOrder
 								.then(
 										function(response) {
 											console.log(response);
-											window.alert(response)
-
+											if (response.indexOf("Order status changed to:") != -1){
+												window.alert('De status van de bestelling is gewijzigd naar: ' + status)
+												document.getElementById("orderTable").rows[selectedRow[0].rowIndex].cells[3].innerHTML = status;
+											} else{
+												window.alert(response);
+											}
+											
+											
 										},
 										function error(response) {
 											console.log(response);
@@ -320,6 +326,7 @@ pOrder
 								.getElementsByClassName("highlight");
 						console.log("selected row length: "
 								+ selectedRow[0].cells.length);
+
 						if (selectedRow[0].cells.length > 6) {
 							if (confirm("Weet je zeker dat je deze bestelling wilt verwijderen?"))
 								var orderNumber = selectedRow[0].cells[0].innerHTML;
@@ -340,6 +347,9 @@ pOrder
 									.then(
 											function(response) {
 												console.log(response);
+												if(response.indexOf('was deleted') != -1){
+													document.getElementById("orderTable").deleteRow(selectedRow[0].rowIndex);
+												}
 												window.alert(response)
 											},
 											function error(response) {
@@ -375,7 +385,7 @@ pOrder
 
 							var data = {
 								orderNumber : orderNumber,
-								productNumber : prdouctNumber
+								productNumber : productNumber
 							};
 
 							$

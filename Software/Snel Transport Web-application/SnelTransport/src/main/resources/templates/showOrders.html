@@ -107,7 +107,7 @@
 							<th style="word-wrap: break-all">Ordernummer</th>
 							<th style="word-wrap: break-all">Besteldatum</th>
 							<th style="word-wrap: break-all">Leverdatum</th>
-							<th style="word-wrap: break-all">status</th>
+							<th style="word-wrap: break-all">Status</th>
 							<th style="word-wrap: break-all">Klantnummer</th>
 							<th style="word-wrap: break-all">Stad</th>
 							<th style="word-wrap: break-all">Straat</th>
@@ -128,7 +128,7 @@
 				<br></br>
 				<div>
 					<button name="selectOrder" type="submit" class="button_1"
-						data-ng-click="selectOrder()">Selecteer Bestelling</button>
+						data-ng-click="selectOrder()">Bestelling inzien</button>
 				</div>
 			</div>
 			<div class="customerFormItem">
@@ -150,6 +150,13 @@
 						data-ng-click="editStatusOrder()">Status bestelling wijzigen</button>
 				</div>
 			</div>
+		
+		<div class="customerFormItem">
+				<br></br>
+				<div>
+					<button type="submit" class="button_1" data-ng-click="deleteOrder()">Bestelling verwijderen</button>
+				</div>
+		</div>
 		</div>
 	</section>
 
@@ -159,7 +166,7 @@
 	<section id="shoppingBasket" data-ng-controller="tableController">
 		<div class="container">
 			<div class="basketContainer" id="basketContainerItem1">
-				<table>
+				<table id="tableShoppinfBasket">
 					<thead>
 						<tr>
 							<th>Ordernummer</th>
@@ -175,9 +182,9 @@
 				</table>
 			</div>
 			<div class="basketContainer" id="basketContainerItem2" data-ng-controller="orderLineController">
-				<form name="baketBtnForm" id="baketBtnForm">
+<!-- 				<form name="baketBtnForm" id="baketBtnForm">
 					<button type="submit" class="button_1" data-ng-click="deleteOrder()">Bestelling anuleren</button>
-				</form>
+				</form> -->
 				<div class="customerFormItem">
 					<label for="catagoryList">Status bestelling:</label>
 					<div>
