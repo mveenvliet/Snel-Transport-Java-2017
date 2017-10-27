@@ -257,6 +257,7 @@ public class SearchOrder extends MySqlDB {
 		if (orderNumber > 0) {
 			PreparedStatement myStmt;
 			try {
+				if(orderlineToInventaris(orderNumber)) {
 				myStmt = MyCon.prepareStatement("DELETE FROM databasesneltransport.orderline WHERE idOrderList = '"
 						+ orderNumber + "'");
 				int count = myStmt.executeUpdate();
@@ -267,6 +268,9 @@ public class SearchOrder extends MySqlDB {
 						+ orderNumber + "'");
 				count = myStmt.executeUpdate();
 				if (!(count > 0)) {
+					return "Could not delete the order with ordernumber: " + orderNumber;
+				}
+				}else {
 					return "Could not delete the order with ordernumber: " + orderNumber;
 				}
 				
@@ -281,4 +285,46 @@ public class SearchOrder extends MySqlDB {
 		return "The order with ordernumber: " + orderNumber + " was delleted.";
 	}
 
+	public boolean orderlineToInventaris(int orderNumber) {
+		List<Product> productList = new ArrayList<>();
+		PreparedStatement myStmt;
+		
+		try {
+			myStmt = MyCon.prepareStatement("Select idProductNumber, amount FROM databasesneltransport.orderline WHERE idOrderList = '"
+					+ orderNumber + "'");
+			
+			ResultSet myRs = myStmt.executeQuery();
+			while(myRs.next()) {
+				Product p = new Product();
+				p.setId(myRs.getInt("idProductNumber"));
+				p.setAmount(myRs.getInt("amount"));
+				productList.add(p);
+			}
+			for (Product product : productList) {
+				myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.productlist SET amount =  amount +'"
+						+ product.getAmount() + "' WHERE idProductList = '" + product.getId()
+						+ "'");
+				int count = myStmt.executeUpdate();
+				if (count > 0) {
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
+
+	public String deleteOrderLine(int orderNumber, String productNumber) {
+		PreparedStatement myStmt;
+		
+		
+		return null;
+	}
+
+
 }
+
+

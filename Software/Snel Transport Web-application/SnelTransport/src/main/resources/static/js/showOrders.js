@@ -9,7 +9,7 @@ pOrder.controller('tableController', function($scope, $http, $location) {
 		rows.removeClass('highlight');
 		row.addClass('highlight');
 
-		});
+	});
 });
 
 pOrder
@@ -169,166 +169,232 @@ pOrder
 
 				});
 
-pOrder.controller('orderLineController', function($scope, $http, $location) {
-	$scope.selectOrder = function() {
-		var selectedRow = document.getElementsByClassName("highlight");
-		var orderNumber = selectedRow[0].cells[0].innerHTML;
-		var table = document.getElementById("orderLineTbody");
-		var orderStatus = document.getElementById("statusBestelling");
+pOrder
+		.controller(
+				'orderLineController',
+				function($scope, $http, $location) {
+					$scope.selectOrder = function() {
+						var selectedRow = document
+								.getElementsByClassName("highlight");
+						var orderNumber = selectedRow[0].cells[0].innerHTML;
+						var table = document.getElementById("orderLineTbody");
+						var orderStatus = document
+								.getElementById("statusBestelling");
 
-		var config = {
-			headers : {
-				'Accept' : 'application/json'
-			}
-		}
+						var config = {
+							headers : {
+								'Accept' : 'application/json'
+							}
+						}
 
-		var data = {
-			orderNumber : orderNumber,
-			status : statusBestelling.value
-		};
+						var data = {
+							orderNumber : orderNumber,
+							status : statusBestelling.value
+						};
 
-		$.get("showOrder/searchOrderLines", data, config).then(
-				function(response) {
-					console.log(response);
-					$("#orderLineTbody").empty();
-					for (i = 0; i < response[0].orderLineList.length; i++) {
+						$
+								.get("showOrder/searchOrderLines", data, config)
+								.then(
+										function(response) {
+											console.log(response);
+											$("#orderLineTbody").empty();
+											for (i = 0; i < response[0].orderLineList.length; i++) {
 
-						var row = table.insertRow(-1);
-						var orderNumber = row.insertCell(0);
-						var productNumber = row.insertCell(1);
-						var productDiscription = row.insertCell(2);
-						var amount = row.insertCell(3);
-						var price = row.insertCell(4);
-						var status = row.insertCell(5);
+												var row = table.insertRow(-1);
+												var orderNumber = row
+														.insertCell(0);
+												var productNumber = row
+														.insertCell(1);
+												var productDiscription = row
+														.insertCell(2);
+												var amount = row.insertCell(3);
+												var price = row.insertCell(4);
+												var status = row.insertCell(5);
 
-						orderNumber.innerHTML = response[i].orderNumber;
-						productNumber.innerHTML = response[i].orderLineList[i].productNumber;
-						productDiscription.innerHTML = response[i].orderLineList[i].name;
-						amount.innerHTML = response[i].orderLineList[i].amount;
-						price.innerHTML = response[i].orderLineList[i].price;
-						status.innerHTML = response[i].orderLineList[i].status;
+												orderNumber.innerHTML = response[i].orderNumber;
+												productNumber.innerHTML = response[i].orderLineList[i].productNumber;
+												productDiscription.innerHTML = response[i].orderLineList[i].name;
+												amount.innerHTML = response[i].orderLineList[i].amount;
+												price.innerHTML = response[i].orderLineList[i].price;
+												status.innerHTML = response[i].orderLineList[i].status;
+											}
+
+										},
+										function error(response) {
+											console.log(response);
+											$scope.postResultMessage = "Error with status: "
+													+ response.statusText;
+										});
+
 					}
-					
-				},
-				function error(response) {
-					console.log(response);
-					$scope.postResultMessage = "Error with status: "
-							+ response.statusText;
+					$scope.editStatusOrder = function() {
+						if (!$(".highlight")[0]) {
+							window.alert("Er is geen bestelling geselecteerd");
+							return;
+						}
+						var selectedRow = document
+								.getElementsByClassName("highlight");
+						var orderNumber = selectedRow[0].cells[0].innerHTML;
+						var status = document
+								.getElementById("statusBestelling").value;
+
+						var config = {
+							headers : {
+								'Accept' : 'application/json'
+							}
+						}
+
+						var data = {
+							orderNumber : orderNumber,
+							status : status
+						};
+
+						$
+								.post("showOrder/editStatusOrder", data, config)
+								.then(
+										function(response) {
+											console.log(response);
+											window.alert(response)
+
+										},
+										function error(response) {
+											console.log(response);
+											$scope.postResultMessage = "Error with status: "
+													+ response.statusText;
+										});
+					}
+
+					$scope.editStatusProduct = function() {
+						if (!$(".highlight")[0]) {
+							window.alert("Er is geen Product geselecteerd");
+							return;
+						}
+						var selectedRow = document
+								.getElementsByClassName("highlight");
+						console.log("selected row length: "
+								+ selectedRow[0].cells.length);
+						if (selectedRow[0].cells.length == 6) {
+							var orderNumber = selectedRow[0].cells[0].innerHTML;
+							var productNumber = selectedRow[0].cells[1].innerHTML;
+							var status = document
+									.getElementById("statusProduct").value;
+							console.log(status);
+
+							var config = {
+								headers : {
+									'Accept' : 'application/json'
+								}
+							}
+
+							var data = {
+								orderNumber : orderNumber,
+								productNumber : productNumber,
+								status : status
+							};
+
+							$
+									.post("showOrder/editStatusProductInOrder",
+											data, config)
+									.then(
+											function(response) {
+												console.log(response);
+												window.alert(response)
+											},
+											function error(response) {
+												console.log(response);
+												$scope.postResultMessage = "Error with status: "
+														+ response.statusText;
+											});
+						} else {
+							window.alert("Er is geen Product geselecteerd");
+							return;
+						}
+					}
+
+					$scope.deleteOrder = function() {
+						if (!$(".highlight")[0]) {
+							window.alert("Er is geen Product geselecteerd");
+							return;
+						}
+						var selectedRow = document
+								.getElementsByClassName("highlight");
+						console.log("selected row length: "
+								+ selectedRow[0].cells.length);
+						if (selectedRow[0].cells.length > 6) {
+							if (confirm("Weet je zeker dat je deze bestelling wilt verwijderen?"))
+								var orderNumber = selectedRow[0].cells[0].innerHTML;
+							console.log(status);
+
+							var config = {
+								headers : {
+									'Accept' : 'application/json'
+								}
+							}
+
+							var data = {
+								orderNumber : orderNumber
+							};
+
+							$
+									.post("showOrder/deleteOrder", data, config)
+									.then(
+											function(response) {
+												console.log(response);
+												window.alert(response)
+											},
+											function error(response) {
+												console.log(response);
+												$scope.postResultMessage = "Error with status: "
+														+ response.statusText;
+											});
+						} else {
+							window.alert("Er is geen Bestelling geselecteerd");
+							return;
+						}
+					}
+					$scope.deleteOrderLine = function() {
+						if (!$(".highlight")[0]) {
+							window.alert("Er is geen Product geselecteerd");
+							return;
+						}
+						var selectedRow = document
+								.getElementsByClassName("highlight");
+						console.log("selected row length: "
+								+ selectedRow[0].cells.length);
+						if (selectedRow[0].cells.length == 6) {
+							if (confirm("Weet je zeker dat je deze bestelling wilt verwijderen?"))
+								var orderNumber = selectedRow[0].cells[0].innerHTML;
+							var productNumber = selectedRow[0].cells[1].innerHTML;
+							console.log(status);
+
+							var config = {
+								headers : {
+									'Accept' : 'application/json'
+								}
+							}
+
+							var data = {
+								orderNumber : orderNumber,
+								productNumber : prdouctNumber
+							};
+
+							$
+									.post("showOrder/deleteOrderLine", data,
+											config)
+									.then(
+											function(response) {
+												console.log(response);
+												window.alert(response)
+											},
+											function error(response) {
+												console.log(response);
+												$scope.postResultMessage = "Error with status: "
+														+ response.statusText;
+											});
+						} else {
+							window.alert("Er is geen Product geselecteerd");
+							return;
+						}
+					}
+
 				});
-
-	}
-	$scope.editStatusOrder = function () {
-		if(!$(".highlight")[0]){
-			window.alert("Er is geen bestelling geselecteerd");
-			return;
-		}
-		var selectedRow = document.getElementsByClassName("highlight");
-		var orderNumber = selectedRow[0].cells[0].innerHTML;
-		var status = document.getElementById("statusBestelling").value;
-		
-		var config = {
-				headers : {
-					'Accept' : 'application/json'
-				}
-			}
-
-			var data = {
-				orderNumber : orderNumber,
-				status : status
-			};
-		
-		$.post("showOrder/editStatusOrder", data, config).then(
-				function(response) {
-					console.log(response);
-					window.alert(response)
-
-					
-				},
-				function error(response) {
-					console.log(response);
-					$scope.postResultMessage = "Error with status: "
-							+ response.statusText;
-				});		
-	}
-	
-	$scope.editStatusProduct = function () {
-		if(!$(".highlight")[0]){
-			window.alert("Er is geen Product geselecteerd");
-			return;
-		}
-		var selectedRow = document.getElementsByClassName("highlight");
-		console.log("selected row length: " + selectedRow[0].cells.length);
-		if(selectedRow[0].cells.length == 6)
-			{
-		var orderNumber = selectedRow[0].cells[0].innerHTML;
-		var productNumber = selectedRow[0].cells[1].innerHTML;
-		var status = document.getElementById("statusProduct").value;
-		console.log(status);
-		
-		var config = {
-				headers : {
-					'Accept' : 'application/json'
-				}
-			}
-
-			var data = {
-				orderNumber : orderNumber,
-				productNumber : productNumber,
-				status : status
-			};
-		
-		$.post("showOrder/editStatusProductInOrder", data, config).then(
-				function(response) {
-					console.log(response);
-					window.alert(response)
-				},
-				function error(response) {
-					console.log(response);
-					$scope.postResultMessage = "Error with status: "
-							+ response.statusText;
-				});	
-			}else{
-				window.alert("Er is geen Product geselecteerd");
-				return;
-			}
-	}
-	
-	$scope.deleteOrder = function () {
-		if(!$(".highlight")[0]){
-			window.alert("Er is geen Product geselecteerd");
-			return;
-		}
-		var selectedRow = document.getElementsByClassName("highlight");
-		console.log("selected row length: " + selectedRow[0].cells.length);
-		if(selectedRow[0].cells.length > 6)
-			{
-			if(confirm("Weet je zeker dat je deze bestelling wilt verwijderen?"))
-		var orderNumber = selectedRow[0].cells[0].innerHTML;
-		console.log(status);
-		
-		var config = {
-				headers : {
-					'Accept' : 'application/json'
-				}
-			}
-
-			var data = {
-				orderNumber : orderNumber,
-			};
-		
-		$.post("showOrder/deleteOrder", data, config).then(
-				function(response) {
-					console.log(response);
-					window.alert(response)
-				},
-				function error(response) {
-					console.log(response);
-					$scope.postResultMessage = "Error with status: "
-							+ response.statusText;
-				});	
-			}else{
-				window.alert("Er is geen Product geselecteerd");
-				return;
-			}
-	}
-});

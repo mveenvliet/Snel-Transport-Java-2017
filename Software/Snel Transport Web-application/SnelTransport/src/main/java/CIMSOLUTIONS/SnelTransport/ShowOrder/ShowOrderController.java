@@ -89,5 +89,13 @@ public class ShowOrderController {
 		return searchOrder.deleteOrder(orderNumber);
 	}
 
-
+	@RequestMapping(value = "showOrder/deleteOrderLine", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteOrderLine(@RequestParam("orderNumber")  int orderNumber, @RequestParam("orderNumber")  String productNumber) {
+	
+		System.out.println(orderNumber);
+		System.out.println(productNumber);
+		SearchOrder searchOrder = new SearchOrder();
+		return searchOrder.deleteOrderLine(orderNumber, productNumber);
+	}
 }
