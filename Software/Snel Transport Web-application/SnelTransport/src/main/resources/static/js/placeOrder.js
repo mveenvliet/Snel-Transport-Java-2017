@@ -249,20 +249,20 @@ pOrder
 										.getElementById("deliveryDate");
 								console.log(deliveryDate.value);
 								if (deliveryDate.value) {
-									// var date = new Date();
-									// var m = date.getMonth() + 1;
-									// var d = date.getDate();
-									// var y = date.getFullYear();
-									//
-									// date = d + '-' + m + '-' + y;
-									// var dateString = deliveryDate.value;
-									// // datum groter dan date today hier veder
-									// delDate = new Date(deliveryDate.value);
-									// console.log(date);
-									// console.log(delDate);
-									// console.log(delDate > date);
-									//
-									// if (delDate > date) {
+									if(deliveryDate.value.length == 10){
+									 var date = new Date();
+									 var m = date.getMonth() + 1;
+									 var d = date.getDate();
+									 var y = date.getFullYear();									
+
+									 var today = parseInt(d) + (parseInt(m) *100) + (parseInt(y) *1000);
+									 var str = deliveryDate.value;
+									 var day = str.substr(0, 2);
+									 var month = str.substr(3, 4);
+									 var year = str.substr(6, 10);
+									 var dDate = parseInt(day) + parseInt(month) *100 + parseInt(year) *1000;
+									
+									 if (dDate > today) {
 									var str = customer.value;
 									var customerNumber = str.slice(0, str
 											.indexOf(":"));
@@ -311,11 +311,14 @@ pOrder
 
 											}, function error(response) {
 											});
-									// } else {
-									// window
-									// .alert("De ingevoerde datum is
-									// ongeldig.")
-									// }
+									 } else{
+										 window
+										 .alert("De ingevoerde datum is ongeldig.")
+									 }
+									 } else {
+									 window
+									 .alert("De ingevoerde datum is ongeldig.")
+									 }
 								} else {
 
 									window
