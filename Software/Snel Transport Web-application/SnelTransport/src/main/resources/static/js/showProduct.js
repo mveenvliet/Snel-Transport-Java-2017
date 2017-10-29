@@ -11,7 +11,7 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 		document.getElementById('compartimentNumber').value='';
 		document.getElementById('productStatus').value='';
 	}
-	
+
 	$scope.submitProduct = function() {
 		var config = {
 			headers : {
@@ -23,8 +23,7 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 		if(isNaN(tempComNum)){
 			tempComNum = 0;
 		}
-		
-		console.log(document.getElementById("categoryList").value)
+
 		var data = {
 			productNumber : document.getElementById("productNumber").value,
 			productName : document.getElementById("productName").value,
@@ -33,20 +32,19 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 			compartimentNumber : tempComNum,
 			productStatus : document.getElementById("statusList").value
 		};
-		
+
 
 		$.get("searchSetProduct", data, config).then(
 				function(response) {
-					console.log(response)
 					if (response.length < 1){
 						window.alert('Er zijn geen resultaten gevonden');
 					}
 					var table = document.getElementById("productTbody");
 					$("#productTbody").empty();
 					for (i = 0; i < response.length; i++) {
-			
-						var row = table.insertRow(-1);			
-						
+
+						var row = table.insertRow(-1);
+
 						var productNumber = row.insertCell(0);
 						var productName = row.insertCell(1);
 						var categoryList = row.insertCell(2);
@@ -55,7 +53,7 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 						var warehouse = row.insertCell(5);
 						var compartimentNumber = row.insertCell(6);
 						var status = row.insertCell(7);
-						
+
 						productNumber.innerText = response[i].productNumber;
 						productName.innerText = response[i].name;
 						categoryList.innerText = response[i].typeListString;
@@ -68,11 +66,10 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 				},
 				function error(response) {
 					console.log(response);
-					console.log('error?')
 					$scope.postResultMessage = "Error with status: "
 							+ response.statusText;
 				});
-		
+
 		$scope.productNumber = "";
 		$scope.productName = "";
 		$scope.categoryList = "";
@@ -89,13 +86,13 @@ vProduct.controller('viewProductController', function($scope, $http, $location) 
 
 vProduct.controller('tableController', function($scope, $http, $location) {
 	$("tbody").on("click", "tr", function selectRow() {
-		
+
 		var rows = $('tr').not('#tableHeaders');
 		var row = $(this);
-		
+
 		rows.removeClass('highlight');
 		row.addClass('highlight');
-		
+
 		document.getElementById('productNumber').value=row[0].cells[0].innerText;
 		document.getElementById('productName').value=row[0].cells[1].innerText;
 		document.getElementById('categoryList').value=row[0].cells[2].innerText;
@@ -104,6 +101,6 @@ vProduct.controller('tableController', function($scope, $http, $location) {
 		document.getElementById('warehouse').value=row[0].cells[5].innerText;
 		document.getElementById('compartimentNumber').value=row[0].cells[6].innerText;
 		document.getElementById('productStatus').value=row[0].cells[7].innerText;
-		
+
 	});
 });
