@@ -31,12 +31,12 @@ public class DeletePrevious extends MySqlDB{
 		String sqlExtraTrucks = "DELETE FROM databasesneltransport.trucklist WHERE availableFrom ='" + date
 				+ "' AND notAvailableFrom = '" + nextDate + "' AND licenceplate LIKE 'Extra truck%'; ";		
 		
-		storeToDatabase(sqlProductStatus);
-		storeToDatabase(sqlRoutes);
-		storeToDatabase(sqlExtraTrucks);
+		updateDatabase(sqlProductStatus);
+		updateDatabase(sqlRoutes);
+		updateDatabase(sqlExtraTrucks);
 
 	}
-	private void storeToDatabase(String sqlStatement) {
+	private void updateDatabase(String sqlStatement) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Statement myStmt = MyCon.createStatement();

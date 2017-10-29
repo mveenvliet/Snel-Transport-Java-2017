@@ -18,7 +18,7 @@ public class TestGetAllLocationsAtDateFromTruck {
 		for(int iter = 0 ; iter<locations.size();iter++) {
 			System.out.println(locations.get(iter));
 		}
-		fail("Not yet implemented");
+		assertTrue(locations.size() != 0);
 	}
 
 }

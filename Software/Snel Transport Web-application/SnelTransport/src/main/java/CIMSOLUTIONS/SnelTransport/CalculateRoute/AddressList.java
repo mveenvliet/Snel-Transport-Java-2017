@@ -51,9 +51,7 @@ public class AddressList extends MySqlDB{
 				url += "|";
 			}
 		}
-		// TO DO:
-		//	Er staat hier nog een hardcoded googlemaps api
-		url += "&mode=driving&language=en-EN&key=AIzaSyANJR6Knc1KAoc_OrdnGxrBmtehcWXr30o";
+		url += "&mode=driving&language=en-EN&key=" + Keys.distanceKey;
 		
 		return url;
 	}
@@ -78,5 +76,8 @@ public class AddressList extends MySqlDB{
 	public int getNumberOfAddresses() {
 		return resultSet.size();
 	}
-	
+
+	public void addAddress(Address address) {
+		resultSet.add(address);
+	}
 }

@@ -9,10 +9,10 @@ public class Address {
 	private String urlPartition;
 	private int minutesLoadTime = 30;
 	
-	Address(){
+	public Address(){
 		
 	}
-	Address(String city, String street, String houseNumber, String postalcode){
+	public Address(String city, String street, String houseNumber, String postalcode){
 		this.city = city;
 		this.street = street;
 		this.houseNumber = houseNumber;

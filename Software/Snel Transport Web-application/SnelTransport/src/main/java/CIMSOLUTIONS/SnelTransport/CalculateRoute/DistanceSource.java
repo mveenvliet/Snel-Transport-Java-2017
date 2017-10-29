@@ -28,7 +28,7 @@ public class DistanceSource {
 		setDistanceToSource(addresses);
 	}
 	
-	DistanceSource(AddressList addresses,Address homeAddress){
+	public DistanceSource(AddressList addresses,Address homeAddress){
 		setHomeAddress(homeAddress);
 		setDistanceFromSource(addresses);
 		setDistanceToSource(addresses);

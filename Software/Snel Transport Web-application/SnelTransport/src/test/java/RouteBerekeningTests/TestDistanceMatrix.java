@@ -29,19 +29,17 @@ public class TestDistanceMatrix {
 					"Leeuwarden+Nederland|"+ 
 					"Utrecht+Nederland"+
 					"&mode=driving&language=en-EN&key=AIzaSyANJR6Knc1KAoc_OrdnGxrBmtehcWXr30o";
-		DistanceMatrix matrix = new DistanceMatrix(url,DistanceMatrix.MinimizationParameter.TIME);
+		DistanceMatrix matrix = new DistanceMatrix(url,DistanceMatrix.MinimizationParameter.DISTANCE);
 		matrix.viewMatrix();
 		
 
 		SolveTSP shortestRoute = new SolveTSP(matrix);
 		//System.out.println((shortestRoute.getRoute()));
-		System.out.println("Van Assen naar Groningen: "+ matrix.getElement(1, 0));
-		Vector<Integer> times = shortestRoute.getTimesRoute(matrix);
-		for (int iter = 0 ; iter <times.size(); iter++) {
-			System.out.println(times.get(iter));
-		}
+		System.out.println("Van Assen naar Groningen: "+ matrix.getElement(3, 0));
 		
-		fail("Not yet implemented");
+		
+		assertTrue(matrix.getElement(3,0) == 28823);
+
 	}
 
 }

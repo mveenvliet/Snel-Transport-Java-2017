@@ -26,28 +26,7 @@ public class CalculateRouteService extends MySqlDB {
 		return result;
 	}
 	
-//	private String setDefaultHomeAddressSQL(){
-//		String setHomeSQL = 
-//				"SELECT city, street, houseNumber, postalcode " +
-//				"FROM databasesneltransport.address " +
-//				"WHERE idAddress " +
-//				"IN (SELECT customer_idAddress " + 
-//					"FROM databasesneltransport.customer " + 
-//					"WHERE customerNumber = '1')";
-//		return setHomeSQL;
-//	}
-	
-//	private String setDefaultHomeAddressSQL(int customerNumber){
-//		String setHomeSQL = 
-//				"SELECT city, street, houseNumber, postalcode " +
-//				"FROM databasesneltransport.address " +
-//				"WHERE idAddress " +
-//				"IN (SELECT customer_idAddress " + 
-//					"FROM databasesneltransport.customer " + 
-//					"WHERE customerNumber = '" + customerNumber + "')";
-//		return setHomeSQL;
-//	}
-	
+
 
 	private String switchDDMMYYYYtoYYYYMMDD(String date) {
 		String[] parts = date.split("-");
