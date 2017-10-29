@@ -14,6 +14,7 @@
 <title>Vrachtwagenmanagement</title>
 <link rel="stylesheet" href="../static/css/style.css"
 	th:href="@{/css/styleTrucks.css}"></link>
+	<script src="../static/js/datepicker.js" th:src="@{/js/datepicker.js}"></script>
 </head>
 
 <body data-ng-app="showTruck">
@@ -33,7 +34,7 @@
 								href="productManagement">Productmanagement</a> <a
 								href="truckManagement">Vrachtwagenmanagement</a>
 						</div></li>
-					<li><a href="routeBepaling">Route Bepaling</a></li>
+					<li><a href="routeBepaling">Routebepaling</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -104,17 +105,17 @@
 				</div>
 			</div>	
 			<div class="productFormItem">
-				<label for="availableFrom">Beschikbaar van:</label>
+				<label for="availableFrom">Beschikbaar vanaf:</label>
 				<div>
-					<input name="availableFrom" id="availableFrom" type="text"
-						data-ng-model="availableFrom"></input>
+					<input type="text" class="datepicker" id="availableFrom"
+							 style="width: 100%" data-ng-model="availableFrom"></input>
 				</div>
 			</div>
 			<div class="productFormItem">
 				<label for="notAvailableFrom">Niet beschikbaar vanaf:</label>
 				<div>
-					<input name="notAvailableFrom" id="notAvailableFrom" type="text"
-						data-ng-model="notAvailableFrom"></input>
+					<input type="text" class="datepicker" id="notAvailableFrom"
+							 style="width: 100%" data-ng-model="notAvailableFrom"></input>
 				</div>
 			</div>
 		</div>
@@ -130,17 +131,17 @@
 			</div>
 			<div class="productFormItem">
 				<div>
-				<button name="btnEditTruck" type="submit" class="button_1">Vrachtwagen wijzigen</button>
+				<button disabled="true" name="btnEditTruck" type="submit" class="button_1">Vrachtwagen wijzigen</button>
 				</div>
 			</div>
 			<div class="productFormItem">
 				<div>
-				<button name="btnAddTruck" type="submit" class="button_1">Vrachtwagen toevoegen</button>
+				<button disabled="true" name="btnAddTruck" type="submit" class="button_1">Vrachtwagen toevoegen</button>
 				</div>
 			</div>
 			<div class="productFormItem">
 				<div>
-				<button name="btnDeleteTruck" type="submit" class="button_1">Vrachtwagen verwijderen</button>
+				<button disabled="true" name="btnDeleteTruck" type="submit" class="button_1">Vrachtwagen verwijderen</button>
 				</div>
 			</div>
 			<div class="productFormItem">

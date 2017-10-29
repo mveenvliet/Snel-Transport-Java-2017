@@ -29,11 +29,15 @@ public class searchTruckService extends MySqlDB {
 					"chauffeur LIKE '%" + t.getChauffeur() + "%' AND " +
 					"brand LIKE '%" + t.getBrand() + "%' AND " +
 					"type LIKE '%" + t.getType() + "%' AND " +
-					"owner LIKE '%" + t.getOwner() + "%' AND " +
-					"availableFrom LIKE '%" + t.getAvailableFrom() + "%' AND " +
-					"notAvailableFrom LIKE '%" + t.getNotAvailableFrom() + "%';";
-			sqlQuerry += "ORDER BY licencePlate";
-			return sqlQuerry;
+					"owner LIKE '%" + t.getOwner() + "%' "; 
+				if (t.getAvailableFrom() != null && !t.getAvailableFrom().isEmpty())  {
+					sqlQuerry += "AND availableFrom =>'" + t.getAvailableFrom() + "' ";
+				}
+				if (t.getNotAvailableFrom() != null && !t.getNotAvailableFrom().isEmpty())  {
+					sqlQuerry += "AND notAvailableFrom <'" + t.getNotAvailableFrom() + "' ";
+				}					
+				sqlQuerry += "ORDER BY licencePlate";
+				return sqlQuerry;
 		}
 
 		public void lookUpTruck(Truck t) {
