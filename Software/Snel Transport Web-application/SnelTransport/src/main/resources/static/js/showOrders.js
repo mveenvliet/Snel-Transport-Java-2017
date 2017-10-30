@@ -354,7 +354,7 @@ pOrder
 												console.log(response);
 												if(response.indexOf('was deleted') != -1){
 													document.getElementById("orderTable").deleteRow(selectedRow[0].rowIndex);
-													window.alert("De Bestelling met Ordernummer: " + orderNumber + "is succesvol verwijderd.")
+													window.alert("De Bestelling met Ordernummer: " + orderNumber + " is succesvol verwijderd.")
 												}else{
 													window.alert(response)	
 												}

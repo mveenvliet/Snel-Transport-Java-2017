@@ -301,6 +301,7 @@ public class SearchOrder extends MySqlDB {
 				productList.add(p);
 			}
 			for (Product product : productList) {
+				System.out.println("amount2: " + product.getAmount());
 				myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.productlist SET amount =  amount +'"
 						+ product.getAmount() + "' WHERE idProductList = '" + product.getId() + "'");
 				int count = myStmt.executeUpdate();
@@ -321,6 +322,7 @@ public class SearchOrder extends MySqlDB {
 		int id;
 		int amount;
 		try {
+			System.out.println(productNumber);
 			myStmt = MyCon.prepareStatement(
 					"Select idProductList FROM databasesneltransport.productlist WHERE productNumber = '"
 							+ productNumber + "'");
@@ -332,6 +334,7 @@ public class SearchOrder extends MySqlDB {
 				myRs = myStmt.executeQuery();
 				if (myRs.next()) {
 					amount = myRs.getInt("amount");
+					System.out.println("amount: " + amount);
 					myStmt = MyCon.prepareStatement("UPDATE databasesneltransport.productlist SET amount =  amount +'"
 							+ amount + "' WHERE idProductList = '" + id + "'");
 					int count = myStmt.executeUpdate();
