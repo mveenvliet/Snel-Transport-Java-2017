@@ -23,6 +23,7 @@ table th {
 	font-size: 12pt;
 	width: 20%;
 	text-align: left;
+	min-height: 150px;
 }
 
 table th, tr, td {

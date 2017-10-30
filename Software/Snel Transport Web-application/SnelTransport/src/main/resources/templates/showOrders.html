@@ -7,7 +7,8 @@
 <meta name="placeOrder" content="Order placement"></meta>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script type="text/javascript" src="../static/js/showOrders.js" th:src="@{/js/showOrders.js}"></script>
+<script type="text/javascript" src="../static/js/showOrders.js"
+	th:src="@{/js/showOrders.js}"></script>
 <title>Bestelling Weergeven</title>
 <link rel="stylesheet" href="../static/css/style.css"
 	th:href="@{/css/style.css}"></link>
@@ -65,24 +66,27 @@
 						data-ng-click="submitCustomer()">Klant zoeken</button>
 				</div>
 			</div>
-			<div class="customerFormItem">
-				<label for="orderNumber">Bestelnummer:</label>
-				<div>
-					<input name="orderNumber" id="orderNumber" type="number"
-						data-ng-model="orderNumber" min="1"></input>
+			<div id="orderForm">
+				<div class="customerFormItem">
+					<label for="orderNumber">Bestelnummer:</label>
+					<div>
+						<input name="orderNumber" id="orderNumber" type="number"
+							data-ng-model="orderNumber" min="1"></input>
+					</div>
 				</div>
-			</div>
-			<div class="customerFormItem">
-				<label for="datum bestellingen">Leverdatum:</label>
-				<div>
-					<input type="text" name="deliveryDate" data-ng-model="deliveryDate" class="datepicker" id="deliveryDate"></input>
+				<div class="customerFormItem">
+					<label for="datum bestellingen">Leverdatum:</label>
+					<div>
+						<input type="text" name="deliveryDate"
+							data-ng-model="deliveryDate" class="datepicker" id="deliveryDate"></input>
+					</div>
 				</div>
-			</div>
-			<div class="customerFormItem">
-				<br></br>
-				<div>
-					<button name="btnSearchOrder" type="submit" class="button_1"
-						data-ng-click="searchOrders()">Bestellingen zoeken</button>
+				<div class="customerFormItem">
+					<br></br>
+					<div>
+						<button name="btnSearchOrder" type="submit" class="button_1"
+							data-ng-click="searchOrders()">Bestellingen zoeken</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -119,7 +123,7 @@
 					</tbody>
 				</table>
 			</div>
-			</div>
+		</div>
 	</section>
 
 	<section id="alterCustomer">
@@ -147,16 +151,18 @@
 				<br></br>
 				<div>
 					<button name="Wijzig status" type="submit" class="button_1"
-						data-ng-click="editStatusOrder()">Status bestelling wijzigen</button>
+						data-ng-click="editStatusOrder()">Status bestelling
+						wijzigen</button>
 				</div>
 			</div>
-		
-		<div class="customerFormItem">
+
+			<div class="customerFormItem">
 				<br></br>
 				<div>
-					<button type="submit" class="button_1" data-ng-click="deleteOrder()">Bestelling verwijderen</button>
+					<button type="submit" class="button_1"
+						data-ng-click="deleteOrder()">Bestelling verwijderen</button>
 				</div>
-		</div>
+			</div>
 		</div>
 	</section>
 
@@ -181,8 +187,9 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="basketContainer" id="basketContainerItem2" data-ng-controller="orderLineController">
-<!-- 				<form name="baketBtnForm" id="baketBtnForm">
+			<div class="basketContainer" id="basketContainerItem2"
+				data-ng-controller="orderLineController">
+				<!-- 				<form name="baketBtnForm" id="baketBtnForm">
 					<button type="submit" class="button_1" data-ng-click="deleteOrder()">Bestelling anuleren</button>
 				</form> -->
 				<div class="customerFormItem">
@@ -197,8 +204,10 @@
 						</select>
 					</div>
 					<button name="Wijzig status" type="submit" class="button_1"
-						data-ng-click="editStatusProduct()" style="margin-top: 5px">Status product wijzigen</button>
-					<button type="submit" class="button_1" data-ng-click="deleteOrderLine()">Product verwijderen</button>
+						data-ng-click="editStatusProduct()" style="margin-top: 5px">Status
+						product wijzigen</button>
+					<button type="submit" class="button_1"
+						data-ng-click="deleteOrderLine()">Product verwijderen</button>
 				</div>
 			</div>
 		</div>
