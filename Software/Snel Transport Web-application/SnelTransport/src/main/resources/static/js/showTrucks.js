@@ -49,13 +49,19 @@ vTruck.controller('viewTruckController', function($scope, $http, $location) {
 						var availableFrom  = row.insertCell(5);
 						var notAvailableFrom  = row.insertCell(6);
 
-						licencePlate .innerText = response[i].licencePlate ;
-						chauffeur .innerText = response[i].chauffeur ;
-						brand .innerText = response[i].brand ;
-						type .innerText = response[i].type ;
-						owner .innerText = response[i].owner ;
-						availableFrom .innerText = response[i].availableFrom ;
-						notAvailableFrom .innerText = response[i].notAvailableFrom ;
+						licencePlate .innerText = response[i].licencePlate;
+						chauffeur .innerText = response[i].chauffeur;
+						brand .innerText = response[i].brand;
+						type .innerText = response[i].type;
+						owner .innerText = response[i].owner;
+						if(response[i].availableFrom){
+							var tempTime = response[i].availableFrom.split('-');
+							availableFrom .innerText = tempTime[2] + '-' + tempTime[1] + '-' + tempTime[0] ;//response[i].availableFrom;
+						}
+						if(response[i].notAvailableFrom){
+							var tempTime = response[i].notAvailableFrom.split('-');
+							notAvailableFrom .innerText = tempTime[2] + '-' + tempTime[1] + '-' + tempTime[0];
+						}						
 					}
 				},
 				function error(response) {

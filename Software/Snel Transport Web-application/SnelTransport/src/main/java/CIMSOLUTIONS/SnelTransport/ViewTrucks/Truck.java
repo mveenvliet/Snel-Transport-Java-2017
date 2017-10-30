@@ -55,12 +55,15 @@ public class Truck {
 		return availableFrom;
 	}
 	public void setAvailableFrom(String availableFrom) {
+		//this.availableFrom = breakDate(availableFrom);
 		this.availableFrom = availableFrom;
 	}
 	public String getNotAvailableFrom() {
+		
 		return notAvailableFrom;
 	}
 	public void setNotAvailableFrom(String notAvailableFrom) {
+		//this.notAvailableFrom = breakDate(notAvailableFrom);
 		this.notAvailableFrom = notAvailableFrom;
 	}
 

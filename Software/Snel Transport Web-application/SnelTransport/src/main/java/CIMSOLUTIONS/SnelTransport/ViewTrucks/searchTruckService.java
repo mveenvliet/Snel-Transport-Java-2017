@@ -24,14 +24,16 @@ public class searchTruckService extends MySqlDB {
 		private String switchDDMMYYYYtoYYYYMMDD(String date) {
 			
 			String[] parts = date.split("-");	
-			return parts[2] + parts[1]  + parts[0];
+			return parts[2] +  parts[1] + parts[0];
 			
 		}
+		
+		
 		public String createQuerry(Truck t) {
 			String sqlQuerry = 
 					"SELECT * " + 
 					"FROM databasesneltransport.trucklist WHERE " +
-					"licencePlate LIKE '%" + t.getLicencePlate() + "%'"; 
+					"licencePlate LIKE '%" + t.getLicencePlate() + "%' "; 
 				if (t.getAvailableFrom() != null && !t.getAvailableFrom().isEmpty())  {
 					sqlQuerry += "AND (availableFrom >= '" + switchDDMMYYYYtoYYYYMMDD(t.getAvailableFrom()) + "' OR availableFrom IS NULL) ";
 				}
@@ -74,7 +76,6 @@ public class searchTruckService extends MySqlDB {
 					tempTruck.setOwner(myRs.getString("owner"));
 					tempTruck.setAvailableFrom(myRs.getString("availableFrom"));
 					tempTruck.setNotAvailableFrom(myRs.getString("notAvailableFrom"));
-
 					
 
 					//tempTruck.printValues();
