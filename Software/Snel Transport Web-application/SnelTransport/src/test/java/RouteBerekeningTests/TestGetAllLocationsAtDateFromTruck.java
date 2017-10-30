@@ -14,7 +14,7 @@ public class TestGetAllLocationsAtDateFromTruck {
 	public void test() {
 		
 		CalculateRouteService Test = new CalculateRouteService();
-		List<String> locations = Test.getAllLocationsAtDateFromTruck("21-10-2017","01ABC0");
+		List<String> locations = Test.getAllLocationsAtDateFromTruck("29-10-2017","01ABC0");
 		for(int iter = 0 ; iter<locations.size();iter++) {
 			System.out.println(locations.get(iter));
 		}

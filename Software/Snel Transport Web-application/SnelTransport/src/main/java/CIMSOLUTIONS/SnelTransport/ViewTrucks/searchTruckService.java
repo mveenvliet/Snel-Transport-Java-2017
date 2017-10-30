@@ -21,34 +21,48 @@ public class searchTruckService extends MySqlDB {
 			return resultSet;
 		}
 
+		private String switchDDMMYYYYtoYYYYMMDD(String date) {
+			
+			String[] parts = date.split("-");	
+			return parts[2] + parts[1]  + parts[0];
+			
+		}
 		public String createQuerry(Truck t) {
 			String sqlQuerry = 
 					"SELECT * " + 
 					"FROM databasesneltransport.trucklist WHERE " +
-					"licencePlate LIKE '%" + t.getLicencePlate() + "%' AND " +
-					"chauffeur LIKE '%" + t.getChauffeur() + "%' AND " +
-					"brand LIKE '%" + t.getBrand() + "%' AND " +
-					"type LIKE '%" + t.getType() + "%' AND " +
-					"owner LIKE '%" + t.getOwner() + "%' "; 
+					"licencePlate LIKE '%" + t.getLicencePlate() + "%'"; 
 				if (t.getAvailableFrom() != null && !t.getAvailableFrom().isEmpty())  {
-					sqlQuerry += "AND availableFrom =>'" + t.getAvailableFrom() + "' ";
+					sqlQuerry += "AND (availableFrom >= '" + switchDDMMYYYYtoYYYYMMDD(t.getAvailableFrom()) + "' OR availableFrom IS NULL) ";
 				}
 				if (t.getNotAvailableFrom() != null && !t.getNotAvailableFrom().isEmpty())  {
-					sqlQuerry += "AND notAvailableFrom <'" + t.getNotAvailableFrom() + "' ";
-				}					
+					sqlQuerry += "AND (notAvailableFrom <'" + switchDDMMYYYYtoYYYYMMDD(t.getNotAvailableFrom()) + "' OR notAvailableFrom IS NULL) ";
+				}
+				if (t.getBrand() != null && !t.getBrand().isEmpty())  {
+					sqlQuerry += "AND brand LIKE '" + t.getBrand() + "' ";
+				}
+				if (t.getType() != null && !t.getType().isEmpty())  {
+					sqlQuerry += "AND type LIKE '" + t.getType() + "' ";
+				}
+				if (t.getChauffeur() != null && !t.getChauffeur().isEmpty())  {
+					sqlQuerry += "AND driver LIKE '" + t.getChauffeur() + "' ";
+				}
+				if (t.getOwner() != null && !t.getOwner().isEmpty())  {
+					sqlQuerry += "AND owner LIKE '" + t.getOwner() + "' ";
+				}
 				sqlQuerry += "ORDER BY licencePlate";
+				
 				return sqlQuerry;
 		}
 
 		public void lookUpTruck(Truck t) {
 
 			String sqlQuerry = createQuerry(t);
-
+			System.out.println(sqlQuerry);
 			try {
 				Statement myStmt = MyCon.createStatement();
 				ResultSet myRs = myStmt.executeQuery(sqlQuerry);
 				
-
 				while (myRs.next()) {
 					Truck tempTruck = new Truck();
 				

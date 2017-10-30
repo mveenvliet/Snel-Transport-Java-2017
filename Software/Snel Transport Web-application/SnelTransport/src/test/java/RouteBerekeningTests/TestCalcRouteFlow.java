@@ -43,7 +43,7 @@ public class TestCalcRouteFlow {
 			System.out.println("exceededKeyQuota");
 		}
 		
-		assertTrue(shortestRoute.getRoute().equals("abcd") || shortestRoute.getRoute().equals("dcba")); 
+		assertTrue(shortestRoute.getRoute().equals("abcda") || shortestRoute.getRoute().equals("adcba")); 
 		
 
 

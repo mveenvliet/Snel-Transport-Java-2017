@@ -35,8 +35,8 @@ vTruck.controller('viewTruckController', function($scope, $http, $location) {
 					if (response.length < 1){
 						window.alert('Er zijn geen resultaten gevonden');
 					}
-					var table = document.getElementById("productTbody");
-					$("#productTbody").empty();
+					var table = document.getElementById("truckTbody");
+					$("#truckTbody").empty();
 					for (i = 0; i < response.length; i++) {
 
 						var row = table.insertRow(-1);
@@ -53,7 +53,7 @@ vTruck.controller('viewTruckController', function($scope, $http, $location) {
 						chauffeur .innerText = response[i].chauffeur ;
 						brand .innerText = response[i].brand ;
 						type .innerText = response[i].type ;
-						owner .innerText = response[i].type ;
+						owner .innerText = response[i].owner ;
 						availableFrom .innerText = response[i].availableFrom ;
 						notAvailableFrom .innerText = response[i].notAvailableFrom ;
 					}
@@ -88,8 +88,8 @@ vTruck.controller('tableController', function($scope, $http, $location) {
 		document.getElementById('chauffeur').value=row[0].cells[1].innerText;
 		document.getElementById('brand').value=row[0].cells[2].innerText;
 		document.getElementById('type').value=row[0].cells[3].innerText;
-		document.getElementById('owner').value=row[0].cells[3].innerText;
-		document.getElementById('availableFrom').value=row[0].cells[4].innerText;
-		document.getElementById('notAvailableFrom').value=row[0].cells[5].innerText;
+		document.getElementById('owner').value=row[0].cells[4].innerText;
+		document.getElementById('availableFrom').value=row[0].cells[5].innerText;
+		document.getElementById('notAvailableFrom').value=row[0].cells[6].innerText;
 	});
 });
