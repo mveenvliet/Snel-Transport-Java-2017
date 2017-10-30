@@ -267,6 +267,7 @@ header a:hover {
 	max-width: 10%;
 	display: inline; margin-top 40px;
 	position: relative;
+	z-index:1000;
 }
 
 #searchCustomer {
